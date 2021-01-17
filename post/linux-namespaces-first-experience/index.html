@@ -1,0 +1,412 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>
+    Linux Namespaces初体验 | voidint
+</title>
+<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1610878904257">
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://voidint.github.io/styles/main.css">
+<!-- js -->
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://voidint.github.io/media/js/jquery.sticky-sidebar.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+
+
+        
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+    <div class="nav">
+        <div class="logo">
+            <a href="https://voidint.github.io">
+                <img class="avatar" src="https://voidint.github.io/images/avatar.png?v=1610878904257" alt="">
+            </a>
+            <div class="site-title">
+                <h1>
+                    voidint
+                </h1>
+            </div>
+        </div>
+        <span class="menu-btn fa fa-align-justify"></span>
+        <div class="menu-container">
+            <ul>
+                
+                    
+                            <li>
+                                <a href="/" class="menu">
+                                    首页
+                                </a>
+                            </li>
+                            
+                                
+                    
+                            <li>
+                                <a href="/archives" class="menu">
+                                    归档
+                                </a>
+                            </li>
+                            
+                                
+                    
+                            <li>
+                                <a href="/tags" class="menu">
+                                    标签
+                                </a>
+                            </li>
+                            
+                                
+                    
+                        <li>
+                            <a href="https://github.com/voidint" class="menu" target="_blank">
+                                关于
+                            </a>
+                        </li>
+                        
+                                
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(".menu-btn").click(function() {
+            $(".menu-container").slideToggle();
+        });
+        $(window).resize(function() {
+
+            if (window.matchMedia('(min-width: 960px)').matches) {
+                $(".menu-container").css('display', 'block')
+            } else {
+                $(".menu-container").css('display', 'none')
+            }
+
+        });
+    });
+</script>
+
+            <div id="main-content" class="post-detail main-container">
+                <!-- left -->
+                <div id="content" class="main-container-left">
+                    <article class="post i-card">
+                        <h2 class="post-title">
+                            Linux Namespaces初体验
+                        </h2>
+                        <div class="post-info">
+                            <time class="post-time">2020-02-25</time>
+                            
+                                <a href="https://voidint.github.io/tag/JL2GpPi2O/" class="post-tag i-tag
+                            i-tag-error">
+                            #Namespace
+                        </a>
+                                
+                                <a href="https://voidint.github.io/tag/5ZjDildnVp/" class="post-tag i-tag
+                            i-tag-info">
+                            #《自己动手写docker》
+                        </a>
+                                
+                                <a href="https://voidint.github.io/tag/4O9HoKSI-/" class="post-tag i-tag
+                            i-tag-">
+                            #Linux
+                        </a>
+                                
+                        </div>
+                        
+                            <div class="post-feature-image" style="background-image: url('https://voidint.github.io/post-images/linux-namespaces-first-experience.png')"></div>
+                            
+                                <div class="post-content">
+                                    <h1 id="简介">简介</h1>
+<p>下面是<a href="https://coolshell.cn/articles/17010.html">酷壳</a>给出的关于Linux Namespaces的介绍：</p>
+<blockquote>
+<p>Linux Namespace是Linux提供的一种内核级别环境隔离的方法。不知道你是否还记得很早以前的Unix有一个叫chroot的系统调用（通过修改根目录把用户jail到一个特定目录下），chroot提供了一种简单的隔离模式：chroot内部的文件系统无法访问外部的内容。Linux Namespace在此基础上，提供了对UTS、IPC、mount、PID、network、User等的隔离机制。</p>
+</blockquote>
+<p>当前Linux一共实现了6种不同类型的Namespace</p>
+<table>
+<thead>
+<tr>
+<th>Namespace类型</th>
+<th><strong>系统调用参数</strong></th>
+<th><strong>内核版本</strong></th>
+<th><strong>隔离内容</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mount Namespace</td>
+<td>CLONE_NEWNS</td>
+<td>2.4.19</td>
+<td>挂载点（文件系统）</td>
+</tr>
+<tr>
+<td>UTS Namespace</td>
+<td>CLONE_NEWUTS</td>
+<td>2.6.19</td>
+<td>主机名与域名</td>
+</tr>
+<tr>
+<td>IPC Namespacce</td>
+<td>CLONE_NEWIPC</td>
+<td>2.6.19</td>
+<td>信号量、消息队列和共享内存</td>
+</tr>
+<tr>
+<td>PID Namespace</td>
+<td>CLONE_NEWPID</td>
+<td>2.6.24</td>
+<td>进程编号</td>
+</tr>
+<tr>
+<td>Network Namespace</td>
+<td>CLONE_NEWNET</td>
+<td>2.6.29</td>
+<td>网络设备、网络栈、端口等等</td>
+</tr>
+<tr>
+<td>User Namespace</td>
+<td>CLONE_NEWUSER</td>
+<td>3.8</td>
+<td>用户和用户组</td>
+</tr>
+</tbody>
+</table>
+<p>Namespace的API主要使用如下3个系统调用：</p>
+<ul>
+<li>clone(): 创建新进程。</li>
+<li>unshare(): 将进程移出某个Namespace。</li>
+<li>setns(): 将进程加入到Namespace中。</li>
+</ul>
+<h1 id="体验">体验</h1>
+<h2 id="uts-namespace">UTS Namespace</h2>
+<p>UTS Namespace用于隔离nodename和domainname两个系统标识，即在不同的Namespace中允许拥有各自的hostname。</p>
+<pre><code class="language-go">// 在GOPATH下新建一个名为mydocker的目录，并在该目录下新建文件main.go。
+
+package main
+
+import (
+	&quot;fmt&quot;
+	&quot;os&quot;
+	&quot;os/exec&quot;
+	&quot;syscall&quot;
+)
+
+func main() {
+	cmd := exec.Command(&quot;bash&quot;)
+	cmd.SysProcAttr = &amp;syscall.SysProcAttr{
+		Cloneflags: syscall.CLONE_NEWUTS,
+	}
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Env = append(cmd.Env, `PS1=\[\e[32;1m\][\u@\h \W]$&gt;\[\e[0m\]`)
+
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+</code></pre>
+<p>以上代码通过exec.Command(&quot;bash&quot;)方式fork了一个bash子进程，并且使用了CLONE_NEWUTS标识符去创建了一个Namespace。下面验证下bash子进程与mydocker父进程是否处于不同的的UTS Namespace中。</p>
+<pre><code class="language-shell">// 查看最初的系统hostname
+$ hostname
+ubuntu14.04
+
+// 以root身份运行mydocker程序
+$ sudo ./mydocker
+
+// 在隔离的UTS Namespace下修改hostname为hello
+root@ubuntu14:/home/voidint# hostname -b hello
+root@ubuntu14:/home/voidint# hostname
+hello
+
+// 退出bash子进程并查看hostname是否发生变化
+root@ubuntu14:/home/voidint# exit
+exit
+
+// 可以看到hostname并未发生变化
+$ hostname
+ubuntu14.04
+</code></pre>
+<h2 id="pid-namespace">PID Namespace</h2>
+<p>PID Namespace用于隔离进程ID，同一个进程在不同的PID Namespace中可以拥有不同的PID。以docker容器为例，每个容器对于宿主机而言都是一个进程，若在容器内部查看到该进程的PID为1，但在宿主机上查看到的PID并非为1，这就是由于容器内拥有独立的PID Namespace的缘故。</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;os&quot;
+	&quot;os/exec&quot;
+	&quot;syscall&quot;
+)
+
+func main() {
+	cmd := exec.Command(&quot;bash&quot;)
+	cmd.SysProcAttr = &amp;syscall.SysProcAttr{
+		Cloneflags: syscall.CLONE_NEWUTS | syscall.CLONE_NEWIPC | syscall.CLONE_NEWPID,
+	}
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Env = append(cmd.Env, `PS1=\[\e[32;1m\][\u@\h \W]$&gt;\[\e[0m\]`)
+
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+</code></pre>
+<p>编译并运行以上程序，查看当前Namespace的PID，PID为1。</p>
+<pre><code class="language-shell">$ echo $$
+1
+</code></pre>
+<p>在宿主机上新开一个shell，并通过pstree -pl查看mydocker的PID为2692。注意，这里不能使用ps命令去查看，因为ps、top之类的命令会读取/proc目录下内容，由于此处并未进行Mount Namespace的隔离，查看到的/proc目录下内容并不真实和准确。</p>
+<h2 id="mount-namespace">Mount Namespace</h2>
+<p>Mount Namespace用来隔离各个进程看到的挂载点视图。在Mount Namespace中调用mount()或者umount()都仅仅只是影响当前Namespace内的文件系统，对于全局的文件系统并没有影响。</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;os&quot;
+	&quot;os/exec&quot;
+	&quot;syscall&quot;
+)
+
+func main() {
+	cmd := exec.Command(&quot;bash&quot;)
+	cmd.SysProcAttr = &amp;syscall.SysProcAttr{
+		Cloneflags: syscall.CLONE_NEWUTS |
+			syscall.CLONE_NEWIPC |
+			syscall.CLONE_NEWPID |
+			syscall.CLONE_NEWNS,
+	}
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Env = append(cmd.Env, `PS1=\[\e[32;1m\][\u@\h \W]$&gt;\[\e[0m\]`)
+
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+</code></pre>
+<p>运行以上程序，在启动的bash子进程中执行ps -ef，依然可以看到宿主机上的所有进程，这是由于proc文件系统是继承自宿主机。下面重新挂载proc文件系统，并再次查看ps -ef的输出。</p>
+<pre><code class="language-shell">$ mount -t proc proc /proc
+
+$ ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 18:11 pts/1    00:00:00 bash
+root        14     1  0 18:16 pts/1    00:00:00 ps -ef
+</code></pre>
+<p>可以看到，重新挂载proc文件系统后，ps命令仅能看到容器内的进程了，符合预期。</p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://www.amazon.cn/dp/B072ZDHK9S/ref=sr_1_1?ie=UTF8&amp;qid=1535615095&amp;sr=8-1&amp;keywords=%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99docker">《自己动手写Docker》</a></li>
+<li><a href="http://man7.org/linux/man-pages/man7/namespaces.7.html">Namespaces</a></li>
+<li><a href="https://coolshell.cn/articles/17010.html">DOCKER基础技术：LINUX NAMESPACE（上）</a></li>
+<li><a href="https://coolshell.cn/articles/17029.html">DOCKER基础技术：LINUX NAMESPACE（下）</a></li>
+<li><a href="http://www.infoq.com/cn/articles/docker-kernel-knowledge-namespace-resource-isolation">Docker背后的内核知识——Namespace资源隔离</a></li>
+</ul>
+
+                                </div>
+                    </article>
+                    <!--  -->
+                    
+                        <div class="next-post">
+                            <div class="next">下一篇</div>
+                            <a href="https://voidint.github.io/post/linux-password/">
+                                <h3 class="post-title">
+                                    Linux用户登录密码的生成
+                                </h3>
+                            </a>
+                        </div>
+                        
+                            <div id="disqus_thread"></div>
+                            <div id="gitalk-container"></div>
+                </div>
+                <!-- middle -->
+                <div class="main-container-middle"></div>
+                <!-- right -->
+                <div id="sidebar" class="main-container-right">
+                    
+                        <!-- toc -->
+                        
+    <div class="toc-card i-card ">
+        <div class="toc-title i-card-title">目录</div>
+        <div class="toc-content">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#%E4%BD%93%E9%AA%8C">体验</a>
+<ul>
+<li><a href="#uts-namespace">UTS Namespace</a></li>
+<li><a href="#pid-namespace">PID Namespace</a></li>
+<li><a href="#mount-namespace">Mount Namespace</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+
+        </div>
+        <script>
+            function locateCatelogList() {
+                /*获取文章目录集合,可通过:header过滤器*/
+                var alis = $('.post-content :header');
+                /*获取侧边栏目录列表集合**/
+                var sidebar_alis = $('.markdownIt-TOC a');
+                /*获取滚动条到顶部的距离*/
+                var scroll_height = $(window).scrollTop();
+                for (var i = 0; i < alis.length; i++) {
+                    /*获取锚点集合中的元素分别到顶点的距离*/
+                    var a_height = $(alis[i]).offset().top;
+                    if (a_height < scroll_height) {
+                        /*高亮显示*/
+                        sidebar_alis.removeClass('on');
+                        $(sidebar_alis[i]).addClass('on');
+                    }
+                }
+            }
+            $(function() {
+                /*绑定滚动事件 */
+                $(window).bind('scroll', locateCatelogList);
+            });
+        </script>
+    </div>
+    
+                            
+
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://voidint.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+
+    </div>
+    <script>
+        $('#sidebar').stickySidebar({
+            topSpacing: 80,
+            // bottomSpacing: 60
+        });
+    </script>
+    
+</body>
+
+</html>

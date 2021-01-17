@@ -5,7 +5,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>
-    docker | voidint
+    git | voidint
 </title>
 <link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1610878904257">
 <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
@@ -98,159 +98,63 @@
                     
     <div class="i-card">
         <b>标签：#
-        docker</b>
+        git</b>
     </div>
     
         
             <article class="post i-card">
                 <h2 class="post-title">
-                    <a href="https://voidint.github.io/post/mysql-timezone/">
-                        容器内MySQL时区调整
+                    <a href="https://voidint.github.io/post/git-commit-amend/">
+                        git commit message后悔药
                     </a>
                 </h2>
                 <div class="post-info">
                     <time class="post-time">2020-02-25</time>
                     
-                        <a href="https://voidint.github.io/tag/r6k_9Mi2R/" class="post-tag i-tag
-                            i-tag-other_3">
-            #timezone
-        </a>
-                        
-                        <a href="https://voidint.github.io/tag/EBKzSjP46S/" class="post-tag i-tag
-                            i-tag-other_4">
-            #docker
-        </a>
-                        
-                        <a href="https://voidint.github.io/tag/upBZVsJSS/" class="post-tag i-tag
-                            i-tag-other_3">
-            #MySQL
+                        <a href="https://voidint.github.io/tag/JFSNzrvJI/" class="post-tag i-tag
+                            i-tag-banana">
+            #git
         </a>
                         
                 </div>
                 <div class="post-article">
                     
-                        <a href="https://voidint.github.io/post/mysql-timezone/" class="post-feature-image" style="background-image:url(https://voidint.github.io/post-images/mysql-timezone.jpg) ">
+                        <a href="https://voidint.github.io/post/git-commit-amend/" class="post-feature-image" style="background-image:url(https://voidint.github.io/post-images/git-commit-amend.jpg) ">
                         </a>
                         
                             <div class="post-content">
                                 
                                         <div class="post-content-content">
-                                            从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行select now()语句，发现显示的时间与我宿主机的时间不一致且相差8小时。显然，需要重置MySQL的时区，将时区设置与宿主机保持一致，即东八区。
-如何为MySQL设置时区？
-MySQL 5.7官方文档中提到了多种设置时区的方案，我们这里仅关注配置文件（MySQL官方称之为Option Files）的方案。
-配置文件中修改时区
+                                            场景描述
+假设你创建了一个文件，并写入了一些内容，然后通过git add和git commit将此变更提交。提交之后才发现这个文件中少了一些内容，此时有两个选择摆在你面前：
 
+将文件内容补全，然后和之前一样git add、git commit。显然，你可以通过git log看到这两条commit记录。
+回到过去，修改上一次提交的那个文件。如此一来，你的commit记录只会有一条。对于一些有代码洁癖并且看中git commit记录的程序员，这点很重要，特别是在开源项目中。
 
-配置项default-time-zone及取值
-依据文档可以通过在配置文件中增加default-time-zone=&#39;timezone&#39;的配置项来修改时区。配置值的取值遵循以下规则：
+场景再现
+初始化git仓库
+$ mkdir test &amp;amp;&amp;amp; cd test &amp;amp;&amp;amp; git init
 
+第一次commit内容
+$ echo &#39;Hello world&#39; &amp;gt; README.md
+$ git add .
+$ git commit -m &amp;quot;Add README.md&amp;quot;
+$ git log --oneline
+c56f680 Add README.md
 
+修改文件内容并合并到上一次的commit变更当中
+$ echo &#39;Hello voidint&#39; &amp;gt;&amp;gt; README.md
+$ git add .
+$ git commit --amend --no-edit
+$ git log --oneline
+eb6c8cb Add README.md // hash值发生了变化
 
-The value &#39;SYSTEM&#39; indicates that the time zone should be the same as the system time zone.
-
-
-The value can be given as a string indicating an offset from UTC, such as &#39;+10:00&#39; or &#39;-6:00&#39;.
-
-
-The value can be given as a named time zone, such as &#39;Europe/Helsinki&#39;, &#39;US/Eastern&#39;, or &#39;MET&#39;. Named time zones can be used only if the time zone information tables in the mysql database have been created and populated.
-
-
-
-我们选择第二种方式，通过UTC的偏移量来表示东八区，+8:00意味着在零时区的基础上往东偏移8个时区。
-
-
-group
-官方文档中描述了配置文件的语法，包括注释、组、选项名、选项值等。其中组（group）是与我们当前遇到的问题息息相关的东西。配置项需要放置在正确的group下，官方表述如下：
-
-If an option group name is the same as a program name, options in the group apply specifically to that program.
-For example, the [mysqld] and [mysql] groups apply to the mysqld server and the mysql client program, respectively.
-
-
-
-由于配置项default-time-zone是为了让MySQL Server调整默认时区，并结合上面有关group的表述，不难得出一个结论：default-time-zone配置项应该放置在名为[mysqld]的group下。
-[mysqld]
-default-time_zone = &#39;+8:00&#39;
-
-配置文件位置
-既然已经明确了通过修改配置文件来达到重置MySQL时区的目的，那么修改后的配置文件放哪儿呢？这是首先面临的一个问题。好在MySQL官方文档中已经告诉我们配置文件的读取顺序。
-
-
-
-File Name
-Purpose
-
-
-
-
-/etc/my.cnf
-Global options
-
-
-/etc/mysql/my.cnf
-Global options
-
-
-SYSCONFDIR/my.cnf
-Global options
-
-
-$MYSQL_HOME/my.cnf
-Server-specific options (server only)
-
-
-defaults-extra-file
-The file specified with --defaults-extra-file
-
-
-~/.my.cnf
-User-specific options
-
-
-~/.mylogin.cnf
-User-specific login path options (clients only)
-
-
-
-再尝试查看MySQL的docker容器中的配置文件，docker run --rm mysql:5.7 cat /etc/mysql/my.cnf，我们看到了容器中的配置文件内容如下：
-# Copyright (c) 2016, Oracle and/or its affiliates. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; version 2 of the License.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mysql.conf.d/
-
-这下这个疑问终于有了答案，我们可以将自定义的配置文件想办法放入容器中的/etc/mysql/conf.d/目录（放在/etc/mysql/mysql.conf.d/目录当然也同样OK）。
-注意：在*nix系统下使用!includedir指令指定的配置文件目录下的配置文件扩展名必须是.cnf，在Windows系统下的扩展名可以是.ini或者.cnf。
-启动MySQL容器
-$ docker run  -d --name mysql5.7 \
-    -v /Users/voidint/dockerV/mysql/5.7/conf:/etc/mysql/conf.d \
-    -e MYSQL_ROOT_PASSWORD=&#39;abc#123&#39; \
-    -p 3306:3306\
-    mysql:5.7
-
-参考MySQL官方docker镜像的说明，我们将上面步骤准备好的MySQL配置文件放置在/Users/voidint/dockerV/mysql/5.7/conf目录下，并通过docker -v选项将宿主机上的配置文件目录挂载到容器中的/etc/mysql/conf.d目录。这样在容器启动时就能读取到我们自定义的配置文件，时区配置也就生效了。
-容器启动后，通过MySQL客户端连接上MySQL，再次执行select now()语句以验证MySQL的时区是否与宿主机时区保持一致。
-参考
-
-MySQL Server Time Zone Support
-Using Option Files
-MySQL Docker镜像
-
+可以看到，在执行git commit --amend --no-edit之后，hash值由c56f680变成了eb6c8cb，但是message内容并没有发生变化，并且最重要的是只有一条commit记录。
+如果要修改上一条的message，那么去掉--no-edit选项即可，git commit --amend -m &amp;quot;xxxx&amp;quot;。同理，commit记录同样只会有一条。
 
                                         </div>
                                         
-                                            <a class="btn btn-text" href="https://voidint.github.io/post/mysql-timezone/">Read More ~</a>
+                                            <a class="btn btn-text" href="https://voidint.github.io/post/git-commit-amend/">Read More ~</a>
                             </div>
                 </div>
             </article>

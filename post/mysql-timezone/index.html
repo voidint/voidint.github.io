@@ -1,0 +1,333 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>
+    容器内MySQL时区调整 | voidint
+</title>
+<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1610878904257">
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://voidint.github.io/styles/main.css">
+<!-- js -->
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://voidint.github.io/media/js/jquery.sticky-sidebar.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+
+
+        
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+    <div class="nav">
+        <div class="logo">
+            <a href="https://voidint.github.io">
+                <img class="avatar" src="https://voidint.github.io/images/avatar.png?v=1610878904257" alt="">
+            </a>
+            <div class="site-title">
+                <h1>
+                    voidint
+                </h1>
+            </div>
+        </div>
+        <span class="menu-btn fa fa-align-justify"></span>
+        <div class="menu-container">
+            <ul>
+                
+                    
+                            <li>
+                                <a href="/" class="menu">
+                                    首页
+                                </a>
+                            </li>
+                            
+                                
+                    
+                            <li>
+                                <a href="/archives" class="menu">
+                                    归档
+                                </a>
+                            </li>
+                            
+                                
+                    
+                            <li>
+                                <a href="/tags" class="menu">
+                                    标签
+                                </a>
+                            </li>
+                            
+                                
+                    
+                        <li>
+                            <a href="https://github.com/voidint" class="menu" target="_blank">
+                                关于
+                            </a>
+                        </li>
+                        
+                                
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(".menu-btn").click(function() {
+            $(".menu-container").slideToggle();
+        });
+        $(window).resize(function() {
+
+            if (window.matchMedia('(min-width: 960px)').matches) {
+                $(".menu-container").css('display', 'block')
+            } else {
+                $(".menu-container").css('display', 'none')
+            }
+
+        });
+    });
+</script>
+
+            <div id="main-content" class="post-detail main-container">
+                <!-- left -->
+                <div id="content" class="main-container-left">
+                    <article class="post i-card">
+                        <h2 class="post-title">
+                            容器内MySQL时区调整
+                        </h2>
+                        <div class="post-info">
+                            <time class="post-time">2020-02-25</time>
+                            
+                                <a href="https://voidint.github.io/tag/r6k_9Mi2R/" class="post-tag i-tag
+                            i-tag-success">
+                            #timezone
+                        </a>
+                                
+                                <a href="https://voidint.github.io/tag/EBKzSjP46S/" class="post-tag i-tag
+                            i-tag-success">
+                            #docker
+                        </a>
+                                
+                                <a href="https://voidint.github.io/tag/upBZVsJSS/" class="post-tag i-tag
+                            i-tag-primary">
+                            #MySQL
+                        </a>
+                                
+                        </div>
+                        
+                            <div class="post-feature-image" style="background-image: url('https://voidint.github.io/post-images/mysql-timezone.jpg')"></div>
+                            
+                                <div class="post-content">
+                                    <p>从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行<code>select now()</code>语句，发现显示的时间与我宿主机的时间不一致且相差8小时。显然，需要重置MySQL的时区，将时区设置与宿主机保持一致，即东八区。</p>
+<h1 id="如何为mysql设置时区">如何为MySQL设置时区？</h1>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html">MySQL 5.7官方文档</a>中提到了多种设置时区的方案，我们这里仅关注配置文件（MySQL官方称之为<a href="https://dev.mysql.com/doc/refman/5.7/en/option-files.html">Option Files</a>）的方案。</p>
+<h2 id="配置文件中修改时区">配置文件中修改时区</h2>
+<ul>
+<li>
+<p>配置项default-time-zone及取值<br>
+依据文档可以通过在配置文件中增加default-time-zone='timezone'的配置项来修改时区。配置值的取值遵循以下规则：</p>
+<blockquote>
+<ul>
+<li>
+<p>The value 'SYSTEM' indicates that the time zone should be the same as the system time zone.</p>
+</li>
+<li>
+<p>The value can be given as a string indicating an offset from UTC, such as '+10:00' or '-6:00'.</p>
+</li>
+<li>
+<p>The value can be given as a named time zone, such as 'Europe/Helsinki', 'US/Eastern', or 'MET'. Named time zones can be used only if the time zone information tables in the mysql database have been created and populated.</p>
+</li>
+</ul>
+</blockquote>
+<p>我们选择第二种方式，通过UTC的偏移量来表示东八区，+8:00意味着在零时区的基础上往东偏移8个时区。</p>
+</li>
+<li>
+<p>group<br>
+官方文档中描述了配置文件的语法，包括注释、组、选项名、选项值等。其中组（group）是与我们当前遇到的问题息息相关的东西。配置项需要放置在正确的group下，官方表述如下：</p>
+<blockquote>
+<p>If an option group name is the same as a program name, options in the group apply specifically to that program.<br>
+For example, the [mysqld] and [mysql] groups apply to the mysqld server and the mysql client program, respectively.</p>
+</blockquote>
+</li>
+</ul>
+<p>由于配置项default-time-zone是为了让MySQL Server调整默认时区，并结合上面有关group的表述，不难得出一个结论：default-time-zone配置项应该放置在名为[mysqld]的group下。</p>
+<pre><code class="language-shell">[mysqld]
+default-time_zone = '+8:00'
+</code></pre>
+<h2 id="配置文件位置">配置文件位置</h2>
+<p>既然已经明确了通过修改配置文件来达到重置MySQL时区的目的，那么修改后的配置文件放哪儿呢？这是首先面临的一个问题。好在MySQL官方文档中已经告诉我们配置文件的读取顺序。</p>
+<table>
+<thead>
+<tr>
+<th><strong>File Name</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/etc/my.cnf</td>
+<td>Global options</td>
+</tr>
+<tr>
+<td>/etc/mysql/my.cnf</td>
+<td>Global options</td>
+</tr>
+<tr>
+<td><em>SYSCONFDIR</em>/my.cnf</td>
+<td>Global options</td>
+</tr>
+<tr>
+<td>$MYSQL_HOME/my.cnf</td>
+<td>Server-specific options (server only)</td>
+</tr>
+<tr>
+<td>defaults-extra-file</td>
+<td>The file specified with <code>--defaults-extra-file</code></td>
+</tr>
+<tr>
+<td>~/.my.cnf</td>
+<td>User-specific options</td>
+</tr>
+<tr>
+<td>~/.mylogin.cnf</td>
+<td>User-specific login path options (clients only)</td>
+</tr>
+</tbody>
+</table>
+<p>再尝试查看MySQL的docker容器中的配置文件，docker run --rm mysql:5.7 cat /etc/mysql/my.cnf，我们看到了容器中的配置文件内容如下：</p>
+<pre><code># Copyright (c) 2016, Oracle and/or its affiliates. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 2 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+!includedir /etc/mysql/conf.d/
+!includedir /etc/mysql/mysql.conf.d/
+</code></pre>
+<p>这下这个疑问终于有了答案，我们可以将自定义的配置文件想办法放入容器中的/etc/mysql/conf.d/目录（放在/etc/mysql/mysql.conf.d/目录当然也同样OK）。</p>
+<p>注意：在*nix系统下使用!includedir指令指定的配置文件目录下的配置文件扩展名必须是.cnf，在Windows系统下的扩展名可以是.ini或者.cnf。</p>
+<h2 id="启动mysql容器">启动MySQL容器</h2>
+<pre><code class="language-shell">$ docker run  -d --name mysql5.7 \
+    -v /Users/voidint/dockerV/mysql/5.7/conf:/etc/mysql/conf.d \
+    -e MYSQL_ROOT_PASSWORD='abc#123' \
+    -p 3306:3306\
+    mysql:5.7
+</code></pre>
+<p>参考MySQL官方docker镜像的说明，我们将上面步骤准备好的MySQL配置文件放置在/Users/voidint/dockerV/mysql/5.7/conf目录下，并通过docker -v选项将宿主机上的配置文件目录挂载到容器中的/etc/mysql/conf.d目录。这样在容器启动时就能读取到我们自定义的配置文件，时区配置也就生效了。</p>
+<p>容器启动后，通过MySQL客户端连接上MySQL，再次执行select now()语句以验证MySQL的时区是否与宿主机时区保持一致。</p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html">MySQL Server Time Zone Support</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/option-files.html">Using Option Files</a></li>
+<li><a href="https://hub.docker.com/_/mysql">MySQL Docker镜像</a></li>
+</ul>
+
+                                </div>
+                    </article>
+                    <!--  -->
+                    
+                        <div class="next-post">
+                            <div class="next">下一篇</div>
+                            <a href="https://voidint.github.io/post/mysql-login-localhost/">
+                                <h3 class="post-title">
+                                    为什么mysql -h localhost无法登录了？
+                                </h3>
+                            </a>
+                        </div>
+                        
+                            <div id="disqus_thread"></div>
+                            <div id="gitalk-container"></div>
+                </div>
+                <!-- middle -->
+                <div class="main-container-middle"></div>
+                <!-- right -->
+                <div id="sidebar" class="main-container-right">
+                    
+                        <!-- toc -->
+                        
+    <div class="toc-card i-card ">
+        <div class="toc-title i-card-title">目录</div>
+        <div class="toc-content">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E5%A6%82%E4%BD%95%E4%B8%BAmysql%E8%AE%BE%E7%BD%AE%E6%97%B6%E5%8C%BA">如何为MySQL设置时区？</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA">配置文件中修改时区</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE">配置文件位置</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8mysql%E5%AE%B9%E5%99%A8">启动MySQL容器</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+
+        </div>
+        <script>
+            function locateCatelogList() {
+                /*获取文章目录集合,可通过:header过滤器*/
+                var alis = $('.post-content :header');
+                /*获取侧边栏目录列表集合**/
+                var sidebar_alis = $('.markdownIt-TOC a');
+                /*获取滚动条到顶部的距离*/
+                var scroll_height = $(window).scrollTop();
+                for (var i = 0; i < alis.length; i++) {
+                    /*获取锚点集合中的元素分别到顶点的距离*/
+                    var a_height = $(alis[i]).offset().top;
+                    if (a_height < scroll_height) {
+                        /*高亮显示*/
+                        sidebar_alis.removeClass('on');
+                        $(sidebar_alis[i]).addClass('on');
+                    }
+                }
+            }
+            $(function() {
+                /*绑定滚动事件 */
+                $(window).bind('scroll', locateCatelogList);
+            });
+        </script>
+    </div>
+    
+                            
+
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://voidint.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+
+    </div>
+    <script>
+        $('#sidebar').stickySidebar({
+            topSpacing: 80,
+            // bottomSpacing: 60
+        });
+    </script>
+    
+</body>
+
+</html>

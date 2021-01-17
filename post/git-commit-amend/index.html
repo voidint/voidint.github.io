@@ -1,0 +1,231 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>
+    git commit message后悔药 | voidint
+</title>
+<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1610878904257">
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://voidint.github.io/styles/main.css">
+<!-- js -->
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://voidint.github.io/media/js/jquery.sticky-sidebar.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+
+
+        
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+    <div class="nav">
+        <div class="logo">
+            <a href="https://voidint.github.io">
+                <img class="avatar" src="https://voidint.github.io/images/avatar.png?v=1610878904257" alt="">
+            </a>
+            <div class="site-title">
+                <h1>
+                    voidint
+                </h1>
+            </div>
+        </div>
+        <span class="menu-btn fa fa-align-justify"></span>
+        <div class="menu-container">
+            <ul>
+                
+                    
+                            <li>
+                                <a href="/" class="menu">
+                                    首页
+                                </a>
+                            </li>
+                            
+                                
+                    
+                            <li>
+                                <a href="/archives" class="menu">
+                                    归档
+                                </a>
+                            </li>
+                            
+                                
+                    
+                            <li>
+                                <a href="/tags" class="menu">
+                                    标签
+                                </a>
+                            </li>
+                            
+                                
+                    
+                        <li>
+                            <a href="https://github.com/voidint" class="menu" target="_blank">
+                                关于
+                            </a>
+                        </li>
+                        
+                                
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(".menu-btn").click(function() {
+            $(".menu-container").slideToggle();
+        });
+        $(window).resize(function() {
+
+            if (window.matchMedia('(min-width: 960px)').matches) {
+                $(".menu-container").css('display', 'block')
+            } else {
+                $(".menu-container").css('display', 'none')
+            }
+
+        });
+    });
+</script>
+
+            <div id="main-content" class="post-detail main-container">
+                <!-- left -->
+                <div id="content" class="main-container-left">
+                    <article class="post i-card">
+                        <h2 class="post-title">
+                            git commit message后悔药
+                        </h2>
+                        <div class="post-info">
+                            <time class="post-time">2020-02-25</time>
+                            
+                                <a href="https://voidint.github.io/tag/JFSNzrvJI/" class="post-tag i-tag
+                            i-tag-other_1">
+                            #git
+                        </a>
+                                
+                        </div>
+                        
+                            <div class="post-feature-image" style="background-image: url('https://voidint.github.io/post-images/git-commit-amend.jpg')"></div>
+                            
+                                <div class="post-content">
+                                    <h1 id="场景描述">场景描述</h1>
+<p>假设你创建了一个文件，并写入了一些内容，然后通过git add和git commit将此变更提交。提交之后才发现这个文件中少了一些内容，此时有两个选择摆在你面前：</p>
+<ul>
+<li>将文件内容补全，然后和之前一样git add、git commit。显然，你可以通过git log看到这两条commit记录。</li>
+<li>回到过去，修改上一次提交的那个文件。如此一来，你的commit记录只会有一条。对于一些有代码洁癖并且看中git commit记录的程序员，这点很重要，特别是在开源项目中。</li>
+</ul>
+<h1 id="场景再现">场景再现</h1>
+<p>初始化git仓库</p>
+<pre><code class="language-shell">$ mkdir test &amp;&amp; cd test &amp;&amp; git init
+</code></pre>
+<p>第一次commit内容</p>
+<pre><code class="language-shell">$ echo 'Hello world' &gt; README.md
+$ git add .
+$ git commit -m &quot;Add README.md&quot;
+$ git log --oneline
+c56f680 Add README.md
+</code></pre>
+<p>修改文件内容并合并到上一次的commit变更当中</p>
+<pre><code class="language-shell">$ echo 'Hello voidint' &gt;&gt; README.md
+$ git add .
+$ git commit --amend --no-edit
+$ git log --oneline
+eb6c8cb Add README.md // hash值发生了变化
+</code></pre>
+<p>可以看到，在执行git commit --amend --no-edit之后，hash值由c56f680变成了eb6c8cb，但是message内容并没有发生变化，并且最重要的是只有一条commit记录。</p>
+<p>如果要修改上一条的message，那么去掉--no-edit选项即可，git commit --amend -m &quot;xxxx&quot;。同理，commit记录同样只会有一条。</p>
+
+                                </div>
+                    </article>
+                    <!--  -->
+                    
+                        <div class="next-post">
+                            <div class="next">下一篇</div>
+                            <a href="https://voidint.github.io/post/mysql-timezone/">
+                                <h3 class="post-title">
+                                    容器内MySQL时区调整
+                                </h3>
+                            </a>
+                        </div>
+                        
+                            <div id="disqus_thread"></div>
+                            <div id="gitalk-container"></div>
+                </div>
+                <!-- middle -->
+                <div class="main-container-middle"></div>
+                <!-- right -->
+                <div id="sidebar" class="main-container-right">
+                    
+                        <!-- toc -->
+                        
+    <div class="toc-card i-card ">
+        <div class="toc-title i-card-title">目录</div>
+        <div class="toc-content">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0">场景描述</a></li>
+<li><a href="#%E5%9C%BA%E6%99%AF%E5%86%8D%E7%8E%B0">场景再现</a></li>
+</ul>
+
+        </div>
+        <script>
+            function locateCatelogList() {
+                /*获取文章目录集合,可通过:header过滤器*/
+                var alis = $('.post-content :header');
+                /*获取侧边栏目录列表集合**/
+                var sidebar_alis = $('.markdownIt-TOC a');
+                /*获取滚动条到顶部的距离*/
+                var scroll_height = $(window).scrollTop();
+                for (var i = 0; i < alis.length; i++) {
+                    /*获取锚点集合中的元素分别到顶点的距离*/
+                    var a_height = $(alis[i]).offset().top;
+                    if (a_height < scroll_height) {
+                        /*高亮显示*/
+                        sidebar_alis.removeClass('on');
+                        $(sidebar_alis[i]).addClass('on');
+                    }
+                }
+            }
+            $(function() {
+                /*绑定滚动事件 */
+                $(window).bind('scroll', locateCatelogList);
+            });
+        </script>
+    </div>
+    
+                            
+
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://voidint.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+
+    </div>
+    <script>
+        $('#sidebar').stickySidebar({
+            topSpacing: 80,
+            // bottomSpacing: 60
+        });
+    </script>
+    
+</body>
+
+</html>

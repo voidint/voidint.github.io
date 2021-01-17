@@ -5,7 +5,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>
-    docker | voidint
+    goproxy.io | voidint
 </title>
 <link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1610878904257">
 <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
@@ -98,159 +98,120 @@
                     
     <div class="i-card">
         <b>标签：#
-        docker</b>
+        goproxy.io</b>
     </div>
     
         
             <article class="post i-card">
                 <h2 class="post-title">
-                    <a href="https://voidint.github.io/post/mysql-timezone/">
-                        容器内MySQL时区调整
+                    <a href="https://voidint.github.io/post/goproxyio-installation/">
+                        goproxy.io内部私有化部署
                     </a>
                 </h2>
                 <div class="post-info">
-                    <time class="post-time">2020-02-25</time>
+                    <time class="post-time">2020-03-14</time>
                     
-                        <a href="https://voidint.github.io/tag/r6k_9Mi2R/" class="post-tag i-tag
-                            i-tag-other_3">
-            #timezone
+                        <a href="https://voidint.github.io/tag/6TP6jleIZ/" class="post-tag i-tag
+                            i-tag-other_1">
+            #goproxy.io
         </a>
                         
-                        <a href="https://voidint.github.io/tag/EBKzSjP46S/" class="post-tag i-tag
-                            i-tag-other_4">
-            #docker
-        </a>
-                        
-                        <a href="https://voidint.github.io/tag/upBZVsJSS/" class="post-tag i-tag
-                            i-tag-other_3">
-            #MySQL
+                        <a href="https://voidint.github.io/tag/aIzzN5whUg/" class="post-tag i-tag
+                            i-tag-warning">
+            #golang
         </a>
                         
                 </div>
                 <div class="post-article">
                     
-                        <a href="https://voidint.github.io/post/mysql-timezone/" class="post-feature-image" style="background-image:url(https://voidint.github.io/post-images/mysql-timezone.jpg) ">
+                        <a href="https://voidint.github.io/post/goproxyio-installation/" class="post-feature-image" style="background-image:url(https://voidint.github.io/post-images/goproxyio-installation.jpg) ">
                         </a>
                         
                             <div class="post-content">
                                 
                                         <div class="post-content-content">
-                                            从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行select now()语句，发现显示的时间与我宿主机的时间不一致且相差8小时。显然，需要重置MySQL的时区，将时区设置与宿主机保持一致，即东八区。
-如何为MySQL设置时区？
-MySQL 5.7官方文档中提到了多种设置时区的方案，我们这里仅关注配置文件（MySQL官方称之为Option Files）的方案。
-配置文件中修改时区
+                                            最近在公司内部搭建了一个goproxy.io的服务，总结并记录一下备忘。
+goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文档一步一步搭建应该都会比较顺利。当然我也不是对官方文档的无意义复制粘贴，我将从以下三个方面进行阐述：
+goproxy.io服务的搭建
+
+安装go环境(要求1.13及以上版本)
 
 
-配置项default-time-zone及取值
-依据文档可以通过在配置文件中增加default-time-zone=&#39;timezone&#39;的配置项来修改时区。配置值的取值遵循以下规则：
+$ yum install golang -y
 
 
-
-The value &#39;SYSTEM&#39; indicates that the time zone should be the same as the system time zone.
-
-
-The value can be given as a string indicating an offset from UTC, such as &#39;+10:00&#39; or &#39;-6:00&#39;.
+安装git
 
 
-The value can be given as a named time zone, such as &#39;Europe/Helsinki&#39;, &#39;US/Eastern&#39;, or &#39;MET&#39;. Named time zones can be used only if the time zone information tables in the mysql database have been created and populated.
+$ yum install git -y
 
 
-
-我们选择第二种方式，通过UTC的偏移量来表示东八区，+8:00意味着在零时区的基础上往东偏移8个时区。
-
-
-group
-官方文档中描述了配置文件的语法，包括注释、组、选项名、选项值等。其中组（group）是与我们当前遇到的问题息息相关的东西。配置项需要放置在正确的group下，官方表述如下：
-
-If an option group name is the same as a program name, options in the group apply specifically to that program.
-For example, the [mysqld] and [mysql] groups apply to the mysqld server and the mysql client program, respectively.
+安装goproxy
 
 
-
-由于配置项default-time-zone是为了让MySQL Server调整默认时区，并结合上面有关group的表述，不难得出一个结论：default-time-zone配置项应该放置在名为[mysqld]的group下。
-[mysqld]
-default-time_zone = &#39;+8:00&#39;
-
-配置文件位置
-既然已经明确了通过修改配置文件来达到重置MySQL时区的目的，那么修改后的配置文件放哪儿呢？这是首先面临的一个问题。好在MySQL官方文档中已经告诉我们配置文件的读取顺序。
+$ mkdir -p /opt/goproxy &amp;amp;&amp;amp; cd /opt/goproxy
+$ git clone https://github.com/goproxyio/goproxy.git
+$ cd goproxy
+$ make
+$ mv ./bin/goproxy /usr/local/bin/goproxy
 
 
-
-File Name
-Purpose
+启动goproxy服务（监听8080端口）
 
 
+$ mkdir -p /opt/goproxy/go_cache
+$ goproxy -cacheDir /opt/goproxy/go_cache -exclude example.io -proxy https://goproxy.io -listen 0.0.0.0:8080
 
+解决go get方式拉取私有库问题
+明确下目标。所谓的go get方式拉取私有库，指的是能通过go get -u -v -insecure example.io/xxx/yyy方式拉取到内部私有仓库中的go代码。example.io指的是内部的私有域名。
+假设已经按照以上步骤在10.0.1.2安装了goproxy.io服务。
+安装govanityurls服务（监听80端口）
+tonybai在其博文中说的很清楚了，我也就不重复了。贴一张他博文中的配图，一图胜千言。
+将内部私有域名example.io解析到安装了以上服务的10.0.1.2。
+开发人员本地环境配置
+临时开启Go Module
 
-/etc/my.cnf
-Global options
+$ export GO111MODULE=on
 
+永久开启Go Module
 
-/etc/mysql/my.cnf
-Global options
+$ go env -w GO111MODULE=on
 
+设置go源代码库拉取的代理地址（http://10.0.1.2:8080）
 
-SYSCONFDIR/my.cnf
-Global options
+$ go env -w GOPROXY=&amp;quot;http://10.0.1.2:8080,https://goproxy.cn,direct&amp;quot;
 
+可选：设置私有库（10.0.1.2上的goproxy服务本身也会将私有库重定向至gitlab.example.com）
 
-$MYSQL_HOME/my.cnf
-Server-specific options (server only)
+$ go env -w GOPRIVATE=&amp;quot;example.io&amp;quot; 
 
+追加~/.gitconfig配置（修改为通过git下载源代码）
 
-defaults-extra-file
-The file specified with --defaults-extra-file
+$ git config --global url.&amp;quot;ssh://git@gitlab.example.com&amp;quot;.insteadOf &amp;quot;http://gitlab.example.com&amp;quot;
 
+测试拉取外网的公开库
 
-~/.my.cnf
-User-specific options
+$ go get -u -v github.com/go-xorm/xorm 
 
+测试拉取内网的私有库（默认拉取master分支的最近一次提交）
 
-~/.mylogin.cnf
-User-specific login path options (clients only)
+$ go get -u -v -insecure example.io/voidint/tsdump
 
+测试拉取内网的私有库的指定版本（强烈建议为每个版本打上tag）
 
+$ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
 
-再尝试查看MySQL的docker容器中的配置文件，docker run --rm mysql:5.7 cat /etc/mysql/my.cnf，我们看到了容器中的配置文件内容如下：
-# Copyright (c) 2016, Oracle and/or its affiliates. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; version 2 of the License.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mysql.conf.d/
-
-这下这个疑问终于有了答案，我们可以将自定义的配置文件想办法放入容器中的/etc/mysql/conf.d/目录（放在/etc/mysql/mysql.conf.d/目录当然也同样OK）。
-注意：在*nix系统下使用!includedir指令指定的配置文件目录下的配置文件扩展名必须是.cnf，在Windows系统下的扩展名可以是.ini或者.cnf。
-启动MySQL容器
-$ docker run  -d --name mysql5.7 \
-    -v /Users/voidint/dockerV/mysql/5.7/conf:/etc/mysql/conf.d \
-    -e MYSQL_ROOT_PASSWORD=&#39;abc#123&#39; \
-    -p 3306:3306\
-    mysql:5.7
-
-参考MySQL官方docker镜像的说明，我们将上面步骤准备好的MySQL配置文件放置在/Users/voidint/dockerV/mysql/5.7/conf目录下，并通过docker -v选项将宿主机上的配置文件目录挂载到容器中的/etc/mysql/conf.d目录。这样在容器启动时就能读取到我们自定义的配置文件，时区配置也就生效了。
-容器启动后，通过MySQL客户端连接上MySQL，再次执行select now()语句以验证MySQL的时区是否与宿主机时区保持一致。
 参考
 
-MySQL Server Time Zone Support
-Using Option Files
-MySQL Docker镜像
+部署公司内部自己的 goproxy.io 服务
+定制Go Package的Go Get导入路径
+使用govanityurls让私有代码仓库中的go包支持go get
+如何使用 go get 下载 gitlab 私有项目
 
 
                                         </div>
                                         
-                                            <a class="btn btn-text" href="https://voidint.github.io/post/mysql-timezone/">Read More ~</a>
+                                            <a class="btn btn-text" href="https://voidint.github.io/post/goproxyio-installation/">Read More ~</a>
                             </div>
                 </div>
             </article>
