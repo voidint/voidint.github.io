@@ -7,7 +7,7 @@
 <title>
     voidint
 </title>
-<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1610879462916">
+<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615287957774">
 <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
 <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
@@ -27,7 +27,7 @@
     <div class="nav">
         <div class="logo">
             <a href="https://voidint.github.io">
-                <img class="avatar" src="https://voidint.github.io/images/avatar.png?v=1610879462916" alt="">
+                <img class="avatar" src="https://voidint.github.io/images/avatar.png?v=1615287957774" alt="">
             </a>
             <div class="site-title">
                 <h1>
@@ -99,6 +99,175 @@
         
             <article class="post i-card">
                 <h2 class="post-title">
+                    <a href="https://voidint.github.io/post/juicefs-wangpan/">
+                        基于JuiceFS搭建个人网盘
+                    </a>
+                </h2>
+                <div class="post-info">
+                    <time class="post-time">2021-03-09</time>
+                    
+                        <a href="https://voidint.github.io/tag/OnCZ3Bu4o/" class="post-tag i-tag
+                            i-tag-other_2">
+            #JuiceFS
+        </a>
+                        
+                        <a href="https://voidint.github.io/tag/d57-jY5Of3/" class="post-tag i-tag
+                            i-tag-info">
+            #分布式文件系统
+        </a>
+                        
+                        <a href="https://voidint.github.io/tag/FtS8XK8u_9/" class="post-tag i-tag
+                            i-tag-banana">
+            #网盘
+        </a>
+                        
+                </div>
+                <div class="post-article">
+                    
+                        <a href="https://voidint.github.io/post/juicefs-wangpan/" class="post-feature-image" style="background-image:url(https://voidint.github.io/post-images/juicefs-wangpan.png) ">
+                        </a>
+                        
+                            <div class="post-content">
+                                
+                                        <div class="post-content-content">
+                                            什么是JuiceFS
+
+JuiceFS 是为云端设计的共享文件系统。
+云端：采用云服务中的对象存储作为后端，综合性价比极高。
+共享：上千台机器同时挂载，高性能并发读写，共享数据。
+易用：POSIX、HDFS、NFS 兼容，无门槛对接现有应用。
+
+以上是JuiceFS的官方定义。简单来说，JuiceFS就是一个基于对象存储的分布式文件系统。
+
+目标
+基于JuiceFS搭建一个存储在阿里云OSS之上的个人网盘。主机A、B上挂载该网盘后，能做到互通有无，即可读可写。
+前期准备
+1、申请一个阿里云账号，将AccessKey ID导出到环境变量ACCESS_KEY，将AccessKey Secret导出到环境变量SECRET_KEY。
+2、购买阿里云OSS服务并创建bucket。bucket的名字暂时定为voidint。
+3、准备两台主机。此次实验我准备了一台公有云上的虚拟机以及一台MacBook Pro。
+4、准备一台Redis服务器，且以上的两台主机均可以访问此Redis服务。本次实验中我将Redis服务部署在了公有云虚拟机之上。
+5、为Redis设置一个强密码并导出到环境变量REDIS_PASSWORD。
+搭建过程
+构建juicefs二进制程序
+
+$ git clone https://github.com/juicedata/juicefs.git
+$ cd juicefs 
+$ make
+
+建议使用源代码构建，千万不要按照上手指南中所说通过curl下载juicefs。也许是文档未及时更新，官方文档上所描述的均为Python缩写的juicefs客户端程序，而本次实验所用到的是go语言所编写的juicefs客户端程序。
+格式化网盘
+
+$ juicefs help format
+NAME:
+   juicefs format - format a volume
+
+USAGE:
+   juicefs format [command options] REDIS-URL NAME
+
+OPTIONS:
+   --block-size value       size of block in KiB (default: 4096)
+   --compress value         compression algorithm (lz4, zstd, none) (default: &amp;quot;lz4&amp;quot;)
+   --storage value          Object storage type (e.g. s3, gcs, oss, cos) (default: &amp;quot;file&amp;quot;)
+   --bucket value           A bucket URL to store data (default: &amp;quot;/Users/voidint/.juicefs/local&amp;quot;)
+   --access-key value       Access key for object storage (env ACCESS_KEY)
+   --secret-key value       Secret key for object storage (env SECRET_KEY)
+   --encrypt-rsa-key value  A path to RSA private key (PEM)
+   --force                  overwrite existing format (default: false)
+
+格式化的命令及选项如上所示，需要关注的选项分别为--storage和--bucket。由于本次实验使用的是阿里云OSS，因此将storage选项设置为oss。按照文档所述，将bucket选项值设置为https://voidint。
+另外，由于阿里云的操作凭证信息已经导出到了ACCESS_KEY和SECRET_KEY这两个环境变量，因此无需再重复设置format子命令中相关的选项值。
+由于网盘中的文件元数据会被存储到Redis，还需要指定一个Redis的URL（格式），这里指定公有云上主机的IP地址，如113.31.11.123。
+还需要给网盘取一个显示的名字，如alicloud（此处暂不支持中文字符）。
+
+# 两台主机上分别执行以下命令：
+$ ./juicefs format --storage oss --bucket http://voidint 113.31.11.123 alicloud
+
+挂载网盘
+
+$ juicefs help mount
+NAME:
+   juicefs mount - mount a volume
+
+USAGE:
+   juicefs mount [command options] REDIS-URL MOUNTPOINT
+
+OPTIONS:
+   --metrics value           address to export metrics (default: &amp;quot;:9567&amp;quot;)
+   --no-usage-report         do not send usage report (default: false)
+   -d, --background          run in background (default: false)
+   --no-syslog               disable syslog (default: false)
+   -o value                  other FUSE options
+   --attr-cache value        attributes cache timeout in seconds (default: 1)
+   --entry-cache value       file entry cache timeout in seconds (default: 1)
+   --dir-entry-cache value   dir entry cache timeout in seconds (default: 1)
+   --enable-xattr            enable extended attributes (xattr) (default: false)
+   --get-timeout value       the max number of seconds to download an object (default: 60)
+   --put-timeout value       the max number of seconds to upload an object (default: 60)
+   --io-retries value        number of retries after network failure (default: 30)
+   --max-uploads value       number of connections to upload (default: 20)
+   --buffer-size value       total read/write buffering in MB (default: 300)
+   --prefetch value          prefetch N blocks in parallel (default: 3)
+   --writeback               upload objects in background (default: false)
+   --cache-dir value         directory paths of local cache, use colon to separate multiple paths (default: &amp;quot;/Users/voidint/.juicefs/cache&amp;quot;)
+   --cache-size value        size of cached objects in MiB (default: 1024)
+   --free-space-ratio value  min free space (ratio) (default: 0.1)
+   --cache-partial-only      cache only random/small read (default: false)
+
+挂载命令需要设置的选项和参数很少，-d可以使其以守护进程方式运行，REDIS-URL参数用于指定Redis服务地址，MOUNTPOINT用于指定目录挂载点。
+
+# 两台主机上分别执行以下命令：
+$ ./juicefs mount -d 113.31.11.123 ~/jfs
+
+测试网盘读写
+在等待挂载完毕后，便可以开始对网盘进行读写测试。
+# 两台主机上分别执行以下命令：
+$ echo $(hostname) &amp;gt;&amp;gt; ~/jfs/hostname.txt
+$ cat ~/jfs/hostname.txt
+voidint
+113-31-11-123
+
+从输出可知，两台主机已经挂载了同一块网盘。
+卸载网盘
+
+$ juicefs help umount
+NAME:
+   juicefs umount - unmount a volume
+
+USAGE:
+   juicefs umount [command options] MOUNTPOINT
+
+OPTIONS:
+   --force, -f  unmount a busy mount point by force (default: false)
+
+卸载网盘的方式也极为简单，只需要指定挂载目录即可。
+
+# 两台主机上分别执行以下命令：
+$ j umount ~/jfs
+
+再次挂载网盘
+为了验证卸载后重新挂载依然能够读写之前的文件，下面重新挂载该网盘。
+
+# 两台主机上分别执行以下命令：
+$ ./juicefs mount -d 113.31.11.123 ~/jfs
+$ ls -lh ~/jfs
+-rw-r--r--  1 voidint  staff    21B  3  9 18:47 hostname.txt
+
+可以看到hostname.txt文件依然还存在。大功告成！
+参考
+
+JuiceFS文档
+JuiceFS GitHub
+
+
+                                        </div>
+                                        
+                                            <a class="btn btn-text" href="https://voidint.github.io/post/juicefs-wangpan/">Read More ~</a>
+                            </div>
+                </div>
+            </article>
+            
+            <article class="post i-card">
+                <h2 class="post-title">
                     <a href="https://voidint.github.io/post/goproxyio-installation/">
                         goproxy.io内部私有化部署
                     </a>
@@ -112,7 +281,7 @@
         </a>
                         
                         <a href="https://voidint.github.io/tag/aIzzN5whUg/" class="post-tag i-tag
-                            i-tag-banana">
+                            i-tag-other_1">
             #golang
         </a>
                         
@@ -231,7 +400,7 @@ $ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
         </a>
                         
                         <a href="https://voidint.github.io/tag/4O9HoKSI-/" class="post-tag i-tag
-                            i-tag-warning">
+                            i-tag-other_2">
             #Linux
         </a>
                         
@@ -452,22 +621,22 @@ Docker背后的内核知识——Namespace资源隔离
                     <time class="post-time">2020-02-25</time>
                     
                         <a href="https://voidint.github.io/tag/Ypb7Sc6QO/" class="post-tag i-tag
-                            i-tag-other_4">
+                            i-tag-warning">
             #grub
         </a>
                         
                         <a href="https://voidint.github.io/tag/_e9jqBEsQE/" class="post-tag i-tag
-                            i-tag-success">
+                            i-tag-error">
             #crypt
         </a>
                         
                         <a href="https://voidint.github.io/tag/MvHbfW222X/" class="post-tag i-tag
-                            i-tag-other_2">
+                            i-tag-">
             #password
         </a>
                         
                         <a href="https://voidint.github.io/tag/4O9HoKSI-/" class="post-tag i-tag
-                            i-tag-banana">
+                            i-tag-other_2">
             #Linux
         </a>
                         
@@ -575,12 +744,12 @@ Command | kickstart之中rootpw密码生成方法
                     <time class="post-time">2020-02-25</time>
                     
                         <a href="https://voidint.github.io/tag/UqSp3pO-3/" class="post-tag i-tag
-                            i-tag-other_3">
+                            i-tag-">
             #HPSSACLI
         </a>
                         
                         <a href="https://voidint.github.io/tag/PAYpxEtAC/" class="post-tag i-tag
-                            i-tag-error">
+                            i-tag-primary">
             #RAID
         </a>
                         
@@ -694,12 +863,12 @@ HP Smart Storage Administrator User Guide
                     <time class="post-time">2020-02-25</time>
                     
                         <a href="https://voidint.github.io/tag/PAYpxEtAC/" class="post-tag i-tag
-                            i-tag-error">
+                            i-tag-other_4">
             #RAID
         </a>
                         
                         <a href="https://voidint.github.io/tag/8ChdujAc0W/" class="post-tag i-tag
-                            i-tag-other_2">
+                            i-tag-warning">
             #SAS3IRCU
         </a>
                         
@@ -1010,7 +1179,7 @@ SATA
                     <time class="post-time">2020-02-25</time>
                     
                         <a href="https://voidint.github.io/tag/JFSNzrvJI/" class="post-tag i-tag
-                            i-tag-success">
+                            i-tag-other_4">
             #git
         </a>
                         
@@ -1067,17 +1236,17 @@ eb6c8cb Add README.md // hash值发生了变化
                     <time class="post-time">2020-02-25</time>
                     
                         <a href="https://voidint.github.io/tag/r6k_9Mi2R/" class="post-tag i-tag
-                            i-tag-other_3">
+                            i-tag-other_2">
             #timezone
         </a>
                         
                         <a href="https://voidint.github.io/tag/EBKzSjP46S/" class="post-tag i-tag
-                            i-tag-info">
+                            i-tag-other_4">
             #docker
         </a>
                         
                         <a href="https://voidint.github.io/tag/upBZVsJSS/" class="post-tag i-tag
-                            i-tag-banana">
+                            i-tag-other_3">
             #MySQL
         </a>
                         
@@ -1220,12 +1389,12 @@ MySQL Docker镜像
                     <time class="post-time">2020-02-25</time>
                     
                         <a href="https://voidint.github.io/tag/upBZVsJSS/" class="post-tag i-tag
-                            i-tag-primary">
+                            i-tag-other_1">
             #MySQL
         </a>
                         
                         <a href="https://voidint.github.io/tag/y6nbpIRFho/" class="post-tag i-tag
-                            i-tag-">
+                            i-tag-warning">
             #localhost
         </a>
                         
@@ -1314,7 +1483,7 @@ http://i.joymvp.com/%E6%8A%80%E6%9C%AF/routing-traffic-localhost.html
                     <!-- 个人信息 -->
                     
     <div class="id_card i-card">
-        <div class="id_card-avatar" style="background-image: url(https://voidint.github.io/images/avatar.png?v=1610879462916)">
+        <div class="id_card-avatar" style="background-image: url(https://voidint.github.io/images/avatar.png?v=1615287957774)">
         </div>
         <h1 class="id_card-title">
             voidint

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://voidint.github.io</id>
     <title>voidint</title>
-    <updated>2021-01-17T10:32:03.148Z</updated>
+    <updated>2021-03-09T11:06:57.851Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://voidint.github.io"/>
     <link rel="self" href="https://voidint.github.io/atom.xml"/>
@@ -10,6 +10,142 @@
     <logo>https://voidint.github.io/images/avatar.png</logo>
     <icon>https://voidint.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, voidint</rights>
+    <entry>
+        <title type="html"><![CDATA[基于JuiceFS搭建个人网盘]]></title>
+        <id>https://voidint.github.io/post/juicefs-wangpan/</id>
+        <link href="https://voidint.github.io/post/juicefs-wangpan/">
+        </link>
+        <updated>2021-03-09T09:20:34.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="什么是juicefs">什么是JuiceFS</h1>
+<blockquote>
+<p>JuiceFS 是为云端设计的共享文件系统。<br>
+云端：采用云服务中的对象存储作为后端，综合性价比极高。<br>
+共享：上千台机器同时挂载，高性能并发读写，共享数据。<br>
+易用：POSIX、HDFS、NFS 兼容，无门槛对接现有应用。</p>
+</blockquote>
+<p>以上是<a href="https://juicefs.com/">JuiceFS</a>的官方定义。简单来说，JuiceFS就是一个基于对象存储的分布式文件系统。</p>
+<figure data-type="image" tabindex="1"><img src="https://voidint.github.io/post-images/1615287684809.png" alt="" loading="lazy"></figure>
+<h1 id="目标">目标</h1>
+<p>基于JuiceFS搭建一个存储在阿里云OSS之上的个人网盘。主机A、B上挂载该网盘后，能做到互通有无，即可读可写。</p>
+<h1 id="前期准备">前期准备</h1>
+<p>1、申请一个阿里云账号，将AccessKey ID导出到环境变量<code>ACCESS_KEY</code>，将AccessKey Secret导出到环境变量<code>SECRET_KEY</code>。<br>
+2、购买阿里云OSS服务并创建bucket。bucket的名字暂时定为<code>voidint</code>。<br>
+3、准备两台主机。此次实验我准备了一台公有云上的虚拟机以及一台MacBook Pro。<br>
+4、准备一台Redis服务器，且以上的两台主机均可以访问此Redis服务。本次实验中我将Redis服务部署在了公有云虚拟机之上。<br>
+5、为Redis设置一个强密码并导出到环境变量<code>REDIS_PASSWORD</code>。</p>
+<h1 id="搭建过程">搭建过程</h1>
+<h2 id="构建juicefs二进制程序">构建juicefs二进制程序</h2>
+<pre><code class="language-shell">
+$ git clone https://github.com/juicedata/juicefs.git
+$ cd juicefs 
+$ make
+</code></pre>
+<p>建议使用源代码构建，千万不要按照<a href="https://juicefs.com/docs/zh/getting_started.html">上手指南</a>中所说通过<code>curl</code>下载juicefs。也许是文档未及时更新，官方文档上所描述的均为Python缩写的juicefs客户端程序，而<strong>本次实验所用到的是go语言所编写的juicefs客户端程序</strong>。</p>
+<h2 id="格式化网盘">格式化网盘</h2>
+<pre><code class="language-shell">
+$ juicefs help format
+NAME:
+   juicefs format - format a volume
+
+USAGE:
+   juicefs format [command options] REDIS-URL NAME
+
+OPTIONS:
+   --block-size value       size of block in KiB (default: 4096)
+   --compress value         compression algorithm (lz4, zstd, none) (default: &quot;lz4&quot;)
+   --storage value          Object storage type (e.g. s3, gcs, oss, cos) (default: &quot;file&quot;)
+   --bucket value           A bucket URL to store data (default: &quot;/Users/voidint/.juicefs/local&quot;)
+   --access-key value       Access key for object storage (env ACCESS_KEY)
+   --secret-key value       Secret key for object storage (env SECRET_KEY)
+   --encrypt-rsa-key value  A path to RSA private key (PEM)
+   --force                  overwrite existing format (default: false)
+</code></pre>
+<p>格式化的命令及选项如上所示，需要关注的选项分别为<code>--storage</code>和<code>--bucket</code>。由于本次实验使用的是阿里云OSS，因此将storage选项设置为<code>oss</code>。按照<a href="https://github.com/juicedata/juicefs/blob/main/docs/en/how_to_setup_object_storage.md#alibaba-cloud-object-storage-service">文档</a>所述，将bucket选项值设置为<code>https://voidint</code>。</p>
+<p>另外，由于阿里云的操作凭证信息已经导出到了<code>ACCESS_KEY</code>和<code>SECRET_KEY</code>这两个环境变量，因此无需再重复设置format子命令中相关的选项值。</p>
+<p>由于网盘中的文件元数据会被存储到Redis，还需要指定一个Redis的URL（<a href="https://pkg.go.dev/github.com/go-redis/redis#ParseURL">格式</a>），这里指定公有云上主机的IP地址，如<code>113.31.11.123</code>。</p>
+<p>还需要给网盘取一个显示的名字，如<code>alicloud</code>（此处暂不支持中文字符）。</p>
+<pre><code class="language-shell">
+# 两台主机上分别执行以下命令：
+$ ./juicefs format --storage oss --bucket http://voidint 113.31.11.123 alicloud
+</code></pre>
+<h2 id="挂载网盘">挂载网盘</h2>
+<pre><code class="language-shell">
+$ juicefs help mount
+NAME:
+   juicefs mount - mount a volume
+
+USAGE:
+   juicefs mount [command options] REDIS-URL MOUNTPOINT
+
+OPTIONS:
+   --metrics value           address to export metrics (default: &quot;:9567&quot;)
+   --no-usage-report         do not send usage report (default: false)
+   -d, --background          run in background (default: false)
+   --no-syslog               disable syslog (default: false)
+   -o value                  other FUSE options
+   --attr-cache value        attributes cache timeout in seconds (default: 1)
+   --entry-cache value       file entry cache timeout in seconds (default: 1)
+   --dir-entry-cache value   dir entry cache timeout in seconds (default: 1)
+   --enable-xattr            enable extended attributes (xattr) (default: false)
+   --get-timeout value       the max number of seconds to download an object (default: 60)
+   --put-timeout value       the max number of seconds to upload an object (default: 60)
+   --io-retries value        number of retries after network failure (default: 30)
+   --max-uploads value       number of connections to upload (default: 20)
+   --buffer-size value       total read/write buffering in MB (default: 300)
+   --prefetch value          prefetch N blocks in parallel (default: 3)
+   --writeback               upload objects in background (default: false)
+   --cache-dir value         directory paths of local cache, use colon to separate multiple paths (default: &quot;/Users/voidint/.juicefs/cache&quot;)
+   --cache-size value        size of cached objects in MiB (default: 1024)
+   --free-space-ratio value  min free space (ratio) (default: 0.1)
+   --cache-partial-only      cache only random/small read (default: false)
+</code></pre>
+<p>挂载命令需要设置的选项和参数很少，<code>-d</code>可以使其以守护进程方式运行，<code>REDIS-URL</code>参数用于指定Redis服务地址，<code>MOUNTPOINT</code>用于指定目录挂载点。</p>
+<pre><code class="language-shell">
+# 两台主机上分别执行以下命令：
+$ ./juicefs mount -d 113.31.11.123 ~/jfs
+</code></pre>
+<h2 id="测试网盘读写">测试网盘读写</h2>
+<p>在等待挂载完毕后，便可以开始对网盘进行读写测试。</p>
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
+$ echo $(hostname) &gt;&gt; ~/jfs/hostname.txt
+$ cat ~/jfs/hostname.txt
+voidint
+113-31-11-123
+</code></pre>
+<p>从输出可知，两台主机已经挂载了同一块网盘。</p>
+<h2 id="卸载网盘">卸载网盘</h2>
+<pre><code class="language-shell">
+$ juicefs help umount
+NAME:
+   juicefs umount - unmount a volume
+
+USAGE:
+   juicefs umount [command options] MOUNTPOINT
+
+OPTIONS:
+   --force, -f  unmount a busy mount point by force (default: false)
+</code></pre>
+<p>卸载网盘的方式也极为简单，只需要指定挂载目录即可。</p>
+<pre><code class="language-shell">
+# 两台主机上分别执行以下命令：
+$ j umount ~/jfs
+</code></pre>
+<h2 id="再次挂载网盘">再次挂载网盘</h2>
+<p>为了验证卸载后重新挂载依然能够读写之前的文件，下面重新挂载该网盘。</p>
+<pre><code class="language-shell">
+# 两台主机上分别执行以下命令：
+$ ./juicefs mount -d 113.31.11.123 ~/jfs
+$ ls -lh ~/jfs
+-rw-r--r--  1 voidint  staff    21B  3  9 18:47 hostname.txt
+</code></pre>
+<p>可以看到hostname.txt文件依然还存在。大功告成！</p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://juicefs.com/docs/zh/intro.html">JuiceFS文档</a></li>
+<li><a href="https://github.com/juicedata/juicefs">JuiceFS GitHub</a></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[goproxy.io内部私有化部署]]></title>
         <id>https://voidint.github.io/post/goproxyio-installation/</id>
