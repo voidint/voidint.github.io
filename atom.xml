@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://voidint.github.io</id>
     <title>voidint</title>
-    <updated>2021-03-10T01:44:15.398Z</updated>
+    <updated>2021-03-10T02:06:52.380Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://voidint.github.io"/>
     <link rel="self" href="https://voidint.github.io/atom.xml"/>
@@ -34,15 +34,13 @@
 5、为Redis设置一个强密码并导出到环境变量<code>REDIS_PASSWORD</code>。</p>
 <h1 id="搭建过程">搭建过程</h1>
 <h2 id="构建juicefs二进制程序">构建juicefs二进制程序</h2>
-<pre><code class="language-shell">
-$ git clone https://github.com/juicedata/juicefs.git
+<pre><code class="language-shell">$ git clone https://github.com/juicedata/juicefs.git
 $ cd juicefs 
 $ make
 </code></pre>
 <p>建议使用源代码构建，千万不要按照<a href="https://juicefs.com/docs/zh/getting_started.html">上手指南</a>中所说通过<code>curl</code>下载juicefs。也许是文档未及时更新，官方文档上所描述的均为Python缩写的juicefs客户端程序，而<strong>本次实验所用到的是go语言所编写的juicefs客户端程序</strong>。</p>
 <h2 id="格式化网盘">格式化网盘</h2>
-<pre><code class="language-shell">
-$ juicefs help format
+<pre><code class="language-shell">$ juicefs help format
 NAME:
    juicefs format - format a volume
 
@@ -63,13 +61,11 @@ OPTIONS:
 <p>另外，由于阿里云的操作凭证信息已经导出到了<code>ACCESS_KEY</code>和<code>SECRET_KEY</code>这两个环境变量，因此无需再重复设置format子命令中相关的选项值。</p>
 <p>由于网盘中的文件元数据会被存储到Redis，还需要指定一个Redis的URL（<a href="https://pkg.go.dev/github.com/go-redis/redis#ParseURL">格式</a>），这里指定公有云上主机的IP地址，如<code>113.31.11.123</code>。</p>
 <p>还需要给网盘取一个显示的名字，如<code>alicloud</code>（此处暂不支持中文字符）。</p>
-<pre><code class="language-shell">
-# 两台主机上分别执行以下命令：
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs format --storage oss --bucket http://voidint 113.31.11.123 alicloud
 </code></pre>
 <h2 id="挂载网盘">挂载网盘</h2>
-<pre><code class="language-shell">
-$ juicefs help mount
+<pre><code class="language-shell">$ juicefs help mount
 NAME:
    juicefs mount - mount a volume
 
@@ -99,8 +95,7 @@ OPTIONS:
    --cache-partial-only      cache only random/small read (default: false)
 </code></pre>
 <p>挂载命令需要设置的选项和参数很少，<code>-d</code>可以使其以守护进程方式运行，<code>REDIS-URL</code>参数用于指定Redis服务地址，<code>MOUNTPOINT</code>用于指定目录挂载点。</p>
-<pre><code class="language-shell">
-# 两台主机上分别执行以下命令：
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs mount -d 113.31.11.123 ~/jfs
 </code></pre>
 <h2 id="测试网盘读写">测试网盘读写</h2>
@@ -113,8 +108,7 @@ voidint
 </code></pre>
 <p>从输出可知，两台主机已经挂载了同一块网盘。</p>
 <h2 id="卸载网盘">卸载网盘</h2>
-<pre><code class="language-shell">
-$ juicefs help umount
+<pre><code class="language-shell">$ juicefs help umount
 NAME:
    juicefs umount - unmount a volume
 
@@ -125,14 +119,12 @@ OPTIONS:
    --force, -f  unmount a busy mount point by force (default: false)
 </code></pre>
 <p>卸载网盘的方式也极为简单，只需要指定挂载目录即可。</p>
-<pre><code class="language-shell">
-# 两台主机上分别执行以下命令：
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ j umount ~/jfs
 </code></pre>
 <h2 id="再次挂载网盘">再次挂载网盘</h2>
 <p>为了验证卸载后重新挂载依然能够读写之前的文件，下面重新挂载该网盘。</p>
-<pre><code class="language-shell">
-# 两台主机上分别执行以下命令：
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs mount -d 113.31.11.123 ~/jfs
 $ ls -lh ~/jfs
 -rw-r--r--  1 voidint  staff    21B  3  9 18:47 hostname.txt
@@ -157,20 +149,17 @@ $ ls -lh ~/jfs
 <ul>
 <li>安装go环境(要求1.13及以上版本)</li>
 </ul>
-<pre><code class="language-shell">
-$ yum install golang -y
+<pre><code class="language-shell">$ yum install golang -y
 </code></pre>
 <ul>
 <li>安装git</li>
 </ul>
-<pre><code class="language-shell">
-$ yum install git -y
+<pre><code class="language-shell">$ yum install git -y
 </code></pre>
 <ul>
 <li>安装goproxy</li>
 </ul>
-<pre><code class="language-shell">
-$ mkdir -p /opt/goproxy &amp;&amp; cd /opt/goproxy
+<pre><code class="language-shell">$ mkdir -p /opt/goproxy &amp;&amp; cd /opt/goproxy
 $ git clone https://github.com/goproxyio/goproxy.git
 $ cd goproxy
 $ make
@@ -179,8 +168,7 @@ $ mv ./bin/goproxy /usr/local/bin/goproxy
 <ul>
 <li>启动goproxy服务（监听8080端口）</li>
 </ul>
-<pre><code class="language-shell">
-$ mkdir -p /opt/goproxy/go_cache
+<pre><code class="language-shell">$ mkdir -p /opt/goproxy/go_cache
 $ goproxy -cacheDir /opt/goproxy/go_cache -exclude example.io -proxy https://goproxy.io -listen 0.0.0.0:8080
 </code></pre>
 <h1 id="解决go-get方式拉取私有库问题">解决go get方式拉取私有库问题</h1>
@@ -191,36 +179,28 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <p>将内部私有域名example.io解析到安装了以上服务的10.0.1.2。</p>
 <h1 id="开发人员本地环境配置">开发人员本地环境配置</h1>
 <p>临时开启Go Module</p>
-<pre><code class="language-shell">
-$ export GO111MODULE=on
+<pre><code class="language-shell">$ export GO111MODULE=on
 </code></pre>
 <p>永久开启Go Module</p>
-<pre><code class="language-shell">
-$ go env -w GO111MODULE=on
+<pre><code class="language-shell">$ go env -w GO111MODULE=on
 </code></pre>
 <p>设置go源代码库拉取的代理地址（http://10.0.1.2:8080）</p>
-<pre><code class="language-shell">
-$ go env -w GOPROXY=&quot;http://10.0.1.2:8080,https://goproxy.cn,direct&quot;
+<pre><code class="language-shell">$ go env -w GOPROXY=&quot;http://10.0.1.2:8080,https://goproxy.cn,direct&quot;
 </code></pre>
 <p>可选：设置私有库（10.0.1.2上的goproxy服务本身也会将私有库重定向至gitlab.example.com）</p>
-<pre><code class="language-shell">
-$ go env -w GOPRIVATE=&quot;example.io&quot; 
+<pre><code class="language-shell">$ go env -w GOPRIVATE=&quot;example.io&quot; 
 </code></pre>
 <p>追加~/.gitconfig配置（修改为通过git下载源代码）</p>
-<pre><code class="language-shell">
-$ git config --global url.&quot;ssh://git@gitlab.example.com&quot;.insteadOf &quot;http://gitlab.example.com&quot;
+<pre><code class="language-shell">$ git config --global url.&quot;ssh://git@gitlab.example.com&quot;.insteadOf &quot;http://gitlab.example.com&quot;
 </code></pre>
 <p>测试拉取外网的公开库</p>
-<pre><code class="language-shell">
-$ go get -u -v github.com/go-xorm/xorm 
+<pre><code class="language-shell">$ go get -u -v github.com/go-xorm/xorm 
 </code></pre>
 <p>测试拉取内网的私有库（默认拉取master分支的最近一次提交）</p>
-<pre><code class="language-shell">
-$ go get -u -v -insecure example.io/voidint/tsdump
+<pre><code class="language-shell">$ go get -u -v -insecure example.io/voidint/tsdump
 </code></pre>
 <p>测试拉取内网的私有库的指定版本（强烈建议为每个版本打上tag）</p>
-<pre><code class="language-shell">
-$ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
+<pre><code class="language-shell">$ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
 </code></pre>
 <h1 id="参考">参考</h1>
 <ul>

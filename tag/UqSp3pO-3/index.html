@@ -1,277 +1,283 @@
 <html>
-
 <head>
     <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>
-    HPSSACLI | voidint
-</title>
-<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615340646883">
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
-<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+<title>HPSSACLI | voidint</title>
+
+<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615342008967">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://voidint.github.io/styles/main.css">
-<!-- js -->
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://voidint.github.io/media/js/jquery.sticky-sidebar.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
 
 
 </head>
-
 <body>
-    <div class="main">
-        <div class="header">
-    <div class="nav">
-        <div class="logo">
-            <a href="https://voidint.github.io">
-                <img class="avatar" src="https://voidint.github.io/images/avatar.png?v=1615340646883" alt="">
-            </a>
-            <div class="site-title">
-                <h1>
-                    voidint
-                </h1>
-            </div>
+<div class="main gt-bg-theme-color-first">
+    <div class="main-content">
+        <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            voidint
         </div>
-        <span class="menu-btn fa fa-align-justify"></span>
-        <div class="menu-container">
-            <ul>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
                 
-                    
-                            <li>
-                                <a href="/" class="menu">
-                                    首页
-                                </a>
-                            </li>
-                            
-                                
-                    
-                            <li>
-                                <a href="/archives" class="menu">
-                                    归档
-                                </a>
-                            </li>
-                            
-                                
-                    
-                            <li>
-                                <a href="/tags" class="menu">
-                                    标签
-                                </a>
-                            </li>
-                            
-                                
-                    
-                        <li>
-                            <a href="https://github.com/voidint" class="menu" target="_blank">
-                                关于
-                            </a>
-                        </li>
-                        
-                                
-            </ul>
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="https://github.com/voidint" class="menu gt-a-link" target="_blank">
+                    关于
+                </a>
+                
+            </div>
+            
         </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1615342008967"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+        <div class="current-tag-container">
+            <h2 class="title gt-c-content-color-first">
+                #HPSSACLI
+            </h2>
+        </div>
+        <div class="post-list-container">
+    <div class="post-inner">
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://voidint.github.io/post/hp-ssa-cli/">
+                            <span class="post-title gt-c-content-color-first">Linux下hpssacli配置 HP Smart Array</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-02-25 ·
+                        </time>
+                        
+                            <a href="https://voidint.github.io/tag/UqSp3pO-3/" class="post-tag">
+                                # HPSSACLI
+                            </a>
+                        
+                            <a href="https://voidint.github.io/tag/PAYpxEtAC/" class="post-tag">
+                                # RAID
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://voidint.github.io/post/hp-ssa-cli/" class="post-feature-image"
+                       style="background-image: url('https://voidint.github.io/post-images/hp-ssa-cli.jpg')">
+                    </a>
+                
+            </div>
+        
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        $(".menu-btn").click(function() {
-            $(".menu-container").slideToggle();
-        });
-        $(window).resize(function() {
-
-            if (window.matchMedia('(min-width: 960px)').matches) {
-                $(".menu-container").css('display', 'block')
-            } else {
-                $(".menu-container").css('display', 'none')
-            }
-
-        });
-    });
-</script>
-
-            <div id="main-content" class="post-container main-container">
-                <div id="content" class="main-container-left">
-                    
-    <div class="i-card">
-        <b>标签：#
-        HPSSACLI</b>
-    </div>
+        <div class="pagination-container">
     
+    
+</div>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">身未动，心已远。</div>
+    <div class="social-container">
         
-            <article class="post i-card">
-                <h2 class="post-title">
-                    <a href="https://voidint.github.io/post/hp-ssa-cli/">
-                        Linux下hpssacli配置 HP Smart Array
-                    </a>
-                </h2>
-                <div class="post-info">
-                    <time class="post-time">2020-02-25</time>
-                    
-                        <a href="https://voidint.github.io/tag/UqSp3pO-3/" class="post-tag i-tag
-                            i-tag-other_1">
-            #HPSSACLI
-        </a>
-                        
-                        <a href="https://voidint.github.io/tag/PAYpxEtAC/" class="post-tag i-tag
-                            i-tag-other_1">
-            #RAID
-        </a>
-                        
-                </div>
-                <div class="post-article">
-                    
-                        <a href="https://voidint.github.io/post/hp-ssa-cli/" class="post-feature-image" style="background-image:url(https://voidint.github.io/post-images/hp-ssa-cli.jpg) ">
-                        </a>
-                        
-                            <div class="post-content">
-                                
-                                        <div class="post-content-content">
-                                            什么是HP SSA CLI
-HP Smart Storage Administrator Command Line
-适用范围
-HP Smart Array G6、G7、G8、G9
-创建RAID的指导方针
-
-组成逻辑磁盘(RAID阵列)的物理驱动器应该是一致的。
-为了更好地利用物理驱动器的空间容量，组成RAID阵列的每一块物理驱动器的容量应该趋于一致的。如果物理驱动器在容量上有差异，以容量最小的为准。
-
-HPSSACLI操作模式
-
-Console mode: 交互式的带上下文的命令行模式。
-Command mode:
-
-语法
-不管是console mode还是command mode，典型的HP SSA CLI由这几部分组成: target、command、parameter（如果需要的话）。
-  [parameter=value]
-target
-target是你所要配置的device的一种表示方法。device可以是controller、array、logical drive、physical drive。
-例子
-
-controller slot=3
-controller wwn=500805F3000BAC11
-controller slot=2 array A
-controller chassisname=&amp;quot;A&amp;quot; array B logicaldrive 2
-controller chassisname=&amp;quot;A&amp;quot; physicaldrive 1:0
-controller all
-controller slot=2 array all
-controller slot=3 physicaldrive 1:2-1:5
-
-command
-配置类
-
-add
-create
-delete
-modify
-remove
-set target
-
-非配置类
-
-diag
-help
-rescan
-shorthand
-show
-version
-
-去除警告性提示
-对于一些可能对数据安全产生危险的操作，程序会要求输入y/n后才会实际执行。如果你并不希望如此，可以增加一个force的参数来实现这样的目的。
-比如，ctrl ch=&amp;quot;Lab4&amp;quot; ld 1 delete forced
-show命令
-通过此命令可以获取关于目标设备的一些信息。
-基本的语法:  show [detail]|[status]
-典型用法
-删除目标设备
-语法
-&amp;lt;target&amp;gt; delete [forced]
-
-由于删除设备会导致数据丢失，属于危险操作。默认情况下，程序会显示警告性的提示信息并要求输入y/n。如果要规避这种情况，可以加上force参数。
-例子
-
-ctrl ch=&amp;quot;Lab 4&amp;quot; delete forced
-ctrl slot=3 ld all delete
-
-创建逻辑驱动器
-语法
-&amp;lt;target&amp;gt; create type=ld [parameter=value]
-
-一般而言指的是controller，但如果是要在一个已经存在的阵列(array)基础上创建一个逻辑驱动器，那么也可以是array。
-如果你想要在一组物理驱动器(physical drive)之上创建一个逻辑驱动器(logical drive)，那么不需要先去创建一个阵列(array)。CLI有别于GUI，阵列是在创建逻辑驱动器时自动创建的。
-例子
-
-ctrl slot=5 create type=ld drives=1:0,1:1,1:3 raid=adg
-ctrl slot=5 create type=ld drives=1:1-1:3 raid=adg
-ctrl slot=5 create type=ld drives=1:7,1:10-2:5,2:8-2:12 raid=adg
-ctrl slot=5 array A create type=ld size=330 raid=adg
-
-参考
-
-HP Smart Storage Administrator User Guide
-
-
-                                        </div>
-                                        
-                                            <a class="btn btn-text" href="https://voidint.github.io/post/hp-ssa-cli/">Read More ~</a>
-                            </div>
-                </div>
-            </article>
             
-                <!-- 翻页 -->
-                
-                </div>
-                <!--  -->
-                <div class="main-container-middle"></div>
-                <!--  -->
-                <div id="sidebar" class="main-container-right">
-
-                    <!-- 个人信息 -->
-                    
-    <div class="id_card i-card">
-        <div class="id_card-avatar" style="background-image: url(https://voidint.github.io/images/avatar.png?v=1615340646883)">
-        </div>
-        <h1 class="id_card-title">
-            voidint
-        </h1>
-        <h2 class="id_card-description">
-            身未动，心已远。
-        </h2>
-        <!--  -->
-        <div class="id_card-sns">
-            <!-- github -->
+                <a href="https://github.com/voidint" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
             
-                <a href="https://github.com/voidint" target="_blank" rel="noopener noreferrer"><i
-                class="fa fa-github"></i></a>
-                
-                    <!-- twitter -->
-                    
-                            <!-- weibo -->
-                            
-                                <a href="https://weibo.com/voidinteger/home" target="_blank" rel="noopener noreferrer"><i
-                class="fa fa-weibo"></i></a>
-                                
-                                    <!-- facebook -->
-                                    
-
-        </div>
+        
+            
+        
+            
+                <a href="https://weibo.com/voidinteger/home" target="_blank">
+                    <i class="fab fa-weibo gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
     </div>
-    
-
-                        <!-- 公告栏 -->
-                        
-
-                </div>
-            </div>
-
-
-
-            <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://voidint.github.io/atom.xml" target="_blank">RSS</a>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://voidint.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
 </div>
 
 <script>
@@ -279,12 +285,6 @@ HP Smart Storage Administrator User Guide
 </script>
 
     </div>
-    <script>
-        $('#sidebar').stickySidebar({
-            topSpacing: 80,
-            // bottomSpacing: 60
-        });
-    </script>
+</div>
 </body>
-
 </html>

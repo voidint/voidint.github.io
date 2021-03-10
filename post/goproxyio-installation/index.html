@@ -1,144 +1,241 @@
 <html>
-
 <head>
     <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>
-    goproxy.io内部私有化部署 | voidint
-</title>
-<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615340646883">
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
-<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+<title>goproxy.io内部私有化部署 | voidint</title>
+
+<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615342008967">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://voidint.github.io/styles/main.css">
-<!-- js -->
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://voidint.github.io/media/js/jquery.sticky-sidebar.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
 
 
-        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
-
 <body>
-    <div class="main">
-        <div class="header">
-    <div class="nav">
-        <div class="logo">
-            <a href="https://voidint.github.io">
-                <img class="avatar" src="https://voidint.github.io/images/avatar.png?v=1615340646883" alt="">
-            </a>
-            <div class="site-title">
-                <h1>
-                    voidint
-                </h1>
-            </div>
-        </div>
-        <span class="menu-btn fa fa-align-justify"></span>
-        <div class="menu-container">
-            <ul>
-                
-                    
-                            <li>
-                                <a href="/" class="menu">
-                                    首页
-                                </a>
-                            </li>
-                            
-                                
-                    
-                            <li>
-                                <a href="/archives" class="menu">
-                                    归档
-                                </a>
-                            </li>
-                            
-                                
-                    
-                            <li>
-                                <a href="/tags" class="menu">
-                                    标签
-                                </a>
-                            </li>
-                            
-                                
-                    
-                        <li>
-                            <a href="https://github.com/voidint" class="menu" target="_blank">
-                                关于
-                            </a>
-                        </li>
-                        
-                                
-            </ul>
+<div class="main gt-bg-theme-color-first">
+    <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            voidint
         </div>
     </div>
-</div>
-
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="https://github.com/voidint" class="menu gt-a-link" target="_blank">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1615342008967"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
 <script>
-    $(document).ready(function() {
-        $(".menu-btn").click(function() {
-            $(".menu-container").slideToggle();
-        });
-        $(window).resize(function() {
-
-            if (window.matchMedia('(min-width: 960px)').matches) {
-                $(".menu-container").css('display', 'block')
-            } else {
-                $(".menu-container").css('display', 'none')
-            }
-
-        });
-    });
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
 </script>
-
-            <div id="main-content" class="post-detail main-container">
-                <!-- left -->
-                <div id="content" class="main-container-left">
-                    <article class="post i-card">
-                        <h2 class="post-title">
-                            goproxy.io内部私有化部署
-                        </h2>
-                        <div class="post-info">
-                            <time class="post-time">2020-03-14</time>
-                            
-                                <a href="https://voidint.github.io/tag/6TP6jleIZ/" class="post-tag i-tag
-                            i-tag-other_3">
-                            #goproxy.io
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    goproxy.io内部私有化部署
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-03-14 ·
+                    </time>
+                    
+                        <a href="https://voidint.github.io/tag/6TP6jleIZ/" class="post-tags">
+                            # goproxy.io
                         </a>
-                                
-                                <a href="https://voidint.github.io/tag/aIzzN5whUg/" class="post-tag i-tag
-                            i-tag-primary">
-                            #golang
+                    
+                        <a href="https://voidint.github.io/tag/aIzzN5whUg/" class="post-tags">
+                            # golang
                         </a>
-                                
-                        </div>
-                        
-                            <div class="post-feature-image" style="background-image: url('https://voidint.github.io/post-images/goproxyio-installation.jpg')"></div>
-                            
-                                <div class="post-content">
-                                    <p>最近在公司内部搭建了一个<a href="https://goproxy.io/zh/">goproxy.io</a>的服务，总结并记录一下备忘。</p>
+                    
+                </div>
+                <div class="post-content">
+                    <p>最近在公司内部搭建了一个<a href="https://goproxy.io/zh/">goproxy.io</a>的服务，总结并记录一下备忘。</p>
 <p>goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文档一步一步搭建应该都会比较顺利。当然我也不是对官方文档的无意义复制粘贴，我将从以下三个方面进行阐述：</p>
 <h1 id="goproxyio服务的搭建">goproxy.io服务的搭建</h1>
 <ul>
 <li>安装go环境(要求1.13及以上版本)</li>
 </ul>
-<pre><code class="language-shell">
-$ yum install golang -y
+<pre><code class="language-shell">$ yum install golang -y
 </code></pre>
 <ul>
 <li>安装git</li>
 </ul>
-<pre><code class="language-shell">
-$ yum install git -y
+<pre><code class="language-shell">$ yum install git -y
 </code></pre>
 <ul>
 <li>安装goproxy</li>
 </ul>
-<pre><code class="language-shell">
-$ mkdir -p /opt/goproxy &amp;&amp; cd /opt/goproxy
+<pre><code class="language-shell">$ mkdir -p /opt/goproxy &amp;&amp; cd /opt/goproxy
 $ git clone https://github.com/goproxyio/goproxy.git
 $ cd goproxy
 $ make
@@ -147,8 +244,7 @@ $ mv ./bin/goproxy /usr/local/bin/goproxy
 <ul>
 <li>启动goproxy服务（监听8080端口）</li>
 </ul>
-<pre><code class="language-shell">
-$ mkdir -p /opt/goproxy/go_cache
+<pre><code class="language-shell">$ mkdir -p /opt/goproxy/go_cache
 $ goproxy -cacheDir /opt/goproxy/go_cache -exclude example.io -proxy https://goproxy.io -listen 0.0.0.0:8080
 </code></pre>
 <h1 id="解决go-get方式拉取私有库问题">解决go get方式拉取私有库问题</h1>
@@ -159,36 +255,28 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <p>将内部私有域名example.io解析到安装了以上服务的10.0.1.2。</p>
 <h1 id="开发人员本地环境配置">开发人员本地环境配置</h1>
 <p>临时开启Go Module</p>
-<pre><code class="language-shell">
-$ export GO111MODULE=on
+<pre><code class="language-shell">$ export GO111MODULE=on
 </code></pre>
 <p>永久开启Go Module</p>
-<pre><code class="language-shell">
-$ go env -w GO111MODULE=on
+<pre><code class="language-shell">$ go env -w GO111MODULE=on
 </code></pre>
 <p>设置go源代码库拉取的代理地址（http://10.0.1.2:8080）</p>
-<pre><code class="language-shell">
-$ go env -w GOPROXY=&quot;http://10.0.1.2:8080,https://goproxy.cn,direct&quot;
+<pre><code class="language-shell">$ go env -w GOPROXY=&quot;http://10.0.1.2:8080,https://goproxy.cn,direct&quot;
 </code></pre>
 <p>可选：设置私有库（10.0.1.2上的goproxy服务本身也会将私有库重定向至gitlab.example.com）</p>
-<pre><code class="language-shell">
-$ go env -w GOPRIVATE=&quot;example.io&quot; 
+<pre><code class="language-shell">$ go env -w GOPRIVATE=&quot;example.io&quot; 
 </code></pre>
 <p>追加~/.gitconfig配置（修改为通过git下载源代码）</p>
-<pre><code class="language-shell">
-$ git config --global url.&quot;ssh://git@gitlab.example.com&quot;.insteadOf &quot;http://gitlab.example.com&quot;
+<pre><code class="language-shell">$ git config --global url.&quot;ssh://git@gitlab.example.com&quot;.insteadOf &quot;http://gitlab.example.com&quot;
 </code></pre>
 <p>测试拉取外网的公开库</p>
-<pre><code class="language-shell">
-$ go get -u -v github.com/go-xorm/xorm 
+<pre><code class="language-shell">$ go get -u -v github.com/go-xorm/xorm 
 </code></pre>
 <p>测试拉取内网的私有库（默认拉取master分支的最近一次提交）</p>
-<pre><code class="language-shell">
-$ go get -u -v -insecure example.io/voidint/tsdump
+<pre><code class="language-shell">$ go get -u -v -insecure example.io/voidint/tsdump
 </code></pre>
 <p>测试拉取内网的私有库的指定版本（强烈建议为每个版本打上tag）</p>
-<pre><code class="language-shell">
-$ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
+<pre><code class="language-shell">$ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
 </code></pre>
 <h1 id="参考">参考</h1>
 <ul>
@@ -198,93 +286,64 @@ $ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
 <li><a href="http://holys.im/2016/09/20/go-get-in-gitlab/">如何使用 go get 下载 gitlab 私有项目</a></li>
 </ul>
 
-                                </div>
-                    </article>
-                    <!--  -->
-                    
-                        <div class="next-post">
-                            <div class="next">下一篇</div>
-                            <a href="https://voidint.github.io/post/linux-namespaces-first-experience/">
-                                <h3 class="post-title">
-                                    Linux Namespaces初体验
-                                </h3>
-                            </a>
-                        </div>
-                        
-                            <div id="disqus_thread"></div>
-                            <div id="gitalk-container"></div>
                 </div>
-                <!-- middle -->
-                <div class="main-container-middle"></div>
-                <!-- right -->
-                <div id="sidebar" class="main-container-right">
-                    
-                        <!-- toc -->
-                        
-    <div class="toc-card i-card ">
-        <div class="toc-title i-card-title">目录</div>
-        <div class="toc-content">
-            <ul class="markdownIt-TOC">
-<li><a href="#goproxyio%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%90%AD%E5%BB%BA">goproxy.io服务的搭建</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3go-get%E6%96%B9%E5%BC%8F%E6%8B%89%E5%8F%96%E7%A7%81%E6%9C%89%E5%BA%93%E9%97%AE%E9%A2%98">解决go get方式拉取私有库问题</a></li>
-<li><a href="#%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">开发人员本地环境配置</a></li>
-<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
-</ul>
-
+            </article>
         </div>
-        <script>
-            function locateCatelogList() {
-                /*获取文章目录集合,可通过:header过滤器*/
-                var alis = $('.post-content :header');
-                /*获取侧边栏目录列表集合**/
-                var sidebar_alis = $('.markdownIt-TOC a');
-                /*获取滚动条到顶部的距离*/
-                var scroll_height = $(window).scrollTop();
-                for (var i = 0; i < alis.length; i++) {
-                    /*获取锚点集合中的元素分别到顶点的距离*/
-                    var a_height = $(alis[i]).offset().top;
-                    if (a_height < scroll_height) {
-                        /*高亮显示*/
-                        sidebar_alis.removeClass('on');
-                        $(sidebar_alis[i]).addClass('on');
-                    }
-                }
-            }
-            $(function() {
-                /*绑定滚动事件 */
-                $(window).bind('scroll', locateCatelogList);
-            });
-        </script>
-    </div>
-    
-                            
 
-                </div>
-
-
-
-
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://voidint.github.io/post/linux-namespaces-first-experience/" class="post-title gt-a-link">
+                    Linux Namespaces初体验
+                </a>
             </div>
+        
 
+        
 
-            <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://voidint.github.io/atom.xml" target="_blank">RSS</a>
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">身未动，心已远。</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/voidint" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+                <a href="https://weibo.com/voidinteger/home" target="_blank">
+                    <i class="fab fa-weibo gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://voidint.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
 </div>
 
 <script>
   hljs.initHighlightingOnLoad()
 </script>
 
-
     </div>
-    <script>
-        $('#sidebar').stickySidebar({
-            topSpacing: 80,
-            // bottomSpacing: 60
-        });
-    </script>
-    
+</div>
 </body>
-
 </html>

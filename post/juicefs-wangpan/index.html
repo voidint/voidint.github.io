@@ -1,130 +1,229 @@
 <html>
-
 <head>
     <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>
-    基于JuiceFS搭建个人网盘 | voidint
-</title>
-<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615340646883">
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
-<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+<title>基于JuiceFS搭建个人网盘 | voidint</title>
+
+<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615342008967">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://voidint.github.io/styles/main.css">
-<!-- js -->
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://voidint.github.io/media/js/jquery.sticky-sidebar.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
 
 
-        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
-
 <body>
-    <div class="main">
-        <div class="header">
-    <div class="nav">
-        <div class="logo">
-            <a href="https://voidint.github.io">
-                <img class="avatar" src="https://voidint.github.io/images/avatar.png?v=1615340646883" alt="">
-            </a>
-            <div class="site-title">
-                <h1>
-                    voidint
-                </h1>
-            </div>
-        </div>
-        <span class="menu-btn fa fa-align-justify"></span>
-        <div class="menu-container">
-            <ul>
-                
-                    
-                            <li>
-                                <a href="/" class="menu">
-                                    首页
-                                </a>
-                            </li>
-                            
-                                
-                    
-                            <li>
-                                <a href="/archives" class="menu">
-                                    归档
-                                </a>
-                            </li>
-                            
-                                
-                    
-                            <li>
-                                <a href="/tags" class="menu">
-                                    标签
-                                </a>
-                            </li>
-                            
-                                
-                    
-                        <li>
-                            <a href="https://github.com/voidint" class="menu" target="_blank">
-                                关于
-                            </a>
-                        </li>
-                        
-                                
-            </ul>
+<div class="main gt-bg-theme-color-first">
+    <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            voidint
         </div>
     </div>
-</div>
-
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="https://github.com/voidint" class="menu gt-a-link" target="_blank">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1615342008967"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
 <script>
-    $(document).ready(function() {
-        $(".menu-btn").click(function() {
-            $(".menu-container").slideToggle();
-        });
-        $(window).resize(function() {
-
-            if (window.matchMedia('(min-width: 960px)').matches) {
-                $(".menu-container").css('display', 'block')
-            } else {
-                $(".menu-container").css('display', 'none')
-            }
-
-        });
-    });
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
 </script>
-
-            <div id="main-content" class="post-detail main-container">
-                <!-- left -->
-                <div id="content" class="main-container-left">
-                    <article class="post i-card">
-                        <h2 class="post-title">
-                            基于JuiceFS搭建个人网盘
-                        </h2>
-                        <div class="post-info">
-                            <time class="post-time">2021-03-09</time>
-                            
-                                <a href="https://voidint.github.io/tag/OnCZ3Bu4o/" class="post-tag i-tag
-                            i-tag-info">
-                            #JuiceFS
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    基于JuiceFS搭建个人网盘
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-03-09 ·
+                    </time>
+                    
+                        <a href="https://voidint.github.io/tag/OnCZ3Bu4o/" class="post-tags">
+                            # JuiceFS
                         </a>
-                                
-                                <a href="https://voidint.github.io/tag/d57-jY5Of3/" class="post-tag i-tag
-                            i-tag-primary">
-                            #分布式文件系统
+                    
+                        <a href="https://voidint.github.io/tag/d57-jY5Of3/" class="post-tags">
+                            # 分布式文件系统
                         </a>
-                                
-                                <a href="https://voidint.github.io/tag/FtS8XK8u_9/" class="post-tag i-tag
-                            i-tag-success">
-                            #网盘
+                    
+                        <a href="https://voidint.github.io/tag/FtS8XK8u_9/" class="post-tags">
+                            # 网盘
                         </a>
-                                
-                        </div>
-                        
-                            <div class="post-feature-image" style="background-image: url('https://voidint.github.io/post-images/juicefs-wangpan.png')"></div>
-                            
-                                <div class="post-content">
-                                    <h1 id="什么是juicefs">什么是JuiceFS</h1>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="什么是juicefs">什么是JuiceFS</h1>
 <blockquote>
 <p>JuiceFS 是为云端设计的共享文件系统。<br>
 云端：采用云服务中的对象存储作为后端，综合性价比极高。<br>
@@ -142,15 +241,13 @@
 5、为Redis设置一个强密码并导出到环境变量<code>REDIS_PASSWORD</code>。</p>
 <h1 id="搭建过程">搭建过程</h1>
 <h2 id="构建juicefs二进制程序">构建juicefs二进制程序</h2>
-<pre><code class="language-shell">
-$ git clone https://github.com/juicedata/juicefs.git
+<pre><code class="language-shell">$ git clone https://github.com/juicedata/juicefs.git
 $ cd juicefs 
 $ make
 </code></pre>
 <p>建议使用源代码构建，千万不要按照<a href="https://juicefs.com/docs/zh/getting_started.html">上手指南</a>中所说通过<code>curl</code>下载juicefs。也许是文档未及时更新，官方文档上所描述的均为Python缩写的juicefs客户端程序，而<strong>本次实验所用到的是go语言所编写的juicefs客户端程序</strong>。</p>
 <h2 id="格式化网盘">格式化网盘</h2>
-<pre><code class="language-shell">
-$ juicefs help format
+<pre><code class="language-shell">$ juicefs help format
 NAME:
    juicefs format - format a volume
 
@@ -171,13 +268,11 @@ OPTIONS:
 <p>另外，由于阿里云的操作凭证信息已经导出到了<code>ACCESS_KEY</code>和<code>SECRET_KEY</code>这两个环境变量，因此无需再重复设置format子命令中相关的选项值。</p>
 <p>由于网盘中的文件元数据会被存储到Redis，还需要指定一个Redis的URL（<a href="https://pkg.go.dev/github.com/go-redis/redis#ParseURL">格式</a>），这里指定公有云上主机的IP地址，如<code>113.31.11.123</code>。</p>
 <p>还需要给网盘取一个显示的名字，如<code>alicloud</code>（此处暂不支持中文字符）。</p>
-<pre><code class="language-shell">
-# 两台主机上分别执行以下命令：
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs format --storage oss --bucket http://voidint 113.31.11.123 alicloud
 </code></pre>
 <h2 id="挂载网盘">挂载网盘</h2>
-<pre><code class="language-shell">
-$ juicefs help mount
+<pre><code class="language-shell">$ juicefs help mount
 NAME:
    juicefs mount - mount a volume
 
@@ -207,8 +302,7 @@ OPTIONS:
    --cache-partial-only      cache only random/small read (default: false)
 </code></pre>
 <p>挂载命令需要设置的选项和参数很少，<code>-d</code>可以使其以守护进程方式运行，<code>REDIS-URL</code>参数用于指定Redis服务地址，<code>MOUNTPOINT</code>用于指定目录挂载点。</p>
-<pre><code class="language-shell">
-# 两台主机上分别执行以下命令：
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs mount -d 113.31.11.123 ~/jfs
 </code></pre>
 <h2 id="测试网盘读写">测试网盘读写</h2>
@@ -221,8 +315,7 @@ voidint
 </code></pre>
 <p>从输出可知，两台主机已经挂载了同一块网盘。</p>
 <h2 id="卸载网盘">卸载网盘</h2>
-<pre><code class="language-shell">
-$ juicefs help umount
+<pre><code class="language-shell">$ juicefs help umount
 NAME:
    juicefs umount - unmount a volume
 
@@ -233,14 +326,12 @@ OPTIONS:
    --force, -f  unmount a busy mount point by force (default: false)
 </code></pre>
 <p>卸载网盘的方式也极为简单，只需要指定挂载目录即可。</p>
-<pre><code class="language-shell">
-# 两台主机上分别执行以下命令：
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ j umount ~/jfs
 </code></pre>
 <h2 id="再次挂载网盘">再次挂载网盘</h2>
 <p>为了验证卸载后重新挂载依然能够读写之前的文件，下面重新挂载该网盘。</p>
-<pre><code class="language-shell">
-# 两台主机上分别执行以下命令：
+<pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs mount -d 113.31.11.123 ~/jfs
 $ ls -lh ~/jfs
 -rw-r--r--  1 voidint  staff    21B  3  9 18:47 hostname.txt
@@ -252,103 +343,64 @@ $ ls -lh ~/jfs
 <li><a href="https://github.com/juicedata/juicefs">JuiceFS GitHub</a></li>
 </ul>
 
-                                </div>
-                    </article>
-                    <!--  -->
-                    
-                        <div class="next-post">
-                            <div class="next">下一篇</div>
-                            <a href="https://voidint.github.io/post/goproxyio-installation/">
-                                <h3 class="post-title">
-                                    goproxy.io内部私有化部署
-                                </h3>
-                            </a>
-                        </div>
-                        
-                            <div id="disqus_thread"></div>
-                            <div id="gitalk-container"></div>
                 </div>
-                <!-- middle -->
-                <div class="main-container-middle"></div>
-                <!-- right -->
-                <div id="sidebar" class="main-container-right">
-                    
-                        <!-- toc -->
-                        
-    <div class="toc-card i-card ">
-        <div class="toc-title i-card-title">目录</div>
-        <div class="toc-content">
-            <ul class="markdownIt-TOC">
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFjuicefs">什么是JuiceFS</a></li>
-<li><a href="#%E7%9B%AE%E6%A0%87">目标</a></li>
-<li><a href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87">前期准备</a></li>
-<li><a href="#%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B">搭建过程</a>
-<ul>
-<li><a href="#%E6%9E%84%E5%BB%BAjuicefs%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%A8%8B%E5%BA%8F">构建juicefs二进制程序</a></li>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%BD%91%E7%9B%98">格式化网盘</a></li>
-<li><a href="#%E6%8C%82%E8%BD%BD%E7%BD%91%E7%9B%98">挂载网盘</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E7%BD%91%E7%9B%98%E8%AF%BB%E5%86%99">测试网盘读写</a></li>
-<li><a href="#%E5%8D%B8%E8%BD%BD%E7%BD%91%E7%9B%98">卸载网盘</a></li>
-<li><a href="#%E5%86%8D%E6%AC%A1%E6%8C%82%E8%BD%BD%E7%BD%91%E7%9B%98">再次挂载网盘</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
-</ul>
-
+            </article>
         </div>
-        <script>
-            function locateCatelogList() {
-                /*获取文章目录集合,可通过:header过滤器*/
-                var alis = $('.post-content :header');
-                /*获取侧边栏目录列表集合**/
-                var sidebar_alis = $('.markdownIt-TOC a');
-                /*获取滚动条到顶部的距离*/
-                var scroll_height = $(window).scrollTop();
-                for (var i = 0; i < alis.length; i++) {
-                    /*获取锚点集合中的元素分别到顶点的距离*/
-                    var a_height = $(alis[i]).offset().top;
-                    if (a_height < scroll_height) {
-                        /*高亮显示*/
-                        sidebar_alis.removeClass('on');
-                        $(sidebar_alis[i]).addClass('on');
-                    }
-                }
-            }
-            $(function() {
-                /*绑定滚动事件 */
-                $(window).bind('scroll', locateCatelogList);
-            });
-        </script>
-    </div>
-    
-                            
 
-                </div>
-
-
-
-
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://voidint.github.io/post/goproxyio-installation/" class="post-title gt-a-link">
+                    goproxy.io内部私有化部署
+                </a>
             </div>
+        
 
+        
 
-            <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://voidint.github.io/atom.xml" target="_blank">RSS</a>
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">身未动，心已远。</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/voidint" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+                <a href="https://weibo.com/voidinteger/home" target="_blank">
+                    <i class="fab fa-weibo gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://voidint.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
 </div>
 
 <script>
   hljs.initHighlightingOnLoad()
 </script>
 
-
     </div>
-    <script>
-        $('#sidebar').stickySidebar({
-            topSpacing: 80,
-            // bottomSpacing: 60
-        });
-    </script>
-    
+</div>
 </body>
-
 </html>
