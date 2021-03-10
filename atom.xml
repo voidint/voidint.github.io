@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://voidint.github.io</id>
     <title>voidint</title>
-    <updated>2021-03-10T02:47:48.490Z</updated>
+    <updated>2021-03-10T02:59:32.499Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://voidint.github.io"/>
     <link rel="self" href="https://voidint.github.io/atom.xml"/>
@@ -97,6 +97,11 @@ OPTIONS:
 <p>挂载命令需要设置的选项和参数很少，<code>-d</code>可以使其以守护进程方式运行，<code>REDIS-URL</code>参数用于指定Redis服务地址，<code>MOUNTPOINT</code>用于指定目录挂载点。</p>
 <pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs mount -d 113.31.11.123 ~/jfs
+
+# 查看下文件系统挂载是否成功
+$ mount
+......
+JuiceFS:alicloud on /Users/voidint/jfs (macfuse, nodev, nosuid, synchronous, mounted by voidint)
 </code></pre>
 <h2 id="测试网盘读写">测试网盘读写</h2>
 <p>在等待挂载完毕后，便可以开始对网盘进行读写测试。</p>

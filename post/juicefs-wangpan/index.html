@@ -6,7 +6,7 @@
 
 <title>基于JuiceFS搭建个人网盘 | voidint</title>
 
-<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615344154625">
+<link rel="shortcut icon" href="https://voidint.github.io/favicon.ico?v=1615344968605">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://voidint.github.io/styles/main.css">
@@ -179,7 +179,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1615344154625"
+            <form id="gridea-search-form" style="position: relative" data-update="1615344968605"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -304,6 +304,11 @@ OPTIONS:
 <p>挂载命令需要设置的选项和参数很少，<code>-d</code>可以使其以守护进程方式运行，<code>REDIS-URL</code>参数用于指定Redis服务地址，<code>MOUNTPOINT</code>用于指定目录挂载点。</p>
 <pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs mount -d 113.31.11.123 ~/jfs
+
+# 查看下文件系统挂载是否成功
+$ mount
+......
+JuiceFS:alicloud on /Users/voidint/jfs (macfuse, nodev, nosuid, synchronous, mounted by voidint)
 </code></pre>
 <h2 id="测试网盘读写">测试网盘读写</h2>
 <p>在等待挂载完毕后，便可以开始对网盘进行读写测试。</p>
