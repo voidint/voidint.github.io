@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://voidint.github.io</id>
     <title>voidint</title>
-    <updated>2021-03-10T02:59:32.499Z</updated>
+    <updated>2021-03-16T09:01:39.271Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://voidint.github.io"/>
     <link rel="self" href="https://voidint.github.io/atom.xml"/>
@@ -38,7 +38,7 @@
 $ cd juicefs 
 $ make
 </code></pre>
-<p>建议使用源代码构建，千万不要按照<a href="https://juicefs.com/docs/zh/getting_started.html">上手指南</a>中所说通过<code>curl</code>下载juicefs。也许是文档未及时更新，官方文档上所描述的均为Python缩写的juicefs客户端程序，而<strong>本次实验所用到的是go语言所编写的juicefs客户端程序</strong>。</p>
+<p>建议使用源代码构建，千万不要按照<a href="https://juicefs.com/docs/zh/getting_started.html">上手指南</a>中所说通过<code>curl</code>下载juicefs。也许是文档未及时更新，官方文档上所描述的均为Python所写的juicefs客户端程序，而<strong>本次实验所用到的是go语言所编写的juicefs客户端程序</strong>。</p>
 <h2 id="格式化网盘">格式化网盘</h2>
 <pre><code class="language-shell">$ juicefs help format
 NAME:
@@ -60,7 +60,7 @@ OPTIONS:
 <p>格式化的命令及选项如上所示，需要关注的选项分别为<code>--storage</code>和<code>--bucket</code>。由于本次实验使用的是阿里云OSS，因此将storage选项设置为<code>oss</code>。按照<a href="https://github.com/juicedata/juicefs/blob/main/docs/en/how_to_setup_object_storage.md#alibaba-cloud-object-storage-service">文档</a>所述，将bucket选项值设置为<code>https://voidint</code>。</p>
 <p>另外，由于阿里云的操作凭证信息已经导出到了<code>ACCESS_KEY</code>和<code>SECRET_KEY</code>这两个环境变量，因此无需再重复设置format子命令中相关的选项值。</p>
 <p>由于网盘中的文件元数据会被存储到Redis，还需要指定一个Redis的URL（<a href="https://pkg.go.dev/github.com/go-redis/redis#ParseURL">格式</a>），这里指定公有云上主机的IP地址，如<code>113.31.11.123</code>。</p>
-<p>还需要给网盘取一个显示的名字，如<code>alicloud</code>（此处暂不支持中文字符）。</p>
+<p>还需要给网盘取一个显式的名字，如<code>alicloud</code>（此处暂不支持中文字符）。</p>
 <pre><code class="language-shell"># 两台主机上分别执行以下命令：
 $ ./juicefs format --storage oss --bucket http://voidint 113.31.11.123 alicloud
 </code></pre>
