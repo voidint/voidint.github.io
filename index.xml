@@ -1,0 +1,1966 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>voidint - 个人博客</title>
+    <link>http://voidint.github.io/</link>
+    <description>Recent content on voidint - 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 22 Jul 2021 16:49:24 +0800</lastBuildDate>
+    
+        <atom:link href="http://voidint.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>gdb常用命令速查</title>
+      <link>http://voidint.github.io/post/gdb/</link>
+      <pubDate>Thu, 22 Jul 2021 16:49:24 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/gdb/</guid>
+      
+        <description>&lt;p&gt;gdb 调试前提是需要保留符号表。对于 C/C++ 等使用 gcc 进行编译的语言，编译时增加&lt;code&gt;-g&lt;/code&gt;选项。对于 go 语言，则增加&lt;code&gt;-ldflags=-compressdwarf=false&lt;/code&gt; 、&lt;code&gt;-gcflags=all=&amp;quot;-N -l&amp;quot;&lt;/code&gt;等选项。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;缩写&lt;/th&gt;
+&lt;th&gt;子命令&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;th&gt;示例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;help&lt;/td&gt;
+&lt;td&gt;h&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;显示目标命令的帮助信息&lt;/td&gt;
+&lt;td&gt;(gdb) h start&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;加载待调试的可执行文件&lt;/td&gt;
+&lt;td&gt;(gdb) file /root/main_cpp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;quit&lt;/td&gt;
+&lt;td&gt;q&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;退出gdb&lt;/td&gt;
+&lt;td&gt;(gdb) q&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;show&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;listsize&lt;/td&gt;
+&lt;td&gt;返回list命令单次显示的源代码行数&lt;/td&gt;
+&lt;td&gt;(gdb) show listsize&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;args&lt;/td&gt;
+&lt;td&gt;显示调试程序的启动参数&lt;/td&gt;
+&lt;td&gt;(gdb) show args&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;set&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;listsize&lt;/td&gt;
+&lt;td&gt;设置list命令单次显示的源代码行数&lt;/td&gt;
+&lt;td&gt;(gdb) set listsize 20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;args&lt;/td&gt;
+&lt;td&gt;设置调试程序启动参数&lt;/td&gt;
+&lt;td&gt;(gdb) set args &amp;ndash;config /root/config.json&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;list&lt;/td&gt;
+&lt;td&gt;l&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;显示指定位置的源代码&lt;/td&gt;
+&lt;td&gt;(gdb) l&lt;!-- raw HTML omitted --&gt;(gdb) l 7&lt;!-- raw HTML omitted --&gt;(gdb) l showFunc&lt;!-- raw HTML omitted --&gt;(gdb) l hello.cpp:7&lt;!-- raw HTML omitted --&gt;(gdb) l main.cpp:showFunc&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;break&lt;/td&gt;
+&lt;td&gt;b&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;设置断点/条件断点&lt;/td&gt;
+&lt;td&gt;(gdb) b 9&lt;!-- raw HTML omitted --&gt;(gdb) b showFunc&lt;!-- raw HTML omitted --&gt;(gdb) b main.cpp:13&lt;!-- raw HTML omitted --&gt;(gdb) b main.cpp:showFunc&lt;!-- raw HTML omitted --&gt;(gdb) b showFunc if a==10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;delete&lt;/td&gt;
+&lt;td&gt;d&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;删除断点&lt;/td&gt;
+&lt;td&gt;(gdb) d 1&lt;!-- raw HTML omitted --&gt;(gdb) d 2 3&lt;!-- raw HTML omitted --&gt;(gdb) d 4-7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;breakpoints&lt;/td&gt;
+&lt;td&gt;删除所有断点&lt;/td&gt;
+&lt;td&gt;(gdb) delete breakpoints&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;disable&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;使断点失效&lt;/td&gt;
+&lt;td&gt;(gdb) disable 10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;enable&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;使失效断点重新有效&lt;/td&gt;
+&lt;td&gt;(gdb) enable 10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;info&lt;/td&gt;
+&lt;td&gt;i&lt;/td&gt;
+&lt;td&gt;break&lt;/td&gt;
+&lt;td&gt;显示断点&lt;/td&gt;
+&lt;td&gt;(gdb) i b&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;stack&lt;/td&gt;
+&lt;td&gt;显示堆栈信息&lt;/td&gt;
+&lt;td&gt;(gdb) i s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;frame&lt;/td&gt;
+&lt;td&gt;显示当前栈帧详细信息&lt;/td&gt;
+&lt;td&gt;(gdb) info frame&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;args&lt;/td&gt;
+&lt;td&gt;显示当前栈帧的入参&lt;/td&gt;
+&lt;td&gt;(gdb) info args&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;locals&lt;/td&gt;
+&lt;td&gt;显示当前栈帧的所有局部变量&lt;/td&gt;
+&lt;td&gt;(gdb) info locals&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;start&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;运行程序并在第一条语句处暂停&lt;/td&gt;
+&lt;td&gt;(gdb) start&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;run&lt;/td&gt;
+&lt;td&gt;r&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;运行程序并在首个断点处暂停&lt;/td&gt;
+&lt;td&gt;(gdb) r&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;next&lt;/td&gt;
+&lt;td&gt;n&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;下一步（step over）&lt;/td&gt;
+&lt;td&gt;(gdb) n&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;step&lt;/td&gt;
+&lt;td&gt;s&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;下一步（step into）&lt;/td&gt;
+&lt;td&gt;(gdb) s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;finish&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;跳出当前堆栈帧（step out）&lt;/td&gt;
+&lt;td&gt;(gdb) finish&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;continue&lt;/td&gt;
+&lt;td&gt;c&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;继续执行并直至下一个断点处&lt;/td&gt;
+&lt;td&gt;(gdb) c&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;backtrace&lt;/td&gt;
+&lt;td&gt;bt&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;显示当前函数调用栈&lt;/td&gt;
+&lt;td&gt;(gdb) bt&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;print&lt;/td&gt;
+&lt;td&gt;p&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;显示变量的值&lt;/td&gt;
+&lt;td&gt;(gdb) print v&lt;!-- raw HTML omitted --&gt;(gdb) print &amp;amp;v&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;whatis&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;显示变量/表达式的数据类型&lt;/td&gt;
+&lt;td&gt;(gdb) whatis v&lt;!-- raw HTML omitted --&gt;(gdb) whatis &amp;amp;v&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>基于JuiceFS搭建个人网盘</title>
+      <link>http://voidint.github.io/post/juicefs/</link>
+      <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/juicefs/</guid>
+      
+        <description>&lt;h1 id=&#34;什么是juicefs&#34;&gt;什么是JuiceFS&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;JuiceFS 是为云端设计的共享文件系统。
+云端：采用云服务中的对象存储作为后端，综合性价比极高。
+共享：上千台机器同时挂载，高性能并发读写，共享数据。
+易用：POSIX、HDFS、NFS 兼容，无门槛对接现有应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;以上是&lt;a href=&#34;https://juicefs.com/&#34;&gt;JuiceFS&lt;/a&gt;的官方定义。简单来说，JuiceFS就是一个基于对象存储的分布式文件系统。&lt;/p&gt;
+&lt;h1 id=&#34;目标&#34;&gt;目标&lt;/h1&gt;
+&lt;p&gt;基于JuiceFS搭建一个存储在阿里云OSS之上的个人网盘。主机A、B上挂载该网盘后，能做到互通有无，即可读可写。&lt;/p&gt;
+&lt;h1 id=&#34;前期准备&#34;&gt;前期准备&lt;/h1&gt;
+&lt;p&gt;1、申请一个阿里云账号，将AccessKey ID导出到环境变量&lt;code&gt;ACCESS_KEY&lt;/code&gt;，将AccessKey Secret导出到环境变量&lt;code&gt;SECRET_KEY&lt;/code&gt;。
+2、购买阿里云OSS服务并创建bucket。bucket的名字暂时定为&lt;code&gt;voidint&lt;/code&gt;。
+3、准备两台主机。此次实验我准备了一台公有云上的虚拟机以及一台MacBook Pro。
+4、准备一台Redis服务器，且以上的两台主机均可以访问此Redis服务。本次实验中我将Redis服务部署在了公有云虚拟机之上。
+5、为Redis设置一个强密码并导出到环境变量&lt;code&gt;REDIS_PASSWORD&lt;/code&gt;。&lt;/p&gt;
+&lt;h1 id=&#34;搭建过程&#34;&gt;搭建过程&lt;/h1&gt;
+&lt;h2 id=&#34;构建juicefs二进制程序&#34;&gt;构建juicefs二进制程序&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ git clone https://github.com/juicedata/juicefs.git
+$ &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; juicefs 
+$ make
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;建议使用源代码构建，千万不要按照&lt;a href=&#34;https://juicefs.com/docs/zh/getting_started.html&#34;&gt;上手指南&lt;/a&gt;中所说通过&lt;code&gt;curl&lt;/code&gt;下载juicefs。也许是文档未及时更新，官方文档上所描述的均为Python所写的juicefs客户端程序，而&lt;strong&gt;本次实验所用到的是go语言所编写的juicefs客户端程序&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;格式化网盘&#34;&gt;格式化网盘&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ juicefs &lt;span class=&#34;nb&#34;&gt;help&lt;/span&gt; format
+NAME:
+   juicefs format - format a volume
+
+USAGE:
+   juicefs format &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt; options&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; REDIS-URL NAME
+
+OPTIONS:
+   --block-size value       size of block in KiB &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 4096&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --compress value         compression algorithm &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;lz4, zstd, none&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;s2&#34;&gt;&amp;#34;lz4&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --storage value          Object storage &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;e.g. s3, gcs, oss, cos&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;s2&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --bucket value           A bucket URL to store data &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;s2&#34;&gt;&amp;#34;/Users/voidint/.juicefs/local&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --access-key value       Access key &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; object storage &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;env ACCESS_KEY&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --secret-key value       Secret key &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; object storage &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;env SECRET_KEY&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --encrypt-rsa-key value  A path to RSA private key &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;PEM&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --force                  overwrite existing format &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;格式化的命令及选项如上所示，需要关注的选项分别为&lt;code&gt;--storage&lt;/code&gt;和&lt;code&gt;--bucket&lt;/code&gt;。由于本次实验使用的是阿里云OSS，因此将storage选项设置为&lt;code&gt;oss&lt;/code&gt;。按照&lt;a href=&#34;https://github.com/juicedata/juicefs/blob/main/docs/en/how_to_setup_object_storage.md#alibaba-cloud-object-storage-service&#34;&gt;文档&lt;/a&gt;所述，将bucket选项值设置为&lt;code&gt;https://voidint&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;另外，由于阿里云的操作凭证信息已经导出到了&lt;code&gt;ACCESS_KEY&lt;/code&gt;和&lt;code&gt;SECRET_KEY&lt;/code&gt;这两个环境变量，因此无需再重复设置format子命令中相关的选项值。&lt;/p&gt;
+&lt;p&gt;由于网盘中的文件元数据会被存储到Redis，还需要指定一个Redis的URL（&lt;a href=&#34;https://pkg.go.dev/github.com/go-redis/redis#ParseURL&#34;&gt;格式&lt;/a&gt;），这里指定公有云上主机的IP地址，如&lt;code&gt;113.31.11.123&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;还需要给网盘取一个显式的名字，如&lt;code&gt;alicloud&lt;/code&gt;（此处暂不支持中文字符）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 两台主机上分别执行以下命令：&lt;/span&gt;
+$ ./juicefs format --storage oss --bucket http://voidint 113.31.11.123 alicloud
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;挂载网盘&#34;&gt;挂载网盘&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ juicefs &lt;span class=&#34;nb&#34;&gt;help&lt;/span&gt; mount
+NAME:
+   juicefs mount - mount a volume
+
+USAGE:
+   juicefs mount &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt; options&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; REDIS-URL MOUNTPOINT
+
+OPTIONS:
+   --metrics value           address to &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; metrics &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;s2&#34;&gt;&amp;#34;:9567&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --no-usage-report         &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; not send usage report &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   -d, --background          run in background &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --no-syslog               disable syslog &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   -o value                  other FUSE options
+   --attr-cache value        attributes cache timeout in seconds &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --entry-cache value       file entry cache timeout in seconds &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --dir-entry-cache value   dir entry cache timeout in seconds &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --enable-xattr            &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; extended attributes &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;xattr&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --get-timeout value       the max number of seconds to download an object &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 60&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --put-timeout value       the max number of seconds to upload an object &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 60&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --io-retries value        number of retries after network failure &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 30&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --max-uploads value       number of connections to upload &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 20&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --buffer-size value       total read/write buffering in MB &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 300&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --prefetch value          prefetch N blocks in parallel &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --writeback               upload objects in background &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --cache-dir value         directory paths of &lt;span class=&#34;nb&#34;&gt;local&lt;/span&gt; cache, use colon to separate multiple paths &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;s2&#34;&gt;&amp;#34;/Users/voidint/.juicefs/cache&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --cache-size value        size of cached objects in MiB &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 1024&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --free-space-ratio value  min free space &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;ratio&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: 0.1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   --cache-partial-only      cache only random/small &lt;span class=&#34;nb&#34;&gt;read&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;挂载命令需要设置的选项和参数很少，&lt;code&gt;-d&lt;/code&gt;可以使其以守护进程方式运行，&lt;code&gt;REDIS-URL&lt;/code&gt;参数用于指定Redis服务地址，&lt;code&gt;MOUNTPOINT&lt;/code&gt;用于指定目录挂载点。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 两台主机上分别执行以下命令：&lt;/span&gt;
+$ ./juicefs mount -d 113.31.11.123 ~/jfs
+
+&lt;span class=&#34;c1&#34;&gt;# 查看下文件系统挂载是否成功&lt;/span&gt;
+$ mount
+......
+JuiceFS:alicloud on /Users/voidint/jfs &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;macfuse, nodev, nosuid, synchronous, mounted by voidint&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;测试网盘读写&#34;&gt;测试网盘读写&lt;/h2&gt;
+&lt;p&gt;在等待挂载完毕后，便可以开始对网盘进行读写测试。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 两台主机上分别执行以下命令：&lt;/span&gt;
+$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;hostname&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &amp;gt;&amp;gt; ~/jfs/hostname.txt
+$ cat ~/jfs/hostname.txt
+voidint
+113-31-11-123
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;从输出可知，两台主机已经挂载了同一块网盘。&lt;/p&gt;
+&lt;h2 id=&#34;卸载网盘&#34;&gt;卸载网盘&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ juicefs &lt;span class=&#34;nb&#34;&gt;help&lt;/span&gt; umount
+NAME:
+   juicefs umount - unmount a volume
+
+USAGE:
+   juicefs umount &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt; options&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; MOUNTPOINT
+
+OPTIONS:
+   --force, -f  unmount a busy mount point by force &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;default: &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;卸载网盘的方式也极为简单，只需要指定挂载目录即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 两台主机上分别执行以下命令：&lt;/span&gt;
+$ j umount ~/jfs
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;再次挂载网盘&#34;&gt;再次挂载网盘&lt;/h2&gt;
+&lt;p&gt;为了验证卸载后重新挂载依然能够读写之前的文件，下面重新挂载该网盘。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 两台主机上分别执行以下命令：&lt;/span&gt;
+$ ./juicefs mount -d 113.31.11.123 ~/jfs
+$ ls -lh ~/jfs
+-rw-r--r--  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; voidint  staff    21B  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; 18:47 hostname.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;可以看到hostname.txt文件依然还存在。大功告成！&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://juicefs.com/docs/zh/intro.html&#34;&gt;JuiceFS文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/juicedata/juicefs&#34;&gt;JuiceFS GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>goproxy.io内部私有化部署</title>
+      <link>http://voidint.github.io/post/goproxy-privatization-deployment/</link>
+      <pubDate>Sat, 14 Mar 2020 17:58:28 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/goproxy-privatization-deployment/</guid>
+      
+        <description>&lt;p&gt;最近在公司内部搭建了一个&lt;a href=&#34;https://goproxy.io/zh/&#34;&gt;goproxy.io&lt;/a&gt;的服务，总结并记录一下备忘。&lt;/p&gt;
+&lt;p&gt;goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文档一步一步搭建应该都会比较顺利。当然我也不是对官方文档的无意义复制粘贴，我将从以下三个方面进行阐述：&lt;/p&gt;
+&lt;h1 id=&#34;goproxyio服务的搭建&#34;&gt;goproxy.io服务的搭建&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;安装go环境(要求1.13及以上版本)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ yum install golang -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;安装git&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ yum install git -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;安装goproxy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ mkdir -p /opt/goproxy &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/goproxy
+$ git clone https://github.com/goproxyio/goproxy.git
+$ &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; goproxy
+$ make
+$ mv ./bin/goproxy /usr/local/bin/goproxy
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;启动goproxy服务（监听8080端口）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ mkdir -p /opt/goproxy/go_cache
+$ goproxy -cacheDir /opt/goproxy/go_cache -exclude example.io -proxy https://goproxy.io -listen 0.0.0.0:8080
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;解决go-get方式拉取私有库问题&#34;&gt;解决go get方式拉取私有库问题&lt;/h1&gt;
+&lt;p&gt;明确下目标。所谓的go get方式拉取私有库，指的是能通过&lt;code&gt;go get -u -v -insecure example.io/xxx/yyy&lt;/code&gt;方式拉取到内部私有仓库中的go代码。example.io指的是内部的私有域名。&lt;/p&gt;
+&lt;p&gt;假设已经按照以上步骤在10.0.1.2安装了goproxy.io服务。&lt;/p&gt;
+&lt;p&gt;安装govanityurls服务（监听80端口）
+tonybai在其&lt;a href=&#34;https://tonybai.com/2017/06/28/set-custom-go-get-import-path-for-go-package/&#34;&gt;博文&lt;/a&gt;中说的很清楚了，我也就不重复了。贴一张他博文中的配图，一图胜千言。&lt;/p&gt;
+&lt;p&gt;将内部私有域名example.io解析到安装了以上服务的10.0.1.2。&lt;/p&gt;
+&lt;h1 id=&#34;开发人员本地环境配置&#34;&gt;开发人员本地环境配置&lt;/h1&gt;
+&lt;p&gt;临时开启Go Module&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GO111MODULE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;on
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;永久开启Go Module&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ go env -w &lt;span class=&#34;nv&#34;&gt;GO111MODULE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;on
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;设置go源代码库拉取的代理地址（http://10.0.1.2:8080）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ go env -w &lt;span class=&#34;nv&#34;&gt;GOPROXY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http://10.0.1.2:8080,https://goproxy.cn,direct&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;可选：设置私有库（10.0.1.2上的goproxy服务本身也会将私有库重定向至gitlab.example.com）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ go env -w &lt;span class=&#34;nv&#34;&gt;GOPRIVATE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;example.io&amp;#34;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;追加~/.gitconfig配置（修改为通过git下载源代码）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ git config --global url.&lt;span class=&#34;s2&#34;&gt;&amp;#34;ssh://git@gitlab.example.com&amp;#34;&lt;/span&gt;.insteadOf &lt;span class=&#34;s2&#34;&gt;&amp;#34;http://gitlab.example.com&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;测试拉取外网的公开库&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ go get -u -v github.com/go-xorm/xorm 
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;测试拉取内网的私有库（默认拉取master分支的最近一次提交）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ go get -u -v -insecure example.io/voidint/tsdump
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;测试拉取内网的私有库的指定版本（强烈建议为每个版本打上tag）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://goproxy.io/zh/docs/enterprise.html&#34;&gt;部署公司内部自己的 goproxy.io 服务&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tonybai.com/2017/06/28/set-custom-go-get-import-path-for-go-package/&#34;&gt;定制Go Package的Go Get导入路径&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tonybai.com/2017/06/30/go-get-go-packages-in-private-code-repo-by-govanityurls/&#34;&gt;使用govanityurls让私有代码仓库中的go包支持go get&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://holys.im/2016/09/20/go-get-in-gitlab/&#34;&gt;如何使用 go get 下载 gitlab 私有项目&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Linux Namespaces初体验</title>
+      <link>http://voidint.github.io/post/linux-namespaces-first-experience/</link>
+      <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/linux-namespaces-first-experience/</guid>
+      
+        <description>&lt;h1 id=&#34;简介&#34;&gt;简介&lt;/h1&gt;
+&lt;p&gt;下面是&lt;a href=&#34;https://coolshell.cn/articles/17010.html&#34;&gt;酷壳&lt;/a&gt;给出的关于Linux Namespaces的介绍：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Linux Namespace是Linux提供的一种内核级别环境隔离的方法。不知道你是否还记得很早以前的Unix有一个叫chroot的系统调用（通过修改根目录把用户jail到一个特定目录下），chroot提供了一种简单的隔离模式：chroot内部的文件系统无法访问外部的内容。Linux Namespace在此基础上，提供了对UTS、IPC、mount、PID、network、User等的隔离机制。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;当前Linux一共实现了6种不同类型的Namespace&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Namespace类型&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;系统调用参数&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;内核版本&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;隔离内容&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Mount Namespace&lt;/td&gt;
+&lt;td&gt;CLONE_NEWNS&lt;/td&gt;
+&lt;td&gt;2.4.19&lt;/td&gt;
+&lt;td&gt;挂载点（文件系统）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;UTS Namespace&lt;/td&gt;
+&lt;td&gt;CLONE_NEWUTS&lt;/td&gt;
+&lt;td&gt;2.6.19&lt;/td&gt;
+&lt;td&gt;主机名与域名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;IPC Namespacce&lt;/td&gt;
+&lt;td&gt;CLONE_NEWIPC&lt;/td&gt;
+&lt;td&gt;2.6.19&lt;/td&gt;
+&lt;td&gt;信号量、消息队列和共享内存&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PID Namespace&lt;/td&gt;
+&lt;td&gt;CLONE_NEWPID&lt;/td&gt;
+&lt;td&gt;2.6.24&lt;/td&gt;
+&lt;td&gt;进程编号&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Network Namespace&lt;/td&gt;
+&lt;td&gt;CLONE_NEWNET&lt;/td&gt;
+&lt;td&gt;2.6.29&lt;/td&gt;
+&lt;td&gt;网络设备、网络栈、端口等等&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;User Namespace&lt;/td&gt;
+&lt;td&gt;CLONE_NEWUSER&lt;/td&gt;
+&lt;td&gt;3.8&lt;/td&gt;
+&lt;td&gt;用户和用户组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Namespace的API主要使用如下3个系统调用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;clone(): 创建新进程。&lt;/li&gt;
+&lt;li&gt;unshare(): 将进程移出某个Namespace。&lt;/li&gt;
+&lt;li&gt;setns(): 将进程加入到Namespace中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;体验&#34;&gt;体验&lt;/h1&gt;
+&lt;h2 id=&#34;uts-namespace&#34;&gt;UTS Namespace&lt;/h2&gt;
+&lt;p&gt;UTS Namespace用于隔离nodename和domainname两个系统标识，即在不同的Namespace中允许拥有各自的hostname。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 在GOPATH下新建一个名为mydocker的目录，并在该目录下新建文件main.go。
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;os&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;os/exec&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;syscall&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;bash&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SysProcAttr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SysProcAttr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;Cloneflags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CLONE_NEWUTS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdin&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdin&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdout&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdout&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Env&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Env&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;`PS1=\[\e[32;1m\][\u@\h \W]$&amp;gt;\[\e[0m\]`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Fprintln&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Exit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;以上代码通过exec.Command(&amp;ldquo;bash&amp;rdquo;)方式fork了一个bash子进程，并且使用了CLONE_NEWUTS标识符去创建了一个Namespace。下面验证下bash子进程与mydocker父进程是否处于不同的的UTS Namespace中。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;// 查看最初的系统hostname
+$ hostname
+ubuntu14.04
+
+// 以root身份运行mydocker程序
+$ sudo ./mydocker
+
+// 在隔离的UTS Namespace下修改hostname为hello
+root@ubuntu14:/home/voidint# hostname -b hello
+root@ubuntu14:/home/voidint# hostname
+hello
+
+// 退出bash子进程并查看hostname是否发生变化
+root@ubuntu14:/home/voidint# &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;
+
+// 可以看到hostname并未发生变化
+$ hostname
+ubuntu14.04
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;pid-namespace&#34;&gt;PID Namespace&lt;/h2&gt;
+&lt;p&gt;PID Namespace用于隔离进程ID，同一个进程在不同的PID Namespace中可以拥有不同的PID。以docker容器为例，每个容器对于宿主机而言都是一个进程，若在容器内部查看到该进程的PID为1，但在宿主机上查看到的PID并非为1，这就是由于容器内拥有独立的PID Namespace的缘故。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;os&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;os/exec&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;syscall&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;bash&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SysProcAttr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SysProcAttr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;Cloneflags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CLONE_NEWUTS&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CLONE_NEWIPC&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CLONE_NEWPID&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdin&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdin&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdout&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdout&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Env&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Env&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;`PS1=\[\e[32;1m\][\u@\h \W]$&amp;gt;\[\e[0m\]`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Fprintln&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Exit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;编译并运行以上程序，查看当前Namespace的PID，PID为1。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$$&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在宿主机上新开一个shell，并通过pstree -pl查看mydocker的PID为2692。注意，这里不能使用ps命令去查看，因为ps、top之类的命令会读取/proc目录下内容，由于此处并未进行Mount Namespace的隔离，查看到的/proc目录下内容并不真实和准确。&lt;/p&gt;
+&lt;h2 id=&#34;mount-namespace&#34;&gt;Mount Namespace&lt;/h2&gt;
+&lt;p&gt;Mount Namespace用来隔离各个进程看到的挂载点视图。在Mount Namespace中调用mount()或者umount()都仅仅只是影响当前Namespace内的文件系统，对于全局的文件系统并没有影响。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;os&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;os/exec&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;syscall&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;bash&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SysProcAttr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SysProcAttr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;Cloneflags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CLONE_NEWUTS&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+			&lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CLONE_NEWIPC&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+			&lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CLONE_NEWPID&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+			&lt;span class=&#34;nx&#34;&gt;syscall&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CLONE_NEWNS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdin&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdin&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdout&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdout&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Env&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Env&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;`PS1=\[\e[32;1m\][\u@\h \W]$&amp;gt;\[\e[0m\]`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Fprintln&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stderr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Exit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;运行以上程序，在启动的bash子进程中执行ps -ef，依然可以看到宿主机上的所有进程，这是由于proc文件系统是继承自宿主机。下面重新挂载proc文件系统，并再次查看ps -ef的输出。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ mount -t proc proc /proc
+
+$ ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; 18:11 pts/1    00:00:00 bash
+root        &lt;span class=&#34;m&#34;&gt;14&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; 18:16 pts/1    00:00:00 ps -ef
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;可以看到，重新挂载proc文件系统后，ps命令仅能看到容器内的进程了，符合预期。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.cn/dp/B072ZDHK9S/ref=sr_1_1?ie=UTF8&amp;amp;qid=1535615095&amp;amp;sr=8-1&amp;amp;keywords=%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99docker&#34;&gt;《自己动手写Docker》&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://man7.org/linux/man-pages/man7/namespaces.7.html&#34;&gt;Namespaces&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://coolshell.cn/articles/17010.html&#34;&gt;DOCKER基础技术：LINUX NAMESPACE（上）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://coolshell.cn/articles/17029.html&#34;&gt;DOCKER基础技术：LINUX NAMESPACE（下）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.infoq.com/cn/articles/docker-kernel-knowledge-namespace-resource-isolation&#34;&gt;Docker背后的内核知识——Namespace资源隔离&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Linux用户登录密码的生成</title>
+      <link>http://voidint.github.io/post/linux-password/</link>
+      <pubDate>Tue, 25 Feb 2020 17:24:33 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/linux-password/</guid>
+      
+        <description>&lt;h1 id=&#34;从自动化需求说起&#34;&gt;从自动化需求说起&lt;/h1&gt;
+&lt;p&gt;如何生成一个Linux用户登录密码？可能有人会说用passwd生成。的确，passwd命令能够帮助我们重置用户登录密码，但是这并没有解答如何生成一个Linux用户登录密码的疑问。&lt;/p&gt;
+&lt;p&gt;对于这个问题，秉承着实用主义的精神，我原本也不会去深究。毕竟，安装的时候会设置密码，安装完毕后能通过passwd命令重置密码，学会这两点后已满足一般的需求已经绰绰有余了。&lt;/p&gt;
+&lt;p&gt;但是，对于自动化而言，知道以上的两点是不够的。Linux的自动化安装过程中，设置用户登录密码这事，肯定不能有人为干预，否则谈什么自动化。操作系统安装完毕后，也有可能会有重置用户密码的自动化需求，此时使用passwd命令来重置用户密码，也不见得是最佳的选择。&lt;/p&gt;
+&lt;p&gt;如果明白了密码的生成机制，那么这个自动化需求的难题也就迎刃而解了。&lt;/p&gt;
+&lt;h1 id=&#34;密码生成理论&#34;&gt;密码生成理论&lt;/h1&gt;
+&lt;p&gt;有Linux基础的人一定知道，Linux的用户登录密码信息是存放在/etc/shadow文件当中的，并且该文件只有root用户能够访问。以下会以voidint这个用户为例，看一下这个用户的密码信息。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo cat /etc/shadow &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep voidint
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;sudo&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; password &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; voidint:
+voidint:&lt;span class=&#34;nv&#34;&gt;$6$3&lt;/span&gt;kheX/Vg&lt;span class=&#34;nv&#34;&gt;$TGum9JEjfmGsj8Mfk3SUY&lt;/span&gt;/d/bWkJgnRimCxoaDTX7wcgrraYvU.fiziEUdpDglWc58uPZqWJhKNjiXayP9Q6b0:16892::::::
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;很明显，这个字符串被&lt;code&gt;:&lt;/code&gt;符号分隔成了9段。我们这里只关注前两段，至于每一段具体的含义，可以戳这里自行阅读。第一段，是用户名称。第二段，即为用户密码。其实密码这种称呼并不准确。相对准确的说法是，用户密码明文经过某种哈希算法计算所获得的密文。但是，鉴于这个相对准确的说法实在太长太拗口，不便于表达。因此，以下提到的密码在无特别说明情况下，一律指的是密码明文的密文。&lt;/p&gt;
+&lt;p&gt;言归正传，看到这里相信好多人会和我有一样的思考: 是不是只要知道了密码生成的算法，并按照此算法生成一个满足Linux要求的密码，再把密码覆盖这个第二段的内容，那么用户密码就被重置了吗？&lt;/p&gt;
+&lt;p&gt;仔细看这段密码，会发现它是由&lt;code&gt;$xxx$xxx$xxx&lt;/code&gt;的格式构成，即由&lt;code&gt;$&lt;/code&gt;符号分隔的3端字符串构成。查阅资料后得知，这个格式可以进一步概括为&lt;code&gt;$id$salt$encrypted&lt;/code&gt;。简要说明下&lt;code&gt;$id$salt$encrypted&lt;/code&gt;中各个部分的含义:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;id: 加密(确切说是哈希)所用算法的代号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;strong&gt;ID&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;Method&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;MD5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2a&lt;/td&gt;
+&lt;td&gt;Blowfish (not in mainline glibc; added in some Linux distributions)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;SHA-256 (since glibc 2.7)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;SHA-512 (since glibc 2.7)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;salt: 由程序随机生成的字符串，即盐。&lt;/li&gt;
+&lt;li&gt;encrypted: 用户密码明文字符串加盐后使用哈希算法所得的哈希值，即哈希(明文+盐)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;特别说明&#34;&gt;特别说明&lt;/h2&gt;
+&lt;p&gt;资料中还提到了另外一种形式的密码——&lt;code&gt;$id$rounds=yyy$salt$encrypted&lt;/code&gt;。其中，盐的部分换成了rounds=yyy。yyy是一个由用户(调用方)提供的[1000, 999999999]之间的整数。&lt;/p&gt;
+&lt;h1 id=&#34;密码生成实践&#34;&gt;密码生成实践&lt;/h1&gt;
+&lt;p&gt;知道了上面这部分基础知识，那么接下来就是理论指导实践的环节了。具体可以借助什么工具来生成密码呢？这里使用的grub-crypt工具。你可以在某个Linux发行版中安装这个工具，也可以使用我提供的这个&lt;a href=&#34;https://github.com/voidint/dockerfile/tree/master/grub-crypt&#34;&gt;dockerfile&lt;/a&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用sha512算法生成密码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ grub-crypt --sha-512
+Password:
+Retype password:
+&lt;span class=&#34;nv&#34;&gt;$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXcUef9OjZWoZrIp7aeWwnCzIVQY1p&lt;/span&gt;/G1EiJQE4DYFej783NlvR5KtKYXs4P/hQaVst.
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;将生成的密码写入/etc/shadow文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo cat /etc/shadow &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep voidint
+voidint:&lt;span class=&#34;nv&#34;&gt;$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXcUef9OjZWoZrIp7aeWwnCzIVQY1p&lt;/span&gt;/G1EiJQE4DYFej783NlvR5KtKYXs4P/hQaVst.:16892:::::: 
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;退出当前用户并使用新修改的密码登录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://man7.org/linux/man-pages/man3/crypt.3.html&#34;&gt;CRYPT(3)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.thegeekdiary.com/centos-rhel-6-how-to-password-protect-grub-password-protected-booting/&#34;&gt;CentOS / RHEL 6 : How to password protect grub (Password-Protected Booting)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://clavinli.github.io/2014/11/14/linux-command-hash-root-password-in-kickstart/&#34;&gt;Command | kickstart之中rootpw密码生成方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://cn.linux.vbird.org/linux_basic/0410accountmanager.php#shadow_file&#34;&gt;鸟哥的Linux私房菜——/etc/shadow文件结构&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Linux下hpssacli配置 HP Smart Array</title>
+      <link>http://voidint.github.io/post/hp-ssa-cli/</link>
+      <pubDate>Tue, 25 Feb 2020 17:05:06 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/hp-ssa-cli/</guid>
+      
+        <description>&lt;h1 id=&#34;什么是hp-ssa-cli&#34;&gt;什么是HP SSA CLI&lt;/h1&gt;
+&lt;p&gt;HP Smart Storage Administrator Command Line&lt;/p&gt;
+&lt;h1 id=&#34;适用范围&#34;&gt;适用范围&lt;/h1&gt;
+&lt;p&gt;HP Smart Array G6、G7、G8、G9&lt;/p&gt;
+&lt;h1 id=&#34;创建raid的指导方针&#34;&gt;创建RAID的指导方针&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;组成逻辑磁盘(RAID阵列)的物理驱动器应该是一致的。&lt;/li&gt;
+&lt;li&gt;为了更好地利用物理驱动器的空间容量，组成RAID阵列的每一块物理驱动器的容量应该趋于一致的。如果物理驱动器在容量上有差异，以容量最小的为准。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;hpssacli操作模式&#34;&gt;HPSSACLI操作模式&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Console mode: 交互式的带上下文的命令行模式。&lt;/li&gt;
+&lt;li&gt;Command mode:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;语法&#34;&gt;语法&lt;/h1&gt;
+&lt;p&gt;不管是console mode还是command mode，典型的HP SSA CLI由这几部分组成: target、command、parameter（如果需要的话）。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt; &lt;!-- raw HTML omitted --&gt; [parameter=value]&lt;/p&gt;
+&lt;h2 id=&#34;target&#34;&gt;target&lt;/h2&gt;
+&lt;p&gt;target是你所要配置的device的一种表示方法。device可以是controller、array、logical drive、physical drive。&lt;/p&gt;
+&lt;h3 id=&#34;例子&#34;&gt;例子&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;controller slot=3&lt;/li&gt;
+&lt;li&gt;controller wwn=500805F3000BAC11&lt;/li&gt;
+&lt;li&gt;controller slot=2 array A&lt;/li&gt;
+&lt;li&gt;controller chassisname=&amp;ldquo;A&amp;rdquo; array B logicaldrive 2&lt;/li&gt;
+&lt;li&gt;controller chassisname=&amp;ldquo;A&amp;rdquo; physicaldrive 1:0&lt;/li&gt;
+&lt;li&gt;controller all&lt;/li&gt;
+&lt;li&gt;controller slot=2 array all&lt;/li&gt;
+&lt;li&gt;controller slot=3 physicaldrive 1:2-1:5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;command&#34;&gt;command&lt;/h2&gt;
+&lt;h3 id=&#34;配置类&#34;&gt;配置类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;add&lt;/li&gt;
+&lt;li&gt;create&lt;/li&gt;
+&lt;li&gt;delete&lt;/li&gt;
+&lt;li&gt;modify&lt;/li&gt;
+&lt;li&gt;remove&lt;/li&gt;
+&lt;li&gt;set target&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;非配置类&#34;&gt;非配置类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;diag&lt;/li&gt;
+&lt;li&gt;help&lt;/li&gt;
+&lt;li&gt;rescan&lt;/li&gt;
+&lt;li&gt;shorthand&lt;/li&gt;
+&lt;li&gt;show&lt;/li&gt;
+&lt;li&gt;version&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;去除警告性提示&#34;&gt;去除警告性提示&lt;/h2&gt;
+&lt;p&gt;对于一些可能对数据安全产生危险的操作，程序会要求输入y/n后才会实际执行。如果你并不希望如此，可以增加一个force的参数来实现这样的目的。&lt;/p&gt;
+&lt;p&gt;比如，ctrl ch=&amp;ldquo;Lab4&amp;rdquo; ld 1 delete forced&lt;/p&gt;
+&lt;h2 id=&#34;show命令&#34;&gt;show命令&lt;/h2&gt;
+&lt;p&gt;通过此命令可以获取关于目标设备的一些信息。&lt;/p&gt;
+&lt;p&gt;基本的语法: &lt;!-- raw HTML omitted --&gt; show [detail]|[status]&lt;/p&gt;
+&lt;h1 id=&#34;典型用法&#34;&gt;典型用法&lt;/h1&gt;
+&lt;h2 id=&#34;删除目标设备&#34;&gt;删除目标设备&lt;/h2&gt;
+&lt;h3 id=&#34;语法-1&#34;&gt;语法&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&amp;lt;target&amp;gt; delete [forced]
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;由于删除设备会导致数据丢失，属于危险操作。默认情况下，程序会显示警告性的提示信息并要求输入y/n。如果要规避这种情况，可以加上force参数。&lt;/p&gt;
+&lt;h3 id=&#34;例子-1&#34;&gt;例子&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;ctrl ch=&amp;ldquo;Lab 4&amp;rdquo; delete forced&lt;/li&gt;
+&lt;li&gt;ctrl slot=3 ld all delete&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;创建逻辑驱动器&#34;&gt;创建逻辑驱动器&lt;/h2&gt;
+&lt;h3 id=&#34;语法-2&#34;&gt;语法&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&amp;lt;target&amp;gt; create type=ld [parameter=value]
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;一般而言&lt;!-- raw HTML omitted --&gt;指的是controller，但如果是要在一个已经存在的阵列(array)基础上创建一个逻辑驱动器，那么&lt;!-- raw HTML omitted --&gt;也可以是array。&lt;/p&gt;
+&lt;p&gt;如果你想要在一组物理驱动器(physical drive)之上创建一个逻辑驱动器(logical drive)，那么不需要先去创建一个阵列(array)。CLI有别于GUI，阵列是在创建逻辑驱动器时自动创建的。&lt;/p&gt;
+&lt;h3 id=&#34;例子-2&#34;&gt;例子&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;ctrl slot=5 create type=ld drives=1:0,1:1,1:3 raid=adg&lt;/li&gt;
+&lt;li&gt;ctrl slot=5 create type=ld drives=1:1-1:3 raid=adg&lt;/li&gt;
+&lt;li&gt;ctrl slot=5 create type=ld drives=1:7,1:10-2:5,2:8-2:12 raid=adg&lt;/li&gt;
+&lt;li&gt;ctrl slot=5 array A create type=ld size=330 raid=adg&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://community.hpe.com/hpeb/attachments/hpeb/itrc-264/148204/3/HP%20Smart%20Storage%20Administrator%20User%20Guide.pdf&#34;&gt;HP Smart Storage Administrator User Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>SAS3IRCU配置LSI SAS3系列RAID卡</title>
+      <link>http://voidint.github.io/post/sas3ircu/</link>
+      <pubDate>Tue, 25 Feb 2020 16:43:06 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/sas3ircu/</guid>
+      
+        <description>&lt;h1 id=&#34;适用的controller&#34;&gt;适用的controller&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;LSISAS3008&lt;/li&gt;
+&lt;li&gt;LSISAS3004&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;名词解释&#34;&gt;名词解释&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Controller:&lt;/li&gt;
+&lt;li&gt;IR:&lt;/li&gt;
+&lt;li&gt;Volume: 卷，基于物理驱动器通过创建冗余磁盘阵列所生成的虚拟磁盘。概念上等同于RAID冗余磁盘阵列。&lt;/li&gt;
+&lt;li&gt;Enclosure: 硬盘盒编号。&lt;/li&gt;
+&lt;li&gt;Bay: 即slot，指代硬盘盒的某个插槽。&lt;/li&gt;
+&lt;li&gt;HDD: Hard Disk Drive的缩写，即普通机械硬盘。&lt;/li&gt;
+&lt;li&gt;SSD: Solid State Drive的缩写，即固态硬盘。&lt;/li&gt;
+&lt;li&gt;SAS: 序列式SCSI（SAS：Serial Attached SCSI）是一种电脑集线的技术，其功能主要是作为周边零件的数据传输，例如：硬盘、CD-ROM等设备而设计的界面。&lt;/li&gt;
+&lt;li&gt;SATA: 串行ATA（Serial ATA: Serial Advanced Technology Attachment）是一种电脑总线，负责主板和大容量存储设备（如硬盘及光盘驱动器）之间的数据传输，主要用于个人电脑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;语法&#34;&gt;语法&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;sas3ircu &amp;lt;controller_#&amp;gt; &amp;lt;command&amp;gt; &amp;lt;parameters&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;通用参数&#34;&gt;通用参数&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lt;controller_#&amp;gt;
+controller编号是程序分配给PCI插槽上的RAID硬件的唯一编号。比如，某个设备上包含2块LSI SAS3008的RAID卡，那么编号0就代表这第一块RAID卡，而编号1就指代另一块。这个编号的取值范围是0~255之间的整数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;Enclosure:Bay&#34;&gt;Enclosure:Bay&lt;/a&gt;
+由硬盘盒编号(Enclosure)和插槽编号(Bay/Slot)组成的物理驱动器唯一标识。通过DISPLAY命令可以查看到此信息。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;退出码&#34;&gt;退出码&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;0: 命令执行成功。&lt;/li&gt;
+&lt;li&gt;1: 错误的命令行参数或者操作失败。&lt;/li&gt;
+&lt;li&gt;2: 未发现指定的adapter。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;create命令&#34;&gt;CREATE命令&lt;/h1&gt;
+&lt;p&gt;创建volume须准守以下规则:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;组成一个volume的多块磁盘，包括卷的热备盘在内，都必须是在同一个controller上。&lt;/li&gt;
+&lt;li&gt;支持的RAID级别包括: RAID0、RAID1、RAID1E、RAID10。&lt;/li&gt;
+&lt;li&gt;同一个controller上至多创建2个volume。&lt;/li&gt;
+&lt;li&gt;RAID级别与物理驱动器数量限制
+&lt;ul&gt;
+&lt;li&gt;RAID0: Max=10; Min=2&lt;/li&gt;
+&lt;li&gt;RAID1: Max=2; Min=2&lt;/li&gt;
+&lt;li&gt;RAID1E: Max=10; Min=3&lt;/li&gt;
+&lt;li&gt;RAID10: Max=10; Min=3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;每个controller上能创建1个或者2个hot spare disk。&lt;/li&gt;
+&lt;li&gt;不允许跨SAS、SATA物理驱动器创建volume。&lt;/li&gt;
+&lt;li&gt;不允许跨普通硬盘和固态硬盘创建volume。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;语法-1&#34;&gt;语法&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;sas3ircu &amp;lt;controller_#&amp;gt; create &amp;lt;volume_type&amp;gt; &amp;lt;size&amp;gt; {&amp;lt;Enclosure:Bay&amp;gt;} [VolumeName] [noprompt]
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;参数&#34;&gt;参数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;controller_#&amp;gt;: controller编号。&lt;/li&gt;
+&lt;li&gt;&amp;lt;volume_type&amp;gt;: volume类型。等价于RAID级别。可选值包括RAID0、RAID1、RAID1E、RAID10。&lt;/li&gt;
+&lt;li&gt;&lt;!-- raw HTML omitted --&gt;: volume的容量大小，单位MB。MAX代表可用的最大容量值。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;Enclosure:Bay&#34;&gt;Enclosure:Bay&lt;/a&gt;:&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;delete命令&#34;&gt;DELETE命令&lt;/h1&gt;
+&lt;p&gt;该命令用于删除指定controller下的所有的volume及其hot spare drives，但并不会对其它controller的配置参数产生任何影响。&lt;/p&gt;
+&lt;h2 id=&#34;语法-2&#34;&gt;语法&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;sas3ircu &amp;lt;controller_#&amp;gt; delete [noprompt]
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;参数-1&#34;&gt;参数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;controller_#&amp;gt;: controller编号。&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;deletevolume命令&#34;&gt;DELETEVOLUME命令&lt;/h1&gt;
+&lt;p&gt;该命令用于删除指定controller下的指定volume及其hot spare drives，但并不会对其它controller的配置参数产生任何影响。如果某个hot spare对于剩余还未被删除的volume而言是不合适的，那么这个hot spare也会被删除。&lt;/p&gt;
+&lt;h2 id=&#34;语法-3&#34;&gt;语法&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;sas3ircu &amp;lt;controller_#&amp;gt; deletevolume &amp;lt;volumeID&amp;gt; [noprompt]
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;参数-2&#34;&gt;参数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;controller_#&amp;gt;: controller编号。&lt;/li&gt;
+&lt;li&gt;&lt;!-- raw HTML omitted --&gt;: 待删除的volume ID。通过STATUS或者DISPLAY命令可以查看到volume ID相关的信息。&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;display命令&#34;&gt;DISPLAY命令&lt;/h1&gt;
+&lt;p&gt;该命令用于显示LSI SAS3 controller相关的配置信息，包括controller类型、固件版本、BIOS版本、volume信息、物理驱动器信息，以及enclosure。&lt;/p&gt;
+&lt;h2 id=&#34;语法-4&#34;&gt;语法&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;sas3ircu &amp;lt;controller_#&amp;gt; display [filename]
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;参数-3&#34;&gt;参数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;controller_#&amp;gt;: controller编号。&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;命令输出样例&#34;&gt;命令输出样例&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;62
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;63
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;64
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;65
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;66
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;67
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;68
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;69
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;70
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;71
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;72
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;73
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;74
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;75
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;76
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;77
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;78
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;79
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;80
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;81
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;82
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;83
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;84
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;85
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;86
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;87
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;88
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;89
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;90
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;91
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;92
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;93
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;94
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;95
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;96
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;Avago Technologies SAS3 IR Configuration Utility.
+Version 15.00.00.00 (2016.11.21) 
+Copyright (c) 2009-2016 Avago Technologies. All rights reserved. 
+
+Read configuration has been initiated for controller 0
+------------------------------------------------------------------------
+Controller information
+------------------------------------------------------------------------
+  Controller type                         : SAS3008
+  BIOS version                            : 8.29.02.00
+  Firmware version                        : 12.00.02.00
+  Channel description                     : 1 Serial Attached SCSI
+  Initiator ID                            : 0
+  Maximum physical devices                : 255
+  Concurrent commands supported           : 4096
+  Slot                                    : 0
+  Segment                                 : 0
+  Bus                                     : 1
+  Device                                  : 0
+  Function                                : 0
+  RAID Support                            : Yes
+------------------------------------------------------------------------
+IR Volume information
+------------------------------------------------------------------------
+IR volume 1
+  Volume ID                               : 323
+  Status of volume                        : Okay (OKY)
+  Volume wwid                             : 04b796b93430a2a7
+  RAID level                              : RAID1
+  Size (in MB)                            : 857353
+  Boot                                    : Primary
+  Physical hard disks                     :
+  PHY[0] Enclosure#/Slot#                 : 2:0
+  PHY[1] Enclosure#/Slot#                 : 2:1
+------------------------------------------------------------------------
+Physical device information
+------------------------------------------------------------------------
+Initiator at ID #0
+
+Device is a Hard disk
+  Enclosure #                             : 2
+  Slot #                                  : 0
+  SAS Address                             : 5000c50-0-9f3e-0741
+  State                                   : Optimal (OPT)
+  Size (in MB)/(in sectors)               : 858483/1758174767
+  Manufacturer                            : SEAGATE 
+  Model Number                            : ST900MM0168     
+  Firmware Revision                       : N003
+  Serial No                               : W4009ZLH0000E739G08J
+  Unit Serial No(VPD)                     : W4009ZLH0000E739G08J
+  GUID                                    : 5000c5009f3e0743
+  Protocol                                : SAS
+  Drive Type                              : SAS_HDD
+
+Device is a Hard disk
+  Enclosure #                             : 2
+  Slot #                                  : 1
+  SAS Address                             : 5000c50-0-9f40-be21
+  State                                   : Optimal (OPT)
+  Size (in MB)/(in sectors)               : 123/1758174767
+  Manufacturer                            : SEAGATE 
+  Model Number                            : ST900MM0168     
+  Firmware Revision                       : N003
+  Serial No                               : S403EKZH0000E7400Z53
+  Unit Serial No(VPD)                     : S403EKZH0000E7400Z53
+  GUID                                    : 5000c5009f40be23
+  Protocol                                : SAS
+  Drive Type                              : SAS_SSD
+
+Device is a Enclosure services device
+  Enclosure #                             : 2
+  Slot #                                  : 36
+  SAS Address                             : 500e004-a-aaaa-aa3e
+  State                                   : Standby (SBY)
+  Manufacturer                            : 12G SAS
+  Model Number                            : Expander        
+  Firmware Revision                       : RevB
+  Serial No                               : 
+  Unit Serial No(VPD)                     : 500e004aaaaaaa3e
+  GUID                                    : N/A
+  Protocol                                : SAS
+  Device Type                             : Enclosure services device
+------------------------------------------------------------------------
+Enclosure information
+------------------------------------------------------------------------
+  Enclosure#                              : 1
+  Logical ID                              : 5a0086f5:dc780000
+  Numslots                                : 8
+  StartSlot                               : 0
+  Enclosure#                              : 2
+  Logical ID                              : 500e004a:aaaaaa3e
+  Numslots                                : 29
+  StartSlot                               : 0
+------------------------------------------------------------------------
+SAS3IRCU: Command DISPLAY Completed Successfully.
+SAS3IRCU: Utility Completed Successfully.
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;IR Volume State可选值
+&lt;ul&gt;
+&lt;li&gt;Okay(OKY): 活跃、有效。如果配置的RAID级别能够提供一定的数据保护，那么此时用户数据就是受保护状态。&lt;/li&gt;
+&lt;li&gt;Degraded(DGD): 活跃、有效。由于配置已经发生了改变或者物理驱动器中某些处于不可用状态，用户数据实际上处于不完全受保护状态。&lt;/li&gt;
+&lt;li&gt;Failed(FLD): 失败。&lt;/li&gt;
+&lt;li&gt;Missing(MIS): 缺失。&lt;/li&gt;
+&lt;li&gt;Initializing(INIT): 初始化中。&lt;/li&gt;
+&lt;li&gt;Online(ONL): 已上线。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Physical device State可选值
+&lt;ul&gt;
+&lt;li&gt;Online(ONL): 该物理驱动器是可用的并且已经是构成某个volume的一部分了。&lt;/li&gt;
+&lt;li&gt;HotSpare(HSP): 该物理驱动器已经处于热备状态。一旦对应的volume中有物理驱动器发生故障不可用，该物理驱动器就会顶替发生故障的物理驱动器。&lt;/li&gt;
+&lt;li&gt;Ready(RDY): 该物理驱动器已经处于预备(ready)状态，可以随时被当作一个普通的物理驱动器被使用，可以被分配到某个volume或者热备盘池(hot spare pool)。&lt;/li&gt;
+&lt;li&gt;Available(AVL): 该物理驱动器可能并不处于预备(ready)状态，并且不适合作为volume的一个物理驱动器，也不适合作为热备盘池中的一员。&lt;/li&gt;
+&lt;li&gt;Failed(FLD): 该物理驱动器发生故障或者已经下线。&lt;/li&gt;
+&lt;li&gt;Missing(MIS): 该物理驱动器已经被移除或者处于无响应状态。&lt;/li&gt;
+&lt;li&gt;Standby(SBY): 该设备不是一个硬盘设备。&lt;/li&gt;
+&lt;li&gt;OutofSync(OSY): 该物理驱动器是某个volume的一部分，但是它并没有与同样是volume一部分的其他物理驱动器进行同步。&lt;/li&gt;
+&lt;li&gt;Degraded(DGD): 该物理驱动器时某个volume的一部分并且处于降级(degraded)状态。&lt;/li&gt;
+&lt;li&gt;Rebuilding(RBLD): 该物理驱动器时某个volume的一部分并且处于重建(rebuilding)状态。&lt;/li&gt;
+&lt;li&gt;Optimal(OPT): 该物理驱动器时某个volume的一部分并且处于最优(optimal)状态。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Physical device的Drive Type属性可选值
+&lt;ul&gt;
+&lt;li&gt;SAS_HDD: 物理驱动器是SAS普通机械硬盘。&lt;/li&gt;
+&lt;li&gt;SATA_HDD: 物理驱动器是SATA普通机械硬盘。&lt;/li&gt;
+&lt;li&gt;SAS_SSD: 物理驱动器是SAS固态硬盘。&lt;/li&gt;
+&lt;li&gt;SATA_SSD: 物理驱动器是SATA固态硬盘。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Physical device的Protocol属性可选值
+&lt;ul&gt;
+&lt;li&gt;SAS: 物理驱动器支持SAS协议。&lt;/li&gt;
+&lt;li&gt;SATA: 物理驱动器支持SATA协议。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;hotspare命令&#34;&gt;HOTSPARE命令&lt;/h1&gt;
+&lt;p&gt;该命令用来给热备池中添加或者删除一个物理驱动器。待添加的物理驱动器存储容量不能小于volume中各个物理驱动器存储容量最小的那个物理驱动器的存储容量。若想要确定各个物理驱动器的存储容量等信息，请参考DISPLAY命令。&lt;/p&gt;
+&lt;p&gt;创建热备盘时须准守以下规则:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建热备盘前至少已经存在一个RAID级别为RAID 1、RAID 10、RAID 1E的volume。因为RAID 0不具备数据冗余特性，因此无法为此创建热备盘。&lt;/li&gt;
+&lt;li&gt;可以为状态是inactive的volume创建热备盘。&lt;/li&gt;
+&lt;li&gt;对于HDD而言，若当前controller上的所有volume使用的是SATA磁盘，那么可以添加SAS的热备盘。若当前controller上的所有volume使用的是SAS磁盘，则无法再添加SATA的热备盘。&lt;/li&gt;
+&lt;li&gt;对于SSD而言，只要RAID卡固件允许，允许为SATA的volume添加SAS的热备盘，也可以为SAS的volume添加SATA的热备盘。&lt;/li&gt;
+&lt;li&gt;每个controller最多添加2块热备盘。&lt;/li&gt;
+&lt;li&gt;SSD可以作为HDD类型的volume的热备盘，HDD不可以作为SSD类型volume的热备盘。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;语法-5&#34;&gt;语法&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;sas3ircu &amp;lt;controller_#&amp;gt; hotspare [delete] &amp;lt;Enclosure:Bay&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;参数-4&#34;&gt;参数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;controller_#&amp;gt;: controller编号。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;Enclosure:Bay&#34;&gt;Enclosure:Bay&lt;/a&gt;: 硬盘盒编号+物理驱动器编号，可以唯一标识一块物理驱动器。&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;status命令&#34;&gt;STATUS命令&lt;/h1&gt;
+&lt;p&gt;该命令会显示当前已经存在volume，以及当前还在进行中的操作的状态。&lt;/p&gt;
+&lt;h2 id=&#34;语法-6&#34;&gt;语法&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;sas3ircu &amp;lt;controller_#&amp;gt; status
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;参数-5&#34;&gt;参数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;controller_#&amp;gt;: controller编号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;list命令&#34;&gt;LIST命令&lt;/h1&gt;
+&lt;p&gt;该命令显示当前系统中的所有controller及其controller index组成的列表。&lt;/p&gt;
+&lt;h2 id=&#34;语法-7&#34;&gt;语法&lt;/h2&gt;
+&lt;p&gt;sas3ircu list&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.broadcom.com/docs/12353382&#34;&gt;SAS-3 Integrated RAID Configuration Utility (SAS3IRCU)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.huawei.com/enterprise/zh/doc/EDOC1000004345/b4b05091#it_server_sas3008_700035&#34;&gt;LSI SAS3008文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%A1%AC%E7%9B%98%E7%9B%92&#34;&gt;Disk Enclosure&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%A1%AC%E7%9B%98&#34;&gt;HDD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98&#34;&gt;SSD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E4%B8%B2%E5%88%97SCSI&#34;&gt;SAS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/SATA&#34;&gt;SATA&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>git commit message后悔药</title>
+      <link>http://voidint.github.io/post/git-commit-amend/</link>
+      <pubDate>Tue, 25 Feb 2020 16:33:19 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/git-commit-amend/</guid>
+      
+        <description>&lt;h1 id=&#34;场景描述&#34;&gt;场景描述&lt;/h1&gt;
+&lt;p&gt;假设你创建了一个文件，并写入了一些内容，然后通过git add和git commit将此变更提交。提交之后才发现这个文件中少了一些内容，此时有两个选择摆在你面前：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将文件内容补全，然后和之前一样git add、git commit。显然，你可以通过git log看到这两条commit记录。&lt;/li&gt;
+&lt;li&gt;回到过去，修改上一次提交的那个文件。如此一来，你的commit记录只会有一条。对于一些有代码洁癖并且看中git commit记录的程序员，这点很重要，特别是在开源项目中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;场景再现&#34;&gt;场景再现&lt;/h1&gt;
+&lt;p&gt;初始化git仓库&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ mkdir &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git init
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;第一次commit内容&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Hello world&amp;#39;&lt;/span&gt; &amp;gt; README.md
+$ git add .
+$ git commit -m &lt;span class=&#34;s2&#34;&gt;&amp;#34;Add README.md&amp;#34;&lt;/span&gt;
+$ git log --oneline
+c56f680 Add README.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;修改文件内容并合并到上一次的commit变更当中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Hello voidint&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; README.md
+$ git add .
+$ git commit --amend --no-edit
+$ git log --oneline
+eb6c8cb Add README.md // hash值发生了变化
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;可以看到，在执行git commit &amp;ndash;amend &amp;ndash;no-edit之后，hash值由c56f680变成了eb6c8cb，但是message内容并没有发生变化，并且最重要的是只有一条commit记录。&lt;/p&gt;
+&lt;p&gt;如果要修改上一条的message，那么去掉&amp;ndash;no-edit选项即可，git commit &amp;ndash;amend -m &amp;ldquo;xxxx&amp;rdquo;。同理，commit记录同样只会有一条。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>容器内MySQL时区调整</title>
+      <link>http://voidint.github.io/post/docker-mysql-timezone/</link>
+      <pubDate>Tue, 25 Feb 2020 16:08:07 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/docker-mysql-timezone/</guid>
+      
+        <description>&lt;p&gt;从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行&lt;code&gt;select now()&lt;/code&gt;语句，发现显示的时间与我宿主机的时间不一致且相差8小时。显然，需要重置MySQL的时区，将时区设置与宿主机保持一致，即东八区。&lt;/p&gt;
+&lt;h1 id=&#34;如何为mysql设置时区&#34;&gt;如何为MySQL设置时区？&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html&#34;&gt;MySQL 5.7官方文档&lt;/a&gt;中提到了多种设置时区的方案，我们这里仅关注配置文件（MySQL官方称之为&lt;a href=&#34;https://dev.mysql.com/doc/refman/5.7/en/option-files.html&#34;&gt;Option Files&lt;/a&gt;）的方案。&lt;/p&gt;
+&lt;h2 id=&#34;配置文件中修改时区&#34;&gt;配置文件中修改时区&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;配置项default-time-zone及取值
+依据文档可以通过在配置文件中增加default-time-zone=&amp;lsquo;timezone&amp;rsquo;的配置项来修改时区。配置值的取值遵循以下规则：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The value &amp;lsquo;SYSTEM&amp;rsquo; indicates that the time zone should be the same as the system time zone.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The value can be given as a string indicating an offset from UTC, such as &amp;lsquo;+10:00&amp;rsquo; or &amp;lsquo;-6:00&amp;rsquo;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The value can be given as a named time zone, such as &amp;lsquo;Europe/Helsinki&amp;rsquo;, &amp;lsquo;US/Eastern&amp;rsquo;, or &amp;lsquo;MET&amp;rsquo;. Named time zones can be used only if the time zone information tables in the mysql database have been created and populated.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们选择第二种方式，通过UTC的偏移量来表示东八区，+8:00意味着在零时区的基础上往东偏移8个时区。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;group
+官方文档中描述了配置文件的语法，包括注释、组、选项名、选项值等。其中组（group）是与我们当前遇到的问题息息相关的东西。配置项需要放置在正确的group下，官方表述如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If an option group name is the same as a program name, options in the group apply specifically to that program.
+For example, the [mysqld] and [mysql] groups apply to the mysqld server and the mysql client program, respectively.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于配置项default-time-zone是为了让MySQL Server调整默认时区，并结合上面有关group的表述，不难得出一个结论：default-time-zone配置项应该放置在名为[mysqld]的group下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;mysqld&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+default-time_zone &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;+8:00&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;配置文件位置&#34;&gt;配置文件位置&lt;/h2&gt;
+&lt;p&gt;既然已经明确了通过修改配置文件来达到重置MySQL时区的目的，那么修改后的配置文件放哪儿呢？这是首先面临的一个问题。好在MySQL官方文档中已经告诉我们配置文件的读取顺序。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;strong&gt;File Name&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;Purpose&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/etc/my.cnf&lt;/td&gt;
+&lt;td&gt;Global options&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/etc/mysql/my.cnf&lt;/td&gt;
+&lt;td&gt;Global options&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;SYSCONFDIR&lt;/em&gt;/my.cnf&lt;/td&gt;
+&lt;td&gt;Global options&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;$MYSQL_HOME/my.cnf&lt;/td&gt;
+&lt;td&gt;Server-specific options (server only)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;defaults-extra-file&lt;/td&gt;
+&lt;td&gt;The file specified with &lt;code&gt;--defaults-extra-file&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;~/.my.cnf&lt;/td&gt;
+&lt;td&gt;User-specific options&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;~/.mylogin.cnf&lt;/td&gt;
+&lt;td&gt;User-specific login path options (clients only)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;再尝试查看MySQL的docker容器中的配置文件，docker run &amp;ndash;rm mysql:5.7 cat /etc/mysql/my.cnf，我们看到了容器中的配置文件内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;# Copyright (c) 2016, Oracle and/or its affiliates. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 2 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+!includedir /etc/mysql/conf.d/
+!includedir /etc/mysql/mysql.conf.d/
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这下这个疑问终于有了答案，我们可以将自定义的配置文件想办法放入容器中的/etc/mysql/conf.d/目录（放在/etc/mysql/mysql.conf.d/目录当然也同样OK）。&lt;/p&gt;
+&lt;p&gt;注意：在*nix系统下使用!includedir指令指定的配置文件目录下的配置文件扩展名必须是.cnf，在Windows系统下的扩展名可以是.ini或者.cnf。&lt;/p&gt;
+&lt;h2 id=&#34;启动mysql容器&#34;&gt;启动MySQL容器&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ docker run  -d --name mysql5.7 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    -v /Users/voidint/dockerV/mysql/5.7/conf:/etc/mysql/conf.d &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    -e &lt;span class=&#34;nv&#34;&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;abc#123&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    -p 3306:3306&lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    mysql:5.7
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;参考MySQL官方docker镜像的说明，我们将上面步骤准备好的MySQL配置文件放置在/Users/voidint/dockerV/mysql/5.7/conf目录下，并通过docker -v选项将宿主机上的配置文件目录挂载到容器中的/etc/mysql/conf.d目录。这样在容器启动时就能读取到我们自定义的配置文件，时区配置也就生效了。&lt;/p&gt;
+&lt;p&gt;容器启动后，通过MySQL客户端连接上MySQL，再次执行select now()语句以验证MySQL的时区是否与宿主机时区保持一致。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html&#34;&gt;MySQL Server Time Zone Support&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dev.mysql.com/doc/refman/5.7/en/option-files.html&#34;&gt;Using Option Files&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hub.docker.com/_/mysql&#34;&gt;MySQL Docker镜像&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>为什么mysql -h localhost无法登录了？</title>
+      <link>http://voidint.github.io/post/mysql-login-localhost/</link>
+      <pubDate>Tue, 25 Feb 2020 15:56:49 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/mysql-login-localhost/</guid>
+      
+        <description>&lt;p&gt;我在自己的mac上安装了docker，并在docker中运行了mysql5.6容器。启动容器的方式大致如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ docker run --name mydb -d &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    -p 3306:3306 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    -v /Users/voidint/dockerV/mysql/data:/var/lib/mysql &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    -e &lt;span class=&#34;nv&#34;&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;xxxxx &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    mysql:5.6
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;mysql服务正常启动之后，我想通过客户端连接此服务。于是，我顺理成章地在终端敲下了这样的命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ mysql -u root -p
+Enter password:
+ERROR &lt;span class=&#34;m&#34;&gt;2002&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;HY000&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: Can&lt;span class=&#34;s1&#34;&gt;&amp;#39;t connect to local MySQL server through socket &amp;#39;&lt;/span&gt;/tmp/mysql.sock&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;非常意外，居然报错了。我记得以前都是这样敲的呀？怎么换成跑在docker里就行不通了？不科学！&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ mysql -h localhost -uroot -p
+Enter password:
+ERROR &lt;span class=&#34;m&#34;&gt;2002&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;HY000&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: Can&lt;span class=&#34;s1&#34;&gt;&amp;#39;t connect to local MySQL server through socket &amp;#39;&lt;/span&gt;/tmp/mysql.sock&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;加上&lt;code&gt;-h&lt;/code&gt;选项还是不行，气急败坏。气归气，问题还是要解决的，那就查查资料。然后，看到了这篇，在粗粗浏览过之后，发现有人建议用&lt;code&gt;-h 127.0.0.1&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ mysql -h 127.0.0.1 -u root -p 
+Enter password:
+Reading table information &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; or &lt;span class=&#34;se&#34;&gt;\g&lt;/span&gt;.
+Your MySQL connection id is &lt;span class=&#34;m&#34;&gt;3823&lt;/span&gt;
+Server version: 5.6.35 MySQL Community Server &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GPL&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+Copyright &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;c&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &lt;span class=&#34;s1&#34;&gt;&amp;#39;help;&amp;#39;&lt;/span&gt; or &lt;span class=&#34;s1&#34;&gt;&amp;#39;\h&amp;#39;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; help. Type &lt;span class=&#34;s1&#34;&gt;&amp;#39;\c&amp;#39;&lt;/span&gt; to clear the current input statement.
+
+mysql&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;试过之后，发现效果立竿见影。这简直颠覆了我的既有观念！&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;难道localhost和127.0.0.1不是同一个东西？OMG！&lt;/li&gt;
+&lt;li&gt;那个socket文件/tmp/mysql.sock又是怎么一回事，指定了127.0.0.1怎么就正常了？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在查阅了一些资料之后，终于对于这几个问题有了稍深入的理解：&lt;/p&gt;
+&lt;h1 id=&#34;localhost和127001的区别&#34;&gt;localhost和127.0.0.1的区别&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;localhost和127.0.0.1，前者是域名，后者是IP地址中特殊的一类回还地址。&lt;/li&gt;
+&lt;li&gt;许多时候localhost和127.0.0.1给人感觉是等价的，是由于在多数系统的/etc/hosts文件中，两者存在映射关系。&lt;/li&gt;
+&lt;li&gt;本机上的服务，如果通过localhost访问，可以不经过网卡，并且不受防火墙的限制。如果不经过网卡，那客户端和服务端要如何通信？答案就是socket。比如上面例子中的/tmp/mysql.sock。也因为不需要经过网卡，不需要TCP/IP协议的层层封包和层层解包过程，性能上会更出色一些。&lt;/li&gt;
+&lt;li&gt;本机上的服务，如果通过127.0.0.1访问，需要经过网卡，也可能受到防火墙限制。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;参考资料&#34;&gt;参考资料&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://hub.docker.com/_/mysql/&#34;&gt;https://hub.docker.com/_/mysql/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/11657829/error-2002-hy000-cant-connect-to-local-mysql-server-through-socket-var-run&#34;&gt;http://stackoverflow.com/questions/11657829/error-2002-hy000-cant-connect-to-local-mysql-server-through-socket-var-run&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.onlycatch.com/post/7e371ca28621&#34;&gt;http://blog.onlycatch.com/post/7e371ca28621&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://i.joymvp.com/%E6%8A%80%E6%9C%AF/routing-traffic-localhost.html&#34;&gt;http://i.joymvp.com/%E6%8A%80%E6%9C%AF/routing-traffic-localhost.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

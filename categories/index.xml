@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on voidint - 个人博客</title>
+    <link>http://voidint.github.io/categories/</link>
+    <description>Recent content in Categories on voidint - 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 09 Mar 2021 16:51:43 +0800</lastBuildDate><atom:link href="http://voidint.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>工具箱</title>
+      <link>http://voidint.github.io/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/</link>
+      <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>http://voidint.github.io/categories/golang/</link>
+      <pubDate>Sat, 14 Mar 2020 17:58:28 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/categories/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>容器</title>
+      <link>http://voidint.github.io/categories/%E5%AE%B9%E5%99%A8/</link>
+      <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/categories/%E5%AE%B9%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>硬件</title>
+      <link>http://voidint.github.io/categories/%E7%A1%AC%E4%BB%B6/</link>
+      <pubDate>Tue, 25 Feb 2020 17:05:06 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/categories/%E7%A1%AC%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>http://voidint.github.io/categories/mysql/</link>
+      <pubDate>Tue, 25 Feb 2020 15:56:49 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/categories/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C/C&#43;&#43;</title>
+      <link>http://voidint.github.io/categories/c/c&#43;&#43;/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/categories/c/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix/Linux</title>
+      <link>http://voidint.github.io/categories/unix/linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/categories/unix/linux/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

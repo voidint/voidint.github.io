@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>《自己动手写docker》 on voidint - 个人博客</title>
+    <link>http://voidint.github.io/tags/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99docker/</link>
+    <description>Recent content in 《自己动手写docker》 on voidint - 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 25 Feb 2020 17:45:51 +0000</lastBuildDate><atom:link href="http://voidint.github.io/tags/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux Namespaces初体验</title>
+      <link>http://voidint.github.io/post/linux-namespaces-first-experience/</link>
+      <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/linux-namespaces-first-experience/</guid>
+      <description>简介 下面是酷壳给出的关于Linux Namespaces的介绍： Linux Namespace是Linux提供的一种内核级别环境隔离的方法。不知道你是否</description>
+    </item>
+    
+  </channel>
+</rss>
