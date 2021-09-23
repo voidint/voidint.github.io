@@ -6,7 +6,16 @@
     <description>Recent content in Tags on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 22 Jul 2021 16:49:24 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Sep 2021 10:07:50 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>socket编程</title>
+      <link>http://voidint.github.io/tags/socket%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/socket%E7%BC%96%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>debug</title>
       <link>http://voidint.github.io/tags/debug/</link>

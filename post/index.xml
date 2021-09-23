@@ -6,7 +6,16 @@
     <description>Recent content in Posts on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 22 Jul 2021 16:49:24 +0800</lastBuildDate><atom:link href="http://voidint.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Sep 2021 10:07:50 +0800</lastBuildDate><atom:link href="http://voidint.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>socket编程（一）：一个服务器服务一个客户端</title>
+      <link>http://voidint.github.io/post/socket/one_server_one_client/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/socket/one_server_one_client/</guid>
+      <description>在这个信息爆炸的时代，有关socket编程的文章多如牛毛，而且还在不断产出，隔三差五就能在各种微信公众号之类的地方看到。我也打算写一个有关 socket</description>
+    </item>
+    
     <item>
       <title>gdb常用命令速查</title>
       <link>http://voidint.github.io/post/gdb/</link>
