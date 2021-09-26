@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>_Exit on voidint - 个人博客</title>
+    <link>http://voidint.github.io/tags/_exit/</link>
+    <description>Recent content in _Exit on voidint - 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 26 Sep 2021 10:30:58 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/_exit/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UNIX/Linux下的exit系列函数</title>
+      <link>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</guid>
+      <description>使用C/C++语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又</description>
+    </item>
+    
+  </channel>
+</rss>

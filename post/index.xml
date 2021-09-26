@@ -6,7 +6,16 @@
     <description>Recent content in Posts on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 21 Sep 2021 10:07:50 +0800</lastBuildDate><atom:link href="http://voidint.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 10:30:58 +0800</lastBuildDate><atom:link href="http://voidint.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UNIX/Linux下的exit系列函数</title>
+      <link>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</guid>
+      <description>使用C/C++语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又</description>
+    </item>
+    
     <item>
       <title>socket编程（一）：一个服务器服务一个客户端</title>
       <link>http://voidint.github.io/post/socket/one_server_one_client/</link>

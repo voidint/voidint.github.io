@@ -6,7 +6,52 @@
     <description>Recent content in Tags on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 21 Sep 2021 10:07:50 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 10:30:58 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>_Exit</title>
+      <link>http://voidint.github.io/tags/_exit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/_exit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>atexit</title>
+      <link>http://voidint.github.io/tags/atexit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/atexit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>exit</title>
+      <link>http://voidint.github.io/tags/exit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/exit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>exit_group</title>
+      <link>http://voidint.github.io/tags/exit_group/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/exit_group/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>on_exit</title>
+      <link>http://voidint.github.io/tags/on_exit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/on_exit/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>socket编程</title>
       <link>http://voidint.github.io/tags/socket%E7%BC%96%E7%A8%8B/</link>
@@ -139,51 +184,6 @@
       <pubDate>Tue, 25 Feb 2020 16:43:06 +0000</pubDate>
       
       <guid>http://voidint.github.io/tags/sas3ircu/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>http://voidint.github.io/tags/git/</link>
-      <pubDate>Tue, 25 Feb 2020 16:33:19 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>docker</title>
-      <link>http://voidint.github.io/tags/docker/</link>
-      <pubDate>Tue, 25 Feb 2020 16:08:07 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MySQL</title>
-      <link>http://voidint.github.io/tags/mysql/</link>
-      <pubDate>Tue, 25 Feb 2020 16:08:07 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/mysql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>timezone</title>
-      <link>http://voidint.github.io/tags/timezone/</link>
-      <pubDate>Tue, 25 Feb 2020 16:08:07 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/timezone/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>localhost</title>
-      <link>http://voidint.github.io/tags/localhost/</link>
-      <pubDate>Tue, 25 Feb 2020 15:56:49 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/localhost/</guid>
       <description></description>
     </item>
     

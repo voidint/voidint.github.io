@@ -2,14 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://voidint.github.io/categories/</loc>
-    <lastmod>2021-09-21T10:07:50+08:00</lastmod>
+    <loc>http://voidint.github.io/tags/_exit/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/atexit/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/exit/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/exit_group/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/on_exit/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://voidint.github.io/post/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/</loc>
+    <lastmod>2021-09-26T10:30:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/categories/</loc>
     <lastmod>2021-09-21T10:07:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -24,20 +80,6 @@
   
   <url>
     <loc>http://voidint.github.io/post/socket/one_server_one_client/</loc>
-    <lastmod>2021-09-21T10:07:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://voidint.github.io/tags/</loc>
-    <lastmod>2021-09-21T10:07:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://voidint.github.io/</loc>
     <lastmod>2021-09-21T10:07:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
