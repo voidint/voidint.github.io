@@ -27,91 +27,91 @@
     
     <item>
       <title>gdb常用命令速查</title>
-      <link>http://voidint.github.io/post/gdb/</link>
+      <link>http://voidint.github.io/post/c_cpp/gdb/</link>
       <pubDate>Thu, 22 Jul 2021 16:49:24 +0800</pubDate>
       
-      <guid>http://voidint.github.io/post/gdb/</guid>
+      <guid>http://voidint.github.io/post/c_cpp/gdb/</guid>
       <description>gdb 调试前提是需要保留符号表。对于 C/C++ 等使用 gcc 进行编译的语言，编译时增加-g选项。对于 go 语言，则增加-ldflags=-compressdwar</description>
     </item>
     
     <item>
       <title>基于JuiceFS搭建个人网盘</title>
-      <link>http://voidint.github.io/post/juicefs/</link>
+      <link>http://voidint.github.io/post/tool/juicefs/</link>
       <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
       
-      <guid>http://voidint.github.io/post/juicefs/</guid>
+      <guid>http://voidint.github.io/post/tool/juicefs/</guid>
       <description>什么是JuiceFS JuiceFS 是为云端设计的共享文件系统。 云端：采用云服务中的对象存储作为后端，综合性价比极高。 共享：上千台机器同时挂载，高性能并发</description>
     </item>
     
     <item>
       <title>goproxy.io内部私有化部署</title>
-      <link>http://voidint.github.io/post/goproxy-privatization-deployment/</link>
+      <link>http://voidint.github.io/post/golang/goproxy-privatization-deployment/</link>
       <pubDate>Sat, 14 Mar 2020 17:58:28 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/goproxy-privatization-deployment/</guid>
+      <guid>http://voidint.github.io/post/golang/goproxy-privatization-deployment/</guid>
       <description>最近在公司内部搭建了一个goproxy.io的服务，总结并记录一下备忘。 goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文</description>
     </item>
     
     <item>
       <title>Linux Namespaces初体验</title>
-      <link>http://voidint.github.io/post/linux-namespaces-first-experience/</link>
+      <link>http://voidint.github.io/post/container/linux-namespaces-first-experience/</link>
       <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/linux-namespaces-first-experience/</guid>
+      <guid>http://voidint.github.io/post/container/linux-namespaces-first-experience/</guid>
       <description>简介 下面是酷壳给出的关于Linux Namespaces的介绍： Linux Namespace是Linux提供的一种内核级别环境隔离的方法。不知道你是否</description>
     </item>
     
     <item>
       <title>Linux用户登录密码的生成</title>
-      <link>http://voidint.github.io/post/linux-password/</link>
+      <link>http://voidint.github.io/post/posix/linux-password/</link>
       <pubDate>Tue, 25 Feb 2020 17:24:33 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/linux-password/</guid>
+      <guid>http://voidint.github.io/post/posix/linux-password/</guid>
       <description>从自动化需求说起 如何生成一个Linux用户登录密码？可能有人会说用passwd生成。的确，passwd命令能够帮助我们重置用户登录密码，但是</description>
     </item>
     
     <item>
       <title>Linux下hpssacli配置 HP Smart Array</title>
-      <link>http://voidint.github.io/post/hp-ssa-cli/</link>
+      <link>http://voidint.github.io/post/tool/hp-ssa-cli/</link>
       <pubDate>Tue, 25 Feb 2020 17:05:06 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/hp-ssa-cli/</guid>
+      <guid>http://voidint.github.io/post/tool/hp-ssa-cli/</guid>
       <description>什么是HP SSA CLI HP Smart Storage Administrator Command Line 适用范围 HP Smart Array G6、G7、G8、G9 创建RAID的指导方针 组成逻辑磁盘(RAID阵列)的物理驱动器应该是一致的。 为</description>
     </item>
     
     <item>
       <title>SAS3IRCU配置LSI SAS3系列RAID卡</title>
-      <link>http://voidint.github.io/post/sas3ircu/</link>
+      <link>http://voidint.github.io/post/tool/sas3ircu/</link>
       <pubDate>Tue, 25 Feb 2020 16:43:06 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/sas3ircu/</guid>
+      <guid>http://voidint.github.io/post/tool/sas3ircu/</guid>
       <description>适用的controller LSISAS3008 LSISAS3004 名词解释 Controller: IR: Volume: 卷，基于物理驱动器通过创建冗余磁盘阵列所生成的虚拟磁盘。概念上等同于RAID冗余磁盘阵列。 Enclosure: 硬盘</description>
     </item>
     
     <item>
       <title>git commit message后悔药</title>
-      <link>http://voidint.github.io/post/git-commit-amend/</link>
+      <link>http://voidint.github.io/post/tool/git-commit-amend/</link>
       <pubDate>Tue, 25 Feb 2020 16:33:19 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/git-commit-amend/</guid>
+      <guid>http://voidint.github.io/post/tool/git-commit-amend/</guid>
       <description>场景描述 假设你创建了一个文件，并写入了一些内容，然后通过git add和git commit将此变更提交。提交之后才发现这个文件中少了一些内容，</description>
     </item>
     
     <item>
       <title>容器内MySQL时区调整</title>
-      <link>http://voidint.github.io/post/docker-mysql-timezone/</link>
+      <link>http://voidint.github.io/post/container/docker-mysql-timezone/</link>
       <pubDate>Tue, 25 Feb 2020 16:08:07 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/docker-mysql-timezone/</guid>
+      <guid>http://voidint.github.io/post/container/docker-mysql-timezone/</guid>
       <description>从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行select now()语句，发现显示的时间与我宿主机的时</description>
     </item>
     
     <item>
       <title>为什么mysql -h localhost无法登录了？</title>
-      <link>http://voidint.github.io/post/mysql-login-localhost/</link>
+      <link>http://voidint.github.io/post/db/mysql-login-localhost/</link>
       <pubDate>Tue, 25 Feb 2020 15:56:49 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/mysql-login-localhost/</guid>
+      <guid>http://voidint.github.io/post/db/mysql-login-localhost/</guid>
       <description>我在自己的mac上安装了docker，并在docker中运行了mysql5.6容器。启动容器的方式大致如下： 1 2 3 4 5 $ docker run --name mydb -d \ -p 3306:3306 \ -v</description>
     </item>
     

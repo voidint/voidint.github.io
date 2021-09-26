@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 25 Feb 2020 16:43:06 +0000</lastBuildDate><atom:link href="http://voidint.github.io/tags/sas3ircu/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SAS3IRCU配置LSI SAS3系列RAID卡</title>
-      <link>http://voidint.github.io/post/sas3ircu/</link>
+      <link>http://voidint.github.io/post/tool/sas3ircu/</link>
       <pubDate>Tue, 25 Feb 2020 16:43:06 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/sas3ircu/</guid>
+      <guid>http://voidint.github.io/post/tool/sas3ircu/</guid>
       <description>适用的controller LSISAS3008 LSISAS3004 名词解释 Controller: IR: Volume: 卷，基于物理驱动器通过创建冗余磁盘阵列所生成的虚拟磁盘。概念上等同于RAID冗余磁盘阵列。 Enclosure: 硬盘</description>
     </item>
     

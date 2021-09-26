@@ -9,19 +9,37 @@
     <lastBuildDate>Tue, 09 Mar 2021 16:51:43 +0800</lastBuildDate><atom:link href="http://voidint.github.io/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于JuiceFS搭建个人网盘</title>
-      <link>http://voidint.github.io/post/juicefs/</link>
+      <link>http://voidint.github.io/post/tool/juicefs/</link>
       <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
       
-      <guid>http://voidint.github.io/post/juicefs/</guid>
+      <guid>http://voidint.github.io/post/tool/juicefs/</guid>
       <description>什么是JuiceFS JuiceFS 是为云端设计的共享文件系统。 云端：采用云服务中的对象存储作为后端，综合性价比极高。 共享：上千台机器同时挂载，高性能并发</description>
     </item>
     
     <item>
+      <title>Linux下hpssacli配置 HP Smart Array</title>
+      <link>http://voidint.github.io/post/tool/hp-ssa-cli/</link>
+      <pubDate>Tue, 25 Feb 2020 17:05:06 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/tool/hp-ssa-cli/</guid>
+      <description>什么是HP SSA CLI HP Smart Storage Administrator Command Line 适用范围 HP Smart Array G6、G7、G8、G9 创建RAID的指导方针 组成逻辑磁盘(RAID阵列)的物理驱动器应该是一致的。 为</description>
+    </item>
+    
+    <item>
+      <title>SAS3IRCU配置LSI SAS3系列RAID卡</title>
+      <link>http://voidint.github.io/post/tool/sas3ircu/</link>
+      <pubDate>Tue, 25 Feb 2020 16:43:06 +0000</pubDate>
+      
+      <guid>http://voidint.github.io/post/tool/sas3ircu/</guid>
+      <description>适用的controller LSISAS3008 LSISAS3004 名词解释 Controller: IR: Volume: 卷，基于物理驱动器通过创建冗余磁盘阵列所生成的虚拟磁盘。概念上等同于RAID冗余磁盘阵列。 Enclosure: 硬盘</description>
+    </item>
+    
+    <item>
       <title>git commit message后悔药</title>
-      <link>http://voidint.github.io/post/git-commit-amend/</link>
+      <link>http://voidint.github.io/post/tool/git-commit-amend/</link>
       <pubDate>Tue, 25 Feb 2020 16:33:19 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/git-commit-amend/</guid>
+      <guid>http://voidint.github.io/post/tool/git-commit-amend/</guid>
       <description>场景描述 假设你创建了一个文件，并写入了一些内容，然后通过git add和git commit将此变更提交。提交之后才发现这个文件中少了一些内容，</description>
     </item>
     

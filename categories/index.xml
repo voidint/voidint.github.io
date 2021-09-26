@@ -44,20 +44,11 @@
     </item>
     
     <item>
-      <title>硬件</title>
-      <link>http://voidint.github.io/categories/%E7%A1%AC%E4%BB%B6/</link>
-      <pubDate>Tue, 25 Feb 2020 17:05:06 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/categories/%E7%A1%AC%E4%BB%B6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MySQL</title>
-      <link>http://voidint.github.io/categories/mysql/</link>
+      <title>数据库</title>
+      <link>http://voidint.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
       <pubDate>Tue, 25 Feb 2020 15:56:49 +0000</pubDate>
       
-      <guid>http://voidint.github.io/categories/mysql/</guid>
+      <guid>http://voidint.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
       <description></description>
     </item>
     
@@ -71,7 +62,7 @@
     </item>
     
     <item>
-      <title>Unix/Linux</title>
+      <title>UNIX/Linux</title>
       <link>http://voidint.github.io/categories/unix/linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

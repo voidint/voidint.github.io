@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 25 Feb 2020 17:45:51 +0000</lastBuildDate><atom:link href="http://voidint.github.io/tags/namespace/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux Namespaces初体验</title>
-      <link>http://voidint.github.io/post/linux-namespaces-first-experience/</link>
+      <link>http://voidint.github.io/post/container/linux-namespaces-first-experience/</link>
       <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/linux-namespaces-first-experience/</guid>
+      <guid>http://voidint.github.io/post/container/linux-namespaces-first-experience/</guid>
       <description>简介 下面是酷壳给出的关于Linux Namespaces的介绍： Linux Namespace是Linux提供的一种内核级别环境隔离的方法。不知道你是否</description>
     </item>
     

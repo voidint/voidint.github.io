@@ -971,10 +971,10 @@ Please enter content:
     
     <item>
       <title>gdb常用命令速查</title>
-      <link>http://voidint.github.io/post/gdb/</link>
+      <link>http://voidint.github.io/post/c_cpp/gdb/</link>
       <pubDate>Thu, 22 Jul 2021 16:49:24 +0800</pubDate>
       
-      <guid>http://voidint.github.io/post/gdb/</guid>
+      <guid>http://voidint.github.io/post/c_cpp/gdb/</guid>
       
         <description>&lt;p&gt;gdb 调试前提是需要保留符号表。对于 C/C++ 等使用 gcc 进行编译的语言，编译时增加&lt;code&gt;-g&lt;/code&gt;选项。对于 go 语言，则增加&lt;code&gt;-ldflags=-compressdwarf=false&lt;/code&gt; 、&lt;code&gt;-gcflags=all=&amp;quot;-N -l&amp;quot;&lt;/code&gt;等选项。&lt;/p&gt;
 &lt;table&gt;
@@ -1185,10 +1185,10 @@ Please enter content:
     
     <item>
       <title>基于JuiceFS搭建个人网盘</title>
-      <link>http://voidint.github.io/post/juicefs/</link>
+      <link>http://voidint.github.io/post/tool/juicefs/</link>
       <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
       
-      <guid>http://voidint.github.io/post/juicefs/</guid>
+      <guid>http://voidint.github.io/post/tool/juicefs/</guid>
       
         <description>&lt;h1 id=&#34;什么是juicefs&#34;&gt;什么是JuiceFS&lt;/h1&gt;
 &lt;blockquote&gt;
@@ -1441,10 +1441,10 @@ $ ls -lh ~/jfs
     
     <item>
       <title>goproxy.io内部私有化部署</title>
-      <link>http://voidint.github.io/post/goproxy-privatization-deployment/</link>
+      <link>http://voidint.github.io/post/golang/goproxy-privatization-deployment/</link>
       <pubDate>Sat, 14 Mar 2020 17:58:28 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/goproxy-privatization-deployment/</guid>
+      <guid>http://voidint.github.io/post/golang/goproxy-privatization-deployment/</guid>
       
         <description>&lt;p&gt;最近在公司内部搭建了一个&lt;a href=&#34;https://goproxy.io/zh/&#34;&gt;goproxy.io&lt;/a&gt;的服务，总结并记录一下备忘。&lt;/p&gt;
 &lt;p&gt;goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文档一步一步搭建应该都会比较顺利。当然我也不是对官方文档的无意义复制粘贴，我将从以下三个方面进行阐述：&lt;/p&gt;
@@ -1595,10 +1595,10 @@ tonybai在其&lt;a href=&#34;https://tonybai.com/2017/06/28/set-custom-go-get-im
     
     <item>
       <title>Linux Namespaces初体验</title>
-      <link>http://voidint.github.io/post/linux-namespaces-first-experience/</link>
+      <link>http://voidint.github.io/post/container/linux-namespaces-first-experience/</link>
       <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/linux-namespaces-first-experience/</guid>
+      <guid>http://voidint.github.io/post/container/linux-namespaces-first-experience/</guid>
       
         <description>&lt;h1 id=&#34;简介&#34;&gt;简介&lt;/h1&gt;
 &lt;p&gt;下面是&lt;a href=&#34;https://coolshell.cn/articles/17010.html&#34;&gt;酷壳&lt;/a&gt;给出的关于Linux Namespaces的介绍：&lt;/p&gt;
@@ -1930,10 +1930,10 @@ root        &lt;span class=&#34;m&#34;&gt;14&lt;/span&gt;     &lt;span class=&#3
     
     <item>
       <title>Linux用户登录密码的生成</title>
-      <link>http://voidint.github.io/post/linux-password/</link>
+      <link>http://voidint.github.io/post/posix/linux-password/</link>
       <pubDate>Tue, 25 Feb 2020 17:24:33 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/linux-password/</guid>
+      <guid>http://voidint.github.io/post/posix/linux-password/</guid>
       
         <description>&lt;h1 id=&#34;从自动化需求说起&#34;&gt;从自动化需求说起&lt;/h1&gt;
 &lt;p&gt;如何生成一个Linux用户登录密码？可能有人会说用passwd生成。的确，passwd命令能够帮助我们重置用户登录密码，但是这并没有解答如何生成一个Linux用户登录密码的疑问。&lt;/p&gt;
@@ -2040,10 +2040,10 @@ voidint:&lt;span class=&#34;nv&#34;&gt;$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXc
     
     <item>
       <title>Linux下hpssacli配置 HP Smart Array</title>
-      <link>http://voidint.github.io/post/hp-ssa-cli/</link>
+      <link>http://voidint.github.io/post/tool/hp-ssa-cli/</link>
       <pubDate>Tue, 25 Feb 2020 17:05:06 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/hp-ssa-cli/</guid>
+      <guid>http://voidint.github.io/post/tool/hp-ssa-cli/</guid>
       
         <description>&lt;h1 id=&#34;什么是hp-ssa-cli&#34;&gt;什么是HP SSA CLI&lt;/h1&gt;
 &lt;p&gt;HP Smart Storage Administrator Command Line&lt;/p&gt;
@@ -2146,10 +2146,10 @@ voidint:&lt;span class=&#34;nv&#34;&gt;$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXc
     
     <item>
       <title>SAS3IRCU配置LSI SAS3系列RAID卡</title>
-      <link>http://voidint.github.io/post/sas3ircu/</link>
+      <link>http://voidint.github.io/post/tool/sas3ircu/</link>
       <pubDate>Tue, 25 Feb 2020 16:43:06 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/sas3ircu/</guid>
+      <guid>http://voidint.github.io/post/tool/sas3ircu/</guid>
       
         <description>&lt;h1 id=&#34;适用的controller&#34;&gt;适用的controller&lt;/h1&gt;
 &lt;ul&gt;
@@ -2580,10 +2580,10 @@ SAS3IRCU: Utility Completed Successfully.
     
     <item>
       <title>git commit message后悔药</title>
-      <link>http://voidint.github.io/post/git-commit-amend/</link>
+      <link>http://voidint.github.io/post/tool/git-commit-amend/</link>
       <pubDate>Tue, 25 Feb 2020 16:33:19 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/git-commit-amend/</guid>
+      <guid>http://voidint.github.io/post/tool/git-commit-amend/</guid>
       
         <description>&lt;h1 id=&#34;场景描述&#34;&gt;场景描述&lt;/h1&gt;
 &lt;p&gt;假设你创建了一个文件，并写入了一些内容，然后通过git add和git commit将此变更提交。提交之后才发现这个文件中少了一些内容，此时有两个选择摆在你面前：&lt;/p&gt;
@@ -2643,10 +2643,10 @@ eb6c8cb Add README.md // hash值发生了变化
     
     <item>
       <title>容器内MySQL时区调整</title>
-      <link>http://voidint.github.io/post/docker-mysql-timezone/</link>
+      <link>http://voidint.github.io/post/container/docker-mysql-timezone/</link>
       <pubDate>Tue, 25 Feb 2020 16:08:07 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/docker-mysql-timezone/</guid>
+      <guid>http://voidint.github.io/post/container/docker-mysql-timezone/</guid>
       
         <description>&lt;p&gt;从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行&lt;code&gt;select now()&lt;/code&gt;语句，发现显示的时间与我宿主机的时间不一致且相差8小时。显然，需要重置MySQL的时区，将时区设置与宿主机保持一致，即东八区。&lt;/p&gt;
 &lt;h1 id=&#34;如何为mysql设置时区&#34;&gt;如何为MySQL设置时区？&lt;/h1&gt;
@@ -2805,10 +2805,10 @@ default-time_zone &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#
     
     <item>
       <title>为什么mysql -h localhost无法登录了？</title>
-      <link>http://voidint.github.io/post/mysql-login-localhost/</link>
+      <link>http://voidint.github.io/post/db/mysql-login-localhost/</link>
       <pubDate>Tue, 25 Feb 2020 15:56:49 +0000</pubDate>
       
-      <guid>http://voidint.github.io/post/mysql-login-localhost/</guid>
+      <guid>http://voidint.github.io/post/db/mysql-login-localhost/</guid>
       
         <description>&lt;p&gt;我在自己的mac上安装了docker，并在docker中运行了mysql5.6容器。启动容器的方式大致如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
