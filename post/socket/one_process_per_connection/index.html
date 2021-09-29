@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>socket编程（二）：每个进程服务一个连接 - voidint - 个人博客</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="voidint" />
+  <meta name="description" content="原文链接：https://voidint.github.io/post/socket/one_process_per_connection/" />
+
+  <meta name="keywords" content="voidint, hugo, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+
+<link rel="canonical" href="http://voidint.github.io/post/socket/one_process_per_connection/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.b3a8813c06e6d785beba22bf8264e174fa2cb3a396b22f9ba24e2c00c18aaf7f.css" integrity="sha256-s6iBPAbm14W&#43;uiK/gmThdPoss6OWsi&#43;bok4sAMGKr38=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="socket编程（二）：每个进程服务一个连接" />
+<meta property="og:description" content="原文链接：https://voidint.github.io/post/socket/one_process_per_connection/" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://voidint.github.io/post/socket/one_process_per_connection/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-26T20:11:22+08:00" />
+<meta property="article:modified_time" content="2021-09-26T20:11:22+08:00" />
+
+<meta itemprop="name" content="socket编程（二）：每个进程服务一个连接">
+<meta itemprop="description" content="原文链接：https://voidint.github.io/post/socket/one_process_per_connection/"><meta itemprop="datePublished" content="2021-09-26T20:11:22+08:00" />
+<meta itemprop="dateModified" content="2021-09-26T20:11:22+08:00" />
+<meta itemprop="wordCount" content="4685">
+<meta itemprop="keywords" content="socket,fork,waitpid,signal," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="socket编程（二）：每个进程服务一个连接"/>
+<meta name="twitter:description" content="原文链接：https://voidint.github.io/post/socket/one_process_per_connection/"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">voidint</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://voidint.github.io/">首页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://voidint.github.io/post/">归档</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://voidint.github.io/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://voidint.github.io/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/voidint" rel="noopener" target="_blank">
+              关于
+              
+              <i class="iconfont">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M623.36 272.96 473.216 423.04C467.2 429.056 467.072 438.656 472.896 444.416c0 0-6.72-6.656 1.6 1.6C496.064 467.648 528.64 500.224 528.64 500.224 534.464 506.048 544 505.856 550.016 499.904l150.08-150.144 67.328 66.432c9.024 8.96 27.456 4.544 30.4-8.96 19.968-92.608 46.656-227.52 46.656-227.52 6.848-34.496-16.192-56.704-49.92-49.92 0 0-134.656 26.816-227.328 46.784C560.32 178.048 556.352 182.272 554.752 187.136c-3.2 6.208-3.008 14.208 3.776 20.992L623.36 272.96z"></path>
+  <path d="M841.152 457.152c-30.528 0-54.784 24.512-54.784 54.656l0 274.752L237.696 786.56 237.696 237.696l206.016 0c6.656 0 10.752 0 13.248 0C487.68 237.696 512 213.184 512 182.848 512 152.32 487.36 128 456.96 128L183.04 128C153.216 128 128 152.576 128 182.848c0 3.136 0.256 6.272 0.768 9.28C128.256 195.136 128 198.272 128 201.408l0 639.488c0 0.064 0 0.192 0 0.256 0 0.128 0 0.192 0 0.32 0 30.528 24.512 54.784 54.784 54.784l646.976 0c6.592 0 9.728 0 11.712 0 28.736 0 52.928-22.976 54.464-51.968C896 843.264 896 842.304 896 841.344l0-20.352L896 561.408 896 512.128C896 481.792 871.424 457.152 841.152 457.152z"></path>
+</svg>
+
+              </i>
+            </a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      voidint
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://voidint.github.io/">首页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://voidint.github.io/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://voidint.github.io/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://voidint.github.io/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/voidint" rel="noopener" target="_blank">
+              关于
+              
+              <i class="iconfont">
+                <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M623.36 272.96 473.216 423.04C467.2 429.056 467.072 438.656 472.896 444.416c0 0-6.72-6.656 1.6 1.6C496.064 467.648 528.64 500.224 528.64 500.224 534.464 506.048 544 505.856 550.016 499.904l150.08-150.144 67.328 66.432c9.024 8.96 27.456 4.544 30.4-8.96 19.968-92.608 46.656-227.52 46.656-227.52 6.848-34.496-16.192-56.704-49.92-49.92 0 0-134.656 26.816-227.328 46.784C560.32 178.048 556.352 182.272 554.752 187.136c-3.2 6.208-3.008 14.208 3.776 20.992L623.36 272.96z"></path>
+  <path d="M841.152 457.152c-30.528 0-54.784 24.512-54.784 54.656l0 274.752L237.696 786.56 237.696 237.696l206.016 0c6.656 0 10.752 0 13.248 0C487.68 237.696 512 213.184 512 182.848 512 152.32 487.36 128 456.96 128L183.04 128C153.216 128 128 152.576 128 182.848c0 3.136 0.256 6.272 0.768 9.28C128.256 195.136 128 198.272 128 201.408l0 639.488c0 0.064 0 0.192 0 0.256 0 0.128 0 0.192 0 0.32 0 30.528 24.512 54.784 54.784 54.784l646.976 0c6.592 0 9.728 0 11.712 0 28.736 0 52.928-22.976 54.464-51.968C896 843.264 896 842.304 896 841.344l0-20.352L896 561.408 896 512.128C896 481.792 871.424 457.152 841.152 457.152z"></path>
+</svg>
+
+              </i>
+            </a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">socket编程（二）：每个进程服务一个连接</h1>
+      
+      <div class="post-meta">
+        <time datetime="2021-09-26" class="post-time">
+          2021/09/26
+        </time>
+        <div class="post-category">
+            <a href="http://voidint.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"> 计算机网络 </a>
+            
+          </div>
+        <span class="more-meta"> 约 4685 字 </span>
+          <span class="more-meta"> 预计阅读 10 分钟 </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      <blockquote>
+<p>原文链接：https://voidint.github.io/post/socket/one_process_per_connection/</p>
+</blockquote>
+<p>在前一篇文章中，我们实现了一个<a href="https://voidint.github.io/post/socket/one_server_one_client/">仅能服务一个客户端连接的版本</a>。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在的。在本篇中，我们将对其稍作改进，实现一个<strong>用多个进程服务多个客户端连接的增强型版本</strong>。</p>
+<h1 id="需求每个进程服务一个连接">需求：每个进程服务一个连接</h1>
+<ul>
+<li>由一个专门的进程监听是否有新的客户端连接。</li>
+<li>若有新的客户端连接，则由监听简称创建一个子进程来专门服务此连接。</li>
+<li>客户端主动断开连接时，为该客户端连接服务的子进程退出。</li>
+<li>监听进程为父进程，由其为子进程进行资源回收，避免子进程变成僵尸进程。</li>
+</ul>
+<h1 id="前置知识点">前置知识点</h1>
+<h3 id="1getpidgetppid">1、getpid、getppid</h3>
+<p>每个进程都会有一个非负整数表示的唯一进程ID，称为pid。</p>
+<p>在任意时刻，进程ID在一个操作系统内都是全局唯一的，但是进程ID是允许复用的，进程退出后，原本被其占用的进程ID也将被回收再利用。大多数的 UNIX 操作系统使用了一种称之为延迟重用的算法，即新创建的进程的进程ID不与最近退出进程的进程ID重复。这个意图也是很容易理解的，为的就是防止将新创建的进程误以为是已退出的那个进程（逼近它俩的进程ID是一样的）。</p>
+<p><a href="https://man7.org/linux/man-pages/man2/getpid.2.html">getpid(2)</a> 系统调用用于获取进程ID，而<a href="https://man7.org/linux/man-pages/man2/getppid.2.html">getppid(2)</a>用于获取父进程ID。</p>
+<p>函数原型如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="n">pid_t</span> <span class="nf">getpid</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="n">pid_t</span> <span class="nf">getppid</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="参数列表">参数列表</h4>
+<p>无</p>
+<h4 id="返回值">返回值</h4>
+<p>进程ID号</p>
+<h4 id="错误">错误</h4>
+<p>该系统调用总是成功</p>
+<h3 id="2fork">2、fork</h3>
+<p><a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork(2)</a> 系统调用用于创建新的进程，更具体说，是以当前进程为模板复刻了一个新的进程，当前进程称为<strong>父进程</strong>，而把新进程称为<strong>子进程</strong>。</p>
+<p>函数原型如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="n">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="参数列表-1">参数列表</h4>
+<p>无</p>
+<h4 id="返回值-1">返回值</h4>
+<ul>
+<li>
+<p><code>&gt;0</code>：表示是父进程返回，且返回值就是新创建的子进程ID。</p>
+</li>
+<li>
+<p><code>0</code>：表示是子进程返回。</p>
+</li>
+<li>
+<p><code>-1</code>：表示调用失败并设置 errno 值。</p>
+<p>fork 系统调用比较特别，<strong>父子进程分别返回一次</strong>，都是从 fork 返回处继续执行。通常，我们会依据返回值判断当前是父进程还是子进程。也不难理解这样设计的用意。子进程可以随时随地调用 getpid 与 getppid 获得自身进程ID、父进程ID，因此无需以 fork 返回值的方式传递子进程ID这个信息，这样显得多此一举。反过来，如果不通过 fork 返回值的方式告诉父进程刚刚创建的子进程ID，那么父进程真的无法再分辨出刚刚创建的是哪个进程（子进程很可能有多个）。</p>
+</li>
+</ul>
+<h4 id="错误-1">错误</h4>
+<ul>
+<li><code>EAGAIN</code>: 进程数量已超过当前用户所能创建的进程数上限阈值，或者是进程数量已超过系统设定的全局进程数量上限阈值。</li>
+<li><code>ENOMEM</code>：内存不足</li>
+</ul>
+<h3 id="3waitpid">3、waitpid</h3>
+<p>进程有生必有死，进程生命周期完结退出后，内核会释放其绝大部分资源，以便供其他进程重新使用。但进程ID、终止状态、资源使用数据等信息并未直接释放，这部分资源需要进程的父进程调用 <a href="https://man7.org/linux/man-pages/man2/waitpid.2.html">waitpid(2)</a> 系统调用来回收。若父进程未回收子进程的这部分资源，那么子进程将变成僵尸进程。</p>
+<p>为什么子进程退出后不能直接回收释放其所有资源，还必须让其父进程为其收尸，这不显得非常多余吗？这些不释放的资源是为了给父进程提供一些重要信息，比如进程为何退出，是收到信号退出还是正常退出，进程退出码是多少，进程一共消耗了多少系统CPU时间，多少用户CPU时间，收到了多少信号，发生了多少次上下文切换，最大内存驻留集是多少，产生多少缺页中断等等。</p>
+<p>由于僵尸进程已经不是一个真正的进程，仅仅是内核中残留的一个数据结构，它无法也不会对信号进行处理，因此<code>kill -9</code>对它也毫无作用。那么如何消灭这些僵尸进程呢？治本的方法是由其父进程调用 wait、waitpid、waitid
+之类的系统调用进行回收。治标的方法则是杀死其父进程，那么其就会变成1号进程的子进程，1号进程会自动调用 wait 系统调用为其收尸。</p>
+<p>函数原型如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="n">pid_t</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">status</span><span class="p">,</span> <span class="kt">int</span> <span class="n">options</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="参数列表-2">参数列表</h4>
+<ul>
+<li><code>pid</code>：表示需要等待的具体子进程</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>pid</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;0</td>
+<td>表示等待进程ID为pid的子进程</td>
+</tr>
+<tr>
+<td>0</td>
+<td>表示等待与调用进程（父进程）同一个进程组的所有子进程</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>表示等待任意子进程</td>
+</tr>
+<tr>
+<td>&lt;-1</td>
+<td>等待进程组标识符与pid绝对值相等相等的所有子进程</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>status</code>：获取目标进程状态改变信息的指针。若父进程并不关心子进程的状态改变，可设置为 NULL。若未设置为 NULL，则该系统调用返回后可通过以下的宏来获取进程的状态改变信息。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>宏</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WIFEXITED(status)</td>
+<td>若子进程通过调用exit(3)或者_exit(2)等方式终止了进程，则返回true，否则为false。通过宏 <strong>WEXITSTATUS(status)</strong> 获得具体的进程退出码。</td>
+</tr>
+<tr>
+<td>WIFSIGNALED(status)</td>
+<td>若子进程是接收到了某个信号而终止了进程，则返回true，否则返回false。通过宏 <strong>WTERMSIG(status)</strong> 获得具体的信号值。通过宏 <strong>WCOREDUMP(status)</strong> 获得是否已经产生内核转储文件的布尔值。</td>
+</tr>
+<tr>
+<td>WIFSTOPPED(status)</td>
+<td>在设置了 <strong>WUNTRACED</strong> 标志位的前提下，若子进程并未终止，但是其状态变成了<strong>停止</strong>（还有机会继续运行），则返回true，否则返回false。通过宏 <strong>WSTOPSIG(status)</strong> 获得导致进程停止的具体信号值。</td>
+</tr>
+<tr>
+<td>WIFCONTINUED(status)</td>
+<td>在设置了 <strong>WCONTINUED</strong> 标志位的前提下，若处于停止状态的子进程接收到 SIGCONT 信号，则返回true，否则返回false。<strong>Linux 2.6.10及以上版本有效。</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>options</code>：是一个位掩码，可以包含（按位或操作）0个或者多个如下的标志。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>阻塞，直到子进程有状态发生改变后才返回。</td>
+</tr>
+<tr>
+<td>WNOHANG</td>
+<td>子进程未发生任何状态改变，则立刻返回（返回值为0），不阻塞。</td>
+</tr>
+<tr>
+<td>WUNTRACED</td>
+<td>设置该标识位后，子进程因收到SIGTTIN、SIGTTOU、SIGTSTP、SIGSTOP等信号后状态变为<strong>停止</strong>，该系统调用将立刻返回。</td>
+</tr>
+<tr>
+<td>WCONTINUED</td>
+<td>设置该标识位后，子进程收到 SIGCONT 信号后状态从停止变成运行，该系统调用将立刻返回。<strong>Linux 2.6.10及以上版本有效。</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="返回值-2">返回值</h4>
+<ul>
+<li><code>&gt;0</code>：发生了状态改变的子进程ID。</li>
+<li><code>0</code>：当且仅当设置了 WNOHANG 标志且当前并无任何发生进程状态变化的子进程时返回该值。</li>
+<li><code>-1</code>：发生了某个错误并设置 errno 值。</li>
+</ul>
+<h3 id="错误-2">错误</h3>
+<ul>
+<li><code>ECHILD</code>：子进程不存在。</li>
+<li><code>EINTR</code>: 未设置 WNOHANG 标志位情况下，被信号所中断。</li>
+<li><code>EINVAL</code>: options 标志位设置错误。</li>
+</ul>
+<h3 id="4signal">4、signal</h3>
+<p>信号本质上是一种进程间通信方式。如上文所述，父进程在调用 fork 系统调用创建子进程后，需要 waitpid 回收退出子进程的资源。子进程在退出时，内核会向其父进程发送 SIGCHLD 信号。若父进程事先注册了 SIGCHLD 信号的处理函数（在该函数内调用 waitpid），那么内核就会调用该信号处理函数，也就可以完成对子进程资源的回收了。C标准库提供了 <a href="https://man7.org/linux/man-pages/man3/signal.3p.html">signal(3)</a> 函数，用于注册信号处理函数。</p>
+<p>实际上，UNIX/Linux系统提供了 signal 和 <a href="https://man7.org/linux/man-pages/man2/sigaction.2.html">sigaction(2)</a>两个函数。signal 使用更加简单，但是它的行为在不同的 UNIX 系统之间存在差异，而且功能也远不及 sigaction 丰富，因此普遍更推荐后者。只是由于信号相关内容太多，不宜在本篇中过分展开，因此本篇中使用功能简单的 signal 函数来完成 SIGCHLD 信号对应处理函数的注册。</p>
+<p>函数原型如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">signal</span><span class="p">(</span><span class="kt">int</span> <span class="n">sig</span><span class="p">,</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">func</span><span class="p">)(</span><span class="kt">int</span><span class="p">)))(</span><span class="kt">int</span><span class="p">);</span>
+<span class="c1">// 或者
+</span><span class="c1"></span><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">sig_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+<span class="n">sig_t</span> <span class="nf">signal</span><span class="p">(</span><span class="kt">int</span> <span class="n">sig</span><span class="p">,</span> <span class="n">sig_t</span> <span class="n">func</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="参数列表-3">参数列表</h4>
+<ul>
+<li><code>sig</code>：信号（通过<code>kill -l</code>查看系统支持的信号种类）。</li>
+<li><code>func</code>：有一个 int 类型入参且无返回值的函数指针。</li>
+</ul>
+<h4 id="返回值-3">返回值</h4>
+<p>成功返回前一个注册的信号处理动作，失败返回 SIG_ERR 并设置 errno 值。</p>
+<h3 id="错误-3">错误</h3>
+<ul>
+<li><code>EINVAL</code>: 信号错误，或者尝试捕获一个不能捕获的信号，亦或者尝试忽略一个不能忽略的信号。</li>
+</ul>
+<h1 id="示例">示例</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// server.c
+</span><span class="c1"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;ctype.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">handle_sigchld</span><span class="p">(</span><span class="kt">int</span> <span class="n">signo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">pid_t</span> <span class="n">wpid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">options</span> <span class="o">=</span> <span class="n">WNOHANG</span> <span class="o">|</span> <span class="n">WUNTRACED</span><span class="p">;</span>
+
+<span class="cp">#ifdef WCONTINUED </span><span class="c1">// Linux 2.6.10及以上版本
+</span><span class="c1"></span>    <span class="n">options</span> <span class="o">|=</span> <span class="n">WCONTINUED</span><span class="p">;</span>
+<span class="cp">#endif
+</span><span class="cp"></span>
+    <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+        <span class="n">wpid</span> <span class="o">=</span> <span class="n">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">wpid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">wpid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">errno</span> <span class="o">==</span> <span class="n">EINTR</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 系统调用被信号中断，重新调用一次。
+</span><span class="c1"></span>                <span class="k">continue</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">ECHILD</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ECHILD表示已无子进程，这属于&#39;正常&#39;情况。
+</span><span class="c1"></span>                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;waitpid error&#34;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]子进程%d主动调用exit或者_exit退出（退出码为%d）</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">wpid</span><span class="p">,</span> <span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">WIFSIGNALED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]子进程%d接收到信号后退出（信号为%d）%s产生内核转储文件</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">wpid</span><span class="p">,</span> <span class="n">WTERMSIG</span><span class="p">(</span><span class="n">status</span><span class="p">),</span> <span class="n">WCOREDUMP</span><span class="p">(</span><span class="n">status</span><span class="p">)</span> <span class="o">?</span> <span class="s">&#34;且已&#34;</span> <span class="o">:</span> <span class="s">&#34;但未&#34;</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">WIFSTOPPED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]子进程%d接收到信号后停止（信号为%d）</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">wpid</span><span class="p">,</span> <span class="n">WSTOPSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+        <span class="p">}</span>
+<span class="cp">#ifdef WIFCONTINUED </span><span class="c1">// Linux 2.6.10及以上版本
+</span><span class="c1"></span>        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">WIFCONTINUED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]子进程%d接收到 SIGCONT 信号后继续</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">wpid</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="cp">#endif
+</span><span class="cp"></span>    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 父进程负责监听客户端连接，每个连接都通过fork一个子进程的方式进行服务。
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;Usage: %s port</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+
+    <span class="kt">int</span> <span class="n">lfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// 监听文件描述符
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">lfd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&#34;socket error&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">reuseaddr</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">setsockopt</span><span class="p">(</span><span class="n">lfd</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">reuseaddr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">reuseaddr</span><span class="p">));</span> <span class="c1">// 支持重复绑定
+</span><span class="c1"></span>
+    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">addr</span><span class="p">;</span>
+    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">addr</span><span class="p">));</span>
+    <span class="n">addr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+    <span class="n">addr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">port</span><span class="p">);</span>
+    <span class="n">addr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">bind</span><span class="p">(</span><span class="n">lfd</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)))</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&#34;bind error&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">((</span><span class="n">ret</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="n">lfd</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&#34;listen error&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]The server is running at %s:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">inet_ntoa</span><span class="p">(</span><span class="n">addr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">),</span> <span class="n">port</span><span class="p">);</span>
+
+    <span class="n">signal</span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span> <span class="n">SIG_IGN</span><span class="p">);</span> <span class="c1">// 注册SIGCHLD信号回收子进程资源
+</span><span class="c1"></span>
+    <span class="kt">int</span> <span class="n">cfd</span><span class="p">;</span> <span class="c1">// 连接文件描述符
+</span><span class="c1"></span>    <span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+        <span class="n">cfd</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">lfd</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">cfd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">errno</span> <span class="o">==</span> <span class="n">EINTR</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 注意：被信号所中断，这类错误不是真的&#34;错误&#34;。
+</span><span class="c1"></span>                <span class="k">continue</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">perror</span><span class="p">(</span><span class="s">&#34;accept error&#34;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">perror</span><span class="p">(</span><span class="s">&#34;fork error&#34;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 父进程
+</span><span class="c1"></span>            <span class="n">close</span><span class="p">(</span><span class="n">cfd</span><span class="p">);</span> <span class="c1">// 父进程中用不到cfd，关闭（cfd的引用计数减一）。
+</span><span class="c1"></span>        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 子进程
+</span><span class="c1"></span>            <span class="n">close</span><span class="p">(</span><span class="n">lfd</span><span class="p">);</span> <span class="c1">// 子进程中用不到lfd，关闭（lfd的引用计数减一）。
+</span><span class="c1"></span>
+            <span class="c1">// 循环读取客户端连接文件描述符将读取的内容转换成大写后返回给客户端
+</span><span class="c1"></span>            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]Start servicing connection %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">cfd</span><span class="p">);</span>
+            <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+            <span class="n">ssize_t</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+                <span class="n">memset</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">cfd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">close</span><span class="p">(</span><span class="n">cfd</span><span class="p">);</span> <span class="c1">// cfd的引用计数减一
+</span><span class="c1"></span>                    <span class="n">perror</span><span class="p">(</span><span class="s">&#34;read error&#34;</span><span class="p">);</span>
+                    <span class="n">_exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span> <span class="c1">// 直接退出当前进程，避免子进程再次创建子进程。
+</span><span class="c1"></span>                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 客户端关闭连接（EOF）
+</span><span class="c1"></span>                    <span class="n">close</span><span class="p">(</span><span class="n">cfd</span><span class="p">);</span>  <span class="c1">// cfd的引用计数减一
+</span><span class="c1"></span>                    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]Connection %d is closed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">cfd</span><span class="p">);</span>
+                    <span class="n">_exit</span><span class="p">(</span><span class="n">EXIT_SUCCESS</span><span class="p">);</span> <span class="c1">// 直接退出当前进程，避免子进程再次创建子进程。
+</span><span class="c1"></span>                <span class="p">}</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]Read: %s&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">buf</span><span class="p">);</span>
+
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">toupper</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+                <span class="p">}</span>
+                <span class="n">write</span><span class="p">(</span><span class="n">cfd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]Write: %s&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">buf</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">close</span><span class="p">(</span><span class="n">lfd</span><span class="p">);</span> <span class="c1">// lfd的引用计数减一
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d]The server is shut down</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">());</span>
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="演示">演示</h3>
+<ul>
+<li>
+<p>终端1：启动服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ gcc ./server.c -o a.out
+$ ./a.out <span class="m">8989</span>
+<span class="o">[</span>36567<span class="o">]</span>The server is running at 0.0.0.0:8989
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>终端2：通过nc或者telnet尝试连接服务端</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ nc 127.0.0.1 <span class="m">8989</span>
+hello <span class="c1"># 随意输入一个字符串</span>
+HELLO <span class="c1"># 服务端将字符串转成大写后返回</span>
+world
+WORLD
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看终端1的服务端输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ ./a.out <span class="m">8989</span>
+<span class="o">[</span>36567<span class="o">]</span>The server is running at 0.0.0.0:8989 <span class="c1"># 父进程ID为36567</span>
+<span class="o">[</span>36620<span class="o">]</span>Start servicing connection <span class="m">4</span>          <span class="c1"># 子进程ID为36620</span>
+<span class="o">[</span>36620<span class="o">]</span>Read: hello 
+<span class="o">[</span>36620<span class="o">]</span>Write: HELLO 
+<span class="o">[</span>36620<span class="o">]</span>Read: world
+<span class="o">[</span>36620<span class="o">]</span>Write: WORLD
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>终端3：向子进程36620依次发送SIGSTOP、SIGCONT、SIGTERM信号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nb">kill</span> -SIGSTOP <span class="m">36620</span>
+$ <span class="nb">kill</span> -SIGCONT <span class="m">36620</span>
+$ <span class="nb">kill</span> -SIGTERM <span class="m">36620</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>再次查看终端1的服务端输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ ./a.out <span class="m">8989</span>
+<span class="o">[</span>36567<span class="o">]</span>The server is running at 0.0.0.0:8989
+<span class="o">[</span>36620<span class="o">]</span>Start servicing connection <span class="m">4</span>
+<span class="o">[</span>36620<span class="o">]</span>Read: hello 
+<span class="o">[</span>36620<span class="o">]</span>Write: HELLO 
+<span class="o">[</span>36620<span class="o">]</span>Read: world
+<span class="o">[</span>36620<span class="o">]</span>Write: WORLD
+<span class="o">[</span>36567<span class="o">]</span>子进程36620接收到信号后停止（信号为17）                  <span class="c1"># 子进程接收到SIGSTOP信号导致进程停止</span>
+<span class="o">[</span>36567<span class="o">]</span>子进程36620接收到 SIGCONT 信号后继续                   <span class="c1"># 子进程接收到SIGCONT信号导致进程重新运行</span>
+<span class="o">[</span>36567<span class="o">]</span>子进程36620接收到信号后退出（信号为15）但未产生内核转储文件 <span class="c1"># 子进程接收到SIGTERM信号导致进程正常退出</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>终端4：通过nc连接服务端并在输入字符串后按下<code>Ctrl+c</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ nc 127.0.0.1 <span class="m">8989</span>
+voidint
+VOIDINT
+^C
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>再次查看终端1的服务端输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ ./a.out <span class="m">8989</span>
+<span class="o">[</span>36567<span class="o">]</span>The server is running at 0.0.0.0:8989
+<span class="o">[</span>36620<span class="o">]</span>Start servicing connection <span class="m">4</span>
+<span class="o">[</span>36620<span class="o">]</span>Read: hello 
+<span class="o">[</span>36620<span class="o">]</span>Write: HELLO 
+<span class="o">[</span>36620<span class="o">]</span>Read: world
+<span class="o">[</span>36620<span class="o">]</span>Write: WORLD
+<span class="o">[</span>36567<span class="o">]</span>子进程36620接收到信号后停止（信号为17）
+<span class="o">[</span>36567<span class="o">]</span>子进程36620接收到 SIGCONT 信号后继续
+<span class="o">[</span>36567<span class="o">]</span>子进程36620接收到信号后退出（信号为15）但未产生内核转储文件
+<span class="o">[</span>37110<span class="o">]</span>Start servicing connection <span class="m">4</span>                <span class="c1"># 新创建的进程37110来服务新的连接</span>
+<span class="o">[</span>37110<span class="o">]</span>Read: voidint
+<span class="o">[</span>37110<span class="o">]</span>Write: VOIDINT
+<span class="o">[</span>37110<span class="o">]</span>Connection <span class="m">4</span> is closed                      <span class="c1"># 探测到客户端连接已主动关闭</span>
+<span class="o">[</span>36567<span class="o">]</span>子进程37110主动调用exit或者_exit退出（退出码为0） <span class="c1"># 客户端连接主动关闭后为此服务的进程也退出</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h1 id="参考">参考</h1>
+<ul>
+<li>《UNIX环境高级编程》</li>
+<li>《Linux/UNIX系统编程手册》</li>
+<li>《Linux环境编程：从应用到内核》</li>
+<li>传智播客Linux网络编程课程</li>
+<li><a href="https://man7.org/linux/man-pages/">Linux man pages</a></li>
+</ul>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">voidint</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+      2021/09/26
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="http://voidint.github.io/tags/socket/">socket</a>
+          <a href="http://voidint.github.io/tags/fork/">fork</a>
+          <a href="http://voidint.github.io/tags/waitpid/">waitpid</a>
+          <a href="http://voidint.github.io/tags/signal/">signal</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/posix/exit-_exit-_exit-atexit/">
+            <span class="next-text nav-default">UNIX/Linux下的exit系列函数</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  <div class="disqus-comment">
+  <div class="disqus-button" id="load_disqus" onclick="load_disqus()">
+    显示 Disqus 评论
+  </div>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = "http://voidint.github.io/post/socket/one_process_per_connection/";
+    };
+    function load_disqus() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'voidint';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+      $('#load_disqus').remove();
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+  
+  </div>
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="mailto:voidint@126.com" rel="me noopener" class="iconfont"
+      title="email" >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://githut.com/voidint" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://weibo.com/voidinteger/home" rel="me noopener" class="iconfont"
+      title="weibo"  target="_blank"
+      >
+      <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M385.714286 733.714286q12-19.428571 6.285714-39.428571t-25.714286-28.571429q-19.428571-8-41.714286-0.571429t-34.285714 26.285714q-12.571429 19.428571-7.428571 39.142857t24.571429 28.857143 42.571429 1.428571 35.714286-27.142857zm53.714286-69.142857q4.571429-7.428571 2-15.142857t-10-10.571429q-8-2.857143-16.285714 2.857143t-12.285714 10.571429q-9.714286 17.714286 7.428571 25.714286 8 2.857143 16.571429 2.857143t12.571429-10.571429zm99.428571 61.142857q-25.714286 58.285714-90.285714 85.714286t-128 6.857143q-61.142857-19.428571-84.285714-72.285714t3.714286-107.142857q26.857143-53.142857 86.571429-79.428571t120.285714-10.857143q63.428571 16.571429 90.571429 68.285714t1.428571 108.857143zm178.285714-91.428571q-5.142857-54.857143-50.857143-97.142857t-119.142857-62.285714-156.857143-12q-127.428571 13.142857-211.142857 80.857143t-75.714286 151.142857q5.142857 54.857143 50.857143 97.142857t119.142857 62.285714 156.857143 12q127.428571-13.142857 211.142857-80.857143t75.714286-151.142857zm176 2.285714q0 38.857143-21.142857 79.714286t-62.285714 78.285714-96.285714 67.142857-129.142857 47.428571-154.571429 17.714286-157.142857-19.142857-137.428571-53.142857-98-86.285714-37.142857-114q0-65.714286 39.714286-140t112.857143-147.428571q96.571429-96.571429 195.142857-134.857143t140.857143 4q37.142857 36.571429 11.428571 119.428571-2.285714 8-0.571429 11.428571t5.714286 4 8.285714 2.857143 7.714286-2l3.428571-1.142857q79.428571-33.714286 140.571429-33.714286t87.428571 34.857143q25.714286 36 0 101.714286-1.142857 7.428571-2.571429 11.428571t2.571429 7.142857 6.857143 4.285714 9.714286 3.428571q32.571429 10.285714 58.857143 26.857143t45.714286 46.571429 19.428571 66.571429zm-42.285714-356.571429q24 26.857143 31.142857 62t-3.714286 67.142857q-4.571429 13.142857-16.857143 19.428571t-25.428571 2.285714q-13.142857-4.571429-19.428571-16.857143t-2.285714-25.428571q11.428571-36-13.714286-63.428571t-61.142857-20q-13.714286 2.857143-25.714286-4.571429t-14.285714-21.142857q-2.857143-13.714286 4.571429-25.428571t21.142857-14.571429q34.285714-7.428571 68 3.142857t57.714286 37.428571zm103.428571-93.142857q49.714286 54.857143 64.285714 127.142857t-7.714286 138q-5.142857 15.428571-19.428571 22.857143t-29.714286 2.285714-22.857143-19.428571-2.857143-29.714286q16-46.857143 5.714286-98.285714t-45.714286-90.285714q-35.428571-39.428571-84.571429-54.571429t-98.857143-4.857143q-16 3.428571-29.714286-5.428571t-17.142857-24.857143 5.428571-29.428571 24.857143-16.857143q70.285714-14.857143 139.428571 6.571429t118.857143 76.857143z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://www.zhihu.com/people/voidint/posts" rel="me noopener" class="iconfont"
+      title="zhihu"  target="_blank"
+      >
+      <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M351.791182 562.469462l192.945407 0c0-45.367257-21.3871-71.939449-21.3871-71.939449L355.897709 490.530013c3.977591-82.182744 7.541767-187.659007 8.816806-226.835262l159.282726 0c0 0-0.86367-67.402109-18.578124-67.402109s-279.979646 0-279.979646 0 16.850783-88.141456 39.318494-127.053698c0 0-83.60514-4.510734-112.121614 106.962104S81.344656 355.077018 76.80834 367.390461c-4.536316 12.313443 24.62791 5.832845 36.941354 0 12.313443-5.832845 68.050885-25.924439 84.252893-103.69571l86.570681 0c1.165546 49.28652 4.596691 200.335724 3.515057 226.835262L109.86113 490.530013c-25.275663 18.147312-33.701566 71.939449-33.701566 71.939449L279.868105 562.469462c-8.497535 56.255235-23.417339 128.763642-44.275389 167.210279-33.05279 60.921511-50.55235 116.65793-169.802314 212.576513 0 0-19.442818 14.257725 40.829917 9.073656 60.273758-5.185093 117.305683-20.739347 156.840094-99.807147 20.553105-41.107233 41.805128-93.250824 58.386782-146.138358l-0.055259 0.185218 167.855986 193.263655c0 0 22.035876-51.847855 5.832845-108.880803L371.045711 650.610918l-42.1244 31.157627-0.045025 0.151449c11.69946-41.020252 20.11206-81.5749 22.726607-116.858498C351.665315 564.212152 351.72876 563.345412 351.791182 562.469462z"></path>
+  <path d="M584.918753 182.033893l0 668.840094 70.318532 0 28.807093 80.512708 121.875768-80.512708 153.600307 0L959.520453 182.033893 584.918753 182.033893zM887.150192 778.934538l-79.837326 0-99.578949 65.782216-23.537066-65.782216-24.855084 0L659.341766 256.673847l227.807403 0L887.149169 778.934538z"></path>
+</svg>
+
+    </a>
+
+
+<a href="http://voidint.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2020 -
+    2021
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        voidint
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

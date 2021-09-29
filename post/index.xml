@@ -6,7 +6,16 @@
     <description>Recent content in Posts on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 26 Sep 2021 10:30:58 +0800</lastBuildDate><atom:link href="http://voidint.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 20:11:22 +0800</lastBuildDate><atom:link href="http://voidint.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>socket编程（二）：每个进程服务一个连接</title>
+      <link>http://voidint.github.io/post/socket/one_process_per_connection/</link>
+      <pubDate>Sun, 26 Sep 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/socket/one_process_per_connection/</guid>
+      <description>原文链接：https://voidint.github.io/post/socket/one_process_per_connection/</description>
+    </item>
+    
     <item>
       <title>UNIX/Linux下的exit系列函数</title>
       <link>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</link>

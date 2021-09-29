@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>signal on voidint - 个人博客</title>
+    <link>http://voidint.github.io/tags/signal/</link>
+    <description>Recent content in signal on voidint - 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 26 Sep 2021 20:11:22 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/signal/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>socket编程（二）：每个进程服务一个连接</title>
+      <link>http://voidint.github.io/post/socket/one_process_per_connection/</link>
+      <pubDate>Sun, 26 Sep 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/socket/one_process_per_connection/</guid>
+      <description>原文链接：https://voidint.github.io/post/socket/one_process_per_connection/</description>
+    </item>
+    
+  </channel>
+</rss>

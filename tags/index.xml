@@ -6,7 +6,43 @@
     <description>Recent content in Tags on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 26 Sep 2021 10:30:58 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 20:11:22 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>fork</title>
+      <link>http://voidint.github.io/tags/fork/</link>
+      <pubDate>Sun, 26 Sep 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/fork/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>signal</title>
+      <link>http://voidint.github.io/tags/signal/</link>
+      <pubDate>Sun, 26 Sep 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/signal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>socket</title>
+      <link>http://voidint.github.io/tags/socket/</link>
+      <pubDate>Sun, 26 Sep 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/socket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>waitpid</title>
+      <link>http://voidint.github.io/tags/waitpid/</link>
+      <pubDate>Sun, 26 Sep 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/waitpid/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>_Exit</title>
       <link>http://voidint.github.io/tags/_exit/</link>
@@ -53,11 +89,38 @@
     </item>
     
     <item>
-      <title>socket编程</title>
-      <link>http://voidint.github.io/tags/socket%E7%BC%96%E7%A8%8B/</link>
+      <title>accept</title>
+      <link>http://voidint.github.io/tags/accept/</link>
       <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
       
-      <guid>http://voidint.github.io/tags/socket%E7%BC%96%E7%A8%8B/</guid>
+      <guid>http://voidint.github.io/tags/accept/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bind</title>
+      <link>http://voidint.github.io/tags/bind/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/bind/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>connect</title>
+      <link>http://voidint.github.io/tags/connect/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/connect/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>listen</title>
+      <link>http://voidint.github.io/tags/listen/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/listen/</guid>
       <description></description>
     </item>
     
@@ -121,69 +184,6 @@
       <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
       
       <guid>http://voidint.github.io/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Namespace</title>
-      <link>http://voidint.github.io/tags/namespace/</link>
-      <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/namespace/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>《自己动手写docker》</title>
-      <link>http://voidint.github.io/tags/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99docker/</link>
-      <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>grub-crypt</title>
-      <link>http://voidint.github.io/tags/grub-crypt/</link>
-      <pubDate>Tue, 25 Feb 2020 17:24:33 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/grub-crypt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Password</title>
-      <link>http://voidint.github.io/tags/password/</link>
-      <pubDate>Tue, 25 Feb 2020 17:24:33 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/password/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HPSSACLI</title>
-      <link>http://voidint.github.io/tags/hpssacli/</link>
-      <pubDate>Tue, 25 Feb 2020 17:05:06 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/hpssacli/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>RAID</title>
-      <link>http://voidint.github.io/tags/raid/</link>
-      <pubDate>Tue, 25 Feb 2020 17:05:06 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/raid/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SAS3IRCU</title>
-      <link>http://voidint.github.io/tags/sas3ircu/</link>
-      <pubDate>Tue, 25 Feb 2020 16:43:06 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/sas3ircu/</guid>
       <description></description>
     </item>
     
