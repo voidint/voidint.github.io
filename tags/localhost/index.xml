@@ -13,7 +13,7 @@
       <pubDate>Tue, 25 Feb 2020 15:56:49 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/db/mysql-login-localhost/</guid>
-      <description>我在自己的mac上安装了docker，并在docker中运行了mysql5.6容器。启动容器的方式大致如下： 1 2 3 4 5 $ docker run --name mydb -d \ -p 3306:3306 \ -v</description>
+      <description>原文链接：https://voidint.github.io/post/db/mysql-login-localhost/ 我在自己的mac上</description>
     </item>
     
   </channel>
