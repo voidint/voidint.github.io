@@ -13,7 +13,7 @@
       <pubDate>Tue, 25 Feb 2020 16:08:07 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/container/docker-mysql-timezone/</guid>
-      <description>从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行select now()语句，发现显示的时间与我宿主机的时</description>
+      <description>原文链接：https://voidint.github.io/post/container/docker-mysql-timezone/ 从d</description>
     </item>
     
     <item>

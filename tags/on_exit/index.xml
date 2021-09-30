@@ -13,7 +13,7 @@
       <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
       
       <guid>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</guid>
-      <description>使用C/C++语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又</description>
+      <description>原文链接：https://voidint.github.io/post/socket/one_server_one_client/ 使用C/C</description>
     </item>
     
   </channel>

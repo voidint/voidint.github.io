@@ -21,6 +21,7 @@
         <description>&lt;blockquote&gt;
 &lt;p&gt;原文链接：https://voidint.github.io/post/socket/one_process_per_connection/&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/socket/fork_exec_wait.png&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在前一篇文章中，我们实现了一个&lt;a href=&#34;https://voidint.github.io/post/socket/one_server_one_client/&#34;&gt;仅能服务一个客户端连接的版本&lt;/a&gt;。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在的。在本篇中，我们将对其稍作改进，实现一个&lt;strong&gt;用多个进程服务多个客户端连接的增强型版本&lt;/strong&gt;。&lt;/p&gt;
 &lt;h1 id=&#34;需求每个进程服务一个连接&#34;&gt;需求：每个进程服务一个连接&lt;/h1&gt;
 &lt;ul&gt;
@@ -721,7 +722,11 @@ VOIDINT
       
       <guid>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</guid>
       
-        <description>&lt;p&gt;使用C/C++语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又是某个系统所独有的系统调用或者函数，并且命名上也极为类似，给人眼花缭乱的感觉。&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/socket/one_server_one_client/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/posix/exit.png&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;使用C/C++语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又是某个系统所独有的系统调用或者函数，并且命名上也极为类似，给人眼花缭乱的感觉。&lt;/p&gt;
 &lt;p&gt;这篇文章尝试去总结下其中常见的那几个系统调用和函数，并通过一个例子来展示下基本用法。&lt;/p&gt;
 &lt;h1 id=&#34;进程退出系列系统调用函数&#34;&gt;进程退出系列系统调用/函数&lt;/h1&gt;
 &lt;h3 id=&#34;1_exit&#34;&gt;1、_exit&lt;/h3&gt;
@@ -1000,7 +1005,11 @@ VOIDINT
       
       <guid>http://voidint.github.io/post/socket/one_server_one_client/</guid>
       
-        <description>&lt;p&gt;在这个信息爆炸的时代，有关socket编程的文章多如牛毛，而且还在不断产出，隔三差五就能在各种微信公众号之类的地方看到。我也打算写一个有关 socket 编程的系列文章，不是因为我膨胀到觉得比别人写得好，而是为了加深对这部分知识的印象，查漏补缺（下笔之前总会多查些资料，以免写出来贻笑大方是不是），同时也是为了练习书面表达能力。鉴于本人有限的知识水平和写作水平，错误也在所难免，还望指正。&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/socket/one_server_one_client/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/socket/socket_api.png&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在这个信息爆炸的时代，有关socket编程的文章多如牛毛，而且还在不断产出，隔三差五就能在各种微信公众号之类的地方看到。我也打算写一个有关 socket 编程的系列文章，不是因为我膨胀到觉得比别人写得好，而是为了加深对这部分知识的印象，查漏补缺（下笔之前总会多查些资料，以免写出来贻笑大方是不是），同时也是为了练习书面表达能力。鉴于本人有限的知识水平和写作水平，错误也在所难免，还望指正。&lt;/p&gt;
 &lt;p&gt;这个系列的文章主要围绕 Unix/Linux 下的 socket 网络编程，不涉及 Windows （我也不懂）。在形式上，会围绕如何实现一个具体的需求（demo），分析其中需要用到哪些知识点并给出一个可运行的代码实现。虽然 socket 网络编程并不限定于哪种具体的编程语言，可谁让操作系统内核都是C语言实现的呢，所以选用C语言来描述绝对是正确的做法。但是大概率上也不会涉及内核的具体代码实现（因为我不懂），只会涉及到一些基本的函数和系统调用。&lt;/p&gt;
 &lt;h1 id=&#34;需求一个服务器服务一个客户端&#34;&gt;需求：一个服务器服务一个客户端&lt;/h1&gt;
 &lt;p&gt;具体归纳为以下几条：&lt;/p&gt;
@@ -1679,7 +1688,11 @@ Please enter content:
       
       <guid>http://voidint.github.io/post/c_cpp/gdb/</guid>
       
-        <description>&lt;p&gt;gdb 调试前提是需要保留符号表。对于 C/C++ 等使用 gcc 进行编译的语言，编译时增加&lt;code&gt;-g&lt;/code&gt;选项。对于 go 语言，则增加&lt;code&gt;-ldflags=-compressdwarf=false&lt;/code&gt; 、&lt;code&gt;-gcflags=all=&amp;quot;-N -l&amp;quot;&lt;/code&gt;等选项。&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/c_cpp/gdb/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/c_cpp/gdb.gif&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;gdb 调试前提是需要保留符号表。对于 C/C++ 等使用 gcc 进行编译的语言，编译时增加&lt;code&gt;-g&lt;/code&gt;选项。对于 go 语言，则增加&lt;code&gt;-ldflags=-compressdwarf=false&lt;/code&gt; 、&lt;code&gt;-gcflags=all=&amp;quot;-N -l&amp;quot;&lt;/code&gt;等选项。&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -1893,7 +1906,11 @@ Please enter content:
       
       <guid>http://voidint.github.io/post/tool/juicefs/</guid>
       
-        <description>&lt;h1 id=&#34;什么是juicefs&#34;&gt;什么是JuiceFS&lt;/h1&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/tool/juicefs/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/tool/juicefs.png&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;什么是juicefs&#34;&gt;什么是JuiceFS&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;JuiceFS 是为云端设计的共享文件系统。
 云端：采用云服务中的对象存储作为后端，综合性价比极高。
@@ -2149,7 +2166,11 @@ $ ls -lh ~/jfs
       
       <guid>http://voidint.github.io/post/golang/goproxy-privatization-deployment/</guid>
       
-        <description>&lt;p&gt;最近在公司内部搭建了一个&lt;a href=&#34;https://goproxy.io/zh/&#34;&gt;goproxy.io&lt;/a&gt;的服务，总结并记录一下备忘。&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/golang/goproxy-privatization-deployment/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/golang/goproxyio.jpg&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最近在公司内部搭建了一个&lt;a href=&#34;https://goproxy.io/zh/&#34;&gt;goproxy.io&lt;/a&gt;的服务，总结并记录一下备忘。&lt;/p&gt;
 &lt;p&gt;goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文档一步一步搭建应该都会比较顺利。当然我也不是对官方文档的无意义复制粘贴，我将从以下三个方面进行阐述：&lt;/p&gt;
 &lt;h1 id=&#34;goproxyio服务的搭建&#34;&gt;goproxy.io服务的搭建&lt;/h1&gt;
 &lt;ul&gt;
@@ -2303,7 +2324,11 @@ tonybai在其&lt;a href=&#34;https://tonybai.com/2017/06/28/set-custom-go-get-im
       
       <guid>http://voidint.github.io/post/container/linux-namespaces-first-experience/</guid>
       
-        <description>&lt;h1 id=&#34;简介&#34;&gt;简介&lt;/h1&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/container/linux-namespaces-first-experience/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/cloudnative/linux-namespaces-first-experience.png&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;简介&#34;&gt;简介&lt;/h1&gt;
 &lt;p&gt;下面是&lt;a href=&#34;https://coolshell.cn/articles/17010.html&#34;&gt;酷壳&lt;/a&gt;给出的关于Linux Namespaces的介绍：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Linux Namespace是Linux提供的一种内核级别环境隔离的方法。不知道你是否还记得很早以前的Unix有一个叫chroot的系统调用（通过修改根目录把用户jail到一个特定目录下），chroot提供了一种简单的隔离模式：chroot内部的文件系统无法访问外部的内容。Linux Namespace在此基础上，提供了对UTS、IPC、mount、PID、network、User等的隔离机制。&lt;/p&gt;
@@ -2638,7 +2663,11 @@ root        &lt;span class=&#34;m&#34;&gt;14&lt;/span&gt;     &lt;span class=&#3
       
       <guid>http://voidint.github.io/post/posix/linux-password/</guid>
       
-        <description>&lt;h1 id=&#34;从自动化需求说起&#34;&gt;从自动化需求说起&lt;/h1&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/posix/linux-password/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/posix/linux-password.jpg&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;从自动化需求说起&#34;&gt;从自动化需求说起&lt;/h1&gt;
 &lt;p&gt;如何生成一个Linux用户登录密码？可能有人会说用passwd生成。的确，passwd命令能够帮助我们重置用户登录密码，但是这并没有解答如何生成一个Linux用户登录密码的疑问。&lt;/p&gt;
 &lt;p&gt;对于这个问题，秉承着实用主义的精神，我原本也不会去深究。毕竟，安装的时候会设置密码，安装完毕后能通过passwd命令重置密码，学会这两点后已满足一般的需求已经绰绰有余了。&lt;/p&gt;
 &lt;p&gt;但是，对于自动化而言，知道以上的两点是不够的。Linux的自动化安装过程中，设置用户登录密码这事，肯定不能有人为干预，否则谈什么自动化。操作系统安装完毕后，也有可能会有重置用户密码的自动化需求，此时使用passwd命令来重置用户密码，也不见得是最佳的选择。&lt;/p&gt;
@@ -3288,7 +3317,11 @@ SAS3IRCU: Utility Completed Successfully.
       
       <guid>http://voidint.github.io/post/tool/git-commit-amend/</guid>
       
-        <description>&lt;h1 id=&#34;场景描述&#34;&gt;场景描述&lt;/h1&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/tool/git-commit-amend/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/tool/git.jpg&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;场景描述&#34;&gt;场景描述&lt;/h1&gt;
 &lt;p&gt;假设你创建了一个文件，并写入了一些内容，然后通过git add和git commit将此变更提交。提交之后才发现这个文件中少了一些内容，此时有两个选择摆在你面前：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;将文件内容补全，然后和之前一样git add、git commit。显然，你可以通过git log看到这两条commit记录。&lt;/li&gt;
@@ -3351,7 +3384,11 @@ eb6c8cb Add README.md // hash值发生了变化
       
       <guid>http://voidint.github.io/post/container/docker-mysql-timezone/</guid>
       
-        <description>&lt;p&gt;从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行&lt;code&gt;select now()&lt;/code&gt;语句，发现显示的时间与我宿主机的时间不一致且相差8小时。显然，需要重置MySQL的时区，将时区设置与宿主机保持一致，即东八区。&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;原文链接：https://voidint.github.io/post/container/docker-mysql-timezone/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/cloudnative/mysql-timezone.jpg&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行&lt;code&gt;select now()&lt;/code&gt;语句，发现显示的时间与我宿主机的时间不一致且相差8小时。显然，需要重置MySQL的时区，将时区设置与宿主机保持一致，即东八区。&lt;/p&gt;
 &lt;h1 id=&#34;如何为mysql设置时区&#34;&gt;如何为MySQL设置时区？&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&#34;https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html&#34;&gt;MySQL 5.7官方文档&lt;/a&gt;中提到了多种设置时区的方案，我们这里仅关注配置文件（MySQL官方称之为&lt;a href=&#34;https://dev.mysql.com/doc/refman/5.7/en/option-files.html&#34;&gt;Option Files&lt;/a&gt;）的方案。&lt;/p&gt;
 &lt;h2 id=&#34;配置文件中修改时区&#34;&gt;配置文件中修改时区&lt;/h2&gt;

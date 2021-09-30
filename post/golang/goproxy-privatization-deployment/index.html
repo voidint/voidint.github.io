@@ -23,7 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="voidint" />
-  <meta name="description" content="最近在公司内部搭建了一个goproxy.io的服务，总结并记录一下备忘。 goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文" />
+  <meta name="description" content="原文链接：https://voidint.github.io/post/golang/goproxy-privatization-deplo" />
 
   <meta name="keywords" content="voidint, hugo, jane" />
 
@@ -60,19 +60,19 @@
 
 
 <meta property="og:title" content="goproxy.io内部私有化部署" />
-<meta property="og:description" content="最近在公司内部搭建了一个goproxy.io的服务，总结并记录一下备忘。 goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文" />
+<meta property="og:description" content="原文链接：https://voidint.github.io/post/golang/goproxy-privatization-deplo" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://voidint.github.io/post/golang/goproxy-privatization-deployment/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-14T17:58:28+00:00" />
 <meta property="article:modified_time" content="2020-03-14T17:58:28+00:00" />
 
 <meta itemprop="name" content="goproxy.io内部私有化部署">
-<meta itemprop="description" content="最近在公司内部搭建了一个goproxy.io的服务，总结并记录一下备忘。 goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文"><meta itemprop="datePublished" content="2020-03-14T17:58:28+00:00" />
+<meta itemprop="description" content="原文链接：https://voidint.github.io/post/golang/goproxy-privatization-deplo"><meta itemprop="datePublished" content="2020-03-14T17:58:28+00:00" />
 <meta itemprop="dateModified" content="2020-03-14T17:58:28+00:00" />
-<meta itemprop="wordCount" content="843">
+<meta itemprop="wordCount" content="919">
 <meta itemprop="keywords" content="goproxy.io,golang," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="goproxy.io内部私有化部署"/>
-<meta name="twitter:description" content="最近在公司内部搭建了一个goproxy.io的服务，总结并记录一下备忘。 goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文"/>
+<meta name="twitter:description" content="原文链接：https://voidint.github.io/post/golang/goproxy-privatization-deplo"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -326,7 +326,7 @@
             <a href="http://voidint.github.io/categories/golang/"> Golang </a>
             
           </div>
-        <span class="more-meta"> 约 843 字 </span>
+        <span class="more-meta"> 约 919 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
 
         
@@ -342,7 +342,11 @@
 
     
     <div class="post-content">
-      <p>最近在公司内部搭建了一个<a href="https://goproxy.io/zh/">goproxy.io</a>的服务，总结并记录一下备忘。</p>
+      <blockquote>
+<p>原文链接：https://voidint.github.io/post/golang/goproxy-privatization-deployment/</p>
+</blockquote>
+<p><img src="https://voidint.github.io/golang/goproxyio.jpg" alt="题图"></p>
+<p>最近在公司内部搭建了一个<a href="https://goproxy.io/zh/">goproxy.io</a>的服务，总结并记录一下备忘。</p>
 <p>goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文档一步一步搭建应该都会比较顺利。当然我也不是对官方文档的无意义复制粘贴，我将从以下三个方面进行阐述：</p>
 <h1 id="goproxyio服务的搭建">goproxy.io服务的搭建</h1>
 <ul>
