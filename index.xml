@@ -18,10 +18,7 @@
       
       <guid>http://voidint.github.io/post/socket/one_process_per_connection/</guid>
       
-        <description>&lt;blockquote&gt;
-&lt;p&gt;原文链接：https://voidint.github.io/post/socket/one_process_per_connection/&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/socket/fork-exec-wait.png&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/socket/fork-exec-wait.png&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在前一篇文章中，我们实现了一个&lt;a href=&#34;https://voidint.github.io/post/socket/one_server_one_client/&#34;&gt;仅能服务一个客户端连接的版本&lt;/a&gt;。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在。本篇中，我们将对其稍作改进，实现一个&lt;strong&gt;用多个进程服务多个客户端连接的增强型版本&lt;/strong&gt;。&lt;/p&gt;
 &lt;h1 id=&#34;需求每个进程服务一个连接&#34;&gt;需求：每个进程服务一个连接&lt;/h1&gt;
 &lt;ul&gt;
@@ -59,6 +56,37 @@
 &lt;h3 id=&#34;2fork&#34;&gt;2、fork&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://man7.org/linux/man-pages/man2/fork.2.html&#34;&gt;fork(2)&lt;/a&gt; 系统调用用于创建新的进程。具体说，是以当前进程为模板复刻了一个新的进程。当前进程称为&lt;strong&gt;父进程&lt;/strong&gt;，而把新进程称为&lt;strong&gt;子进程&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;fork 系统调用比较特别，&lt;strong&gt;父子进程分别返回一次&lt;/strong&gt;，都是从 fork 返回处继续执行。通常，我们会依据返回值判断当前是父进程还是子进程。返回值大于0，表示父进程返回；返回值等于0，表示子进程返回；返回值等于-1，则意味着 fork 调用失败了。这样设计的意图也不难理解。子进程可以随时随地调用 getpid 与 getppid 获得自身进程ID、父进程ID，因此无需以 fork 返回值的方式传递子进程ID这个信息，否则就是多此一举。反过来，如果不通过 fork 返回值的方式告诉父进程刚刚创建的子进程ID，那么父进程将无法获知刚才创建的子进程ID。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/socket/virtual-memory-address-space-layout-2.png&#34; alt=&#34;进程虚拟内存空间布局&#34;&gt;&lt;/p&gt;
+&lt;p&gt;fork 后，父子进程拥有相同的程序文本段，但却拥有各自不同的数据段、堆段、栈段等。程序文本段是只读属性，各个进程之间共用一份数据。子进程的数据段、堆段、栈段等从父进程拷贝（写时复制）获得，因此父子进程可以各自修改而不影响其它进程。&lt;/p&gt;
+&lt;p&gt;除了上文所述的用户空间的数据拷贝，子进程还从父进程继承了不少属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;父进程打开的文件&lt;/li&gt;
+&lt;li&gt;实际用户组ID、实际组ID、有效用户ID、有效组ID&lt;/li&gt;
+&lt;li&gt;附加组ID&lt;/li&gt;
+&lt;li&gt;进程组ID&lt;/li&gt;
+&lt;li&gt;会话ID&lt;/li&gt;
+&lt;li&gt;控制终端&lt;/li&gt;
+&lt;li&gt;设置用户ID标志和设置组ID标志&lt;/li&gt;
+&lt;li&gt;当前工作目录&lt;/li&gt;
+&lt;li&gt;根目录&lt;/li&gt;
+&lt;li&gt;文件模式创建屏蔽字&lt;/li&gt;
+&lt;li&gt;信号屏蔽和安排&lt;/li&gt;
+&lt;li&gt;针对任意打开文件描述符的在执行时关闭（close-on-exec）标志&lt;/li&gt;
+&lt;li&gt;环境&lt;/li&gt;
+&lt;li&gt;连接的共享存储段&lt;/li&gt;
+&lt;li&gt;存储映射&lt;/li&gt;
+&lt;li&gt;资源限制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当然，子进程也并不是对父进程的全盘拷贝：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fork 的返回值&lt;/li&gt;
+&lt;li&gt;不同的进程ID&lt;/li&gt;
+&lt;li&gt;不同的父进程ID&lt;/li&gt;
+&lt;li&gt;子进程的 tms_utime、tms_stime、tms_cutime 均被设置为0&lt;/li&gt;
+&lt;li&gt;父进程设置的文件锁不会被子进程继承&lt;/li&gt;
+&lt;li&gt;子进程的未处理的闹钟（alarm）被清除&lt;/li&gt;
+&lt;li&gt;子进程的未处理信号集设置为空集&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;函数原型如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

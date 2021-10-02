@@ -23,7 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="voidint" />
-  <meta name="description" content="原文链接：https://voidint.github.io/post/socket/one_process_per_connection/" />
+  <meta name="description" content="在前一篇文章中，我们实现了一个仅能服务一个客户端连接的版本。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在。本篇中，" />
 
   <meta name="keywords" content="voidint, hugo, jane" />
 
@@ -60,19 +60,19 @@
 
 
 <meta property="og:title" content="socket编程（二）：每个进程服务一个连接" />
-<meta property="og:description" content="原文链接：https://voidint.github.io/post/socket/one_process_per_connection/" />
+<meta property="og:description" content="在前一篇文章中，我们实现了一个仅能服务一个客户端连接的版本。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在。本篇中，" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://voidint.github.io/post/socket/one_process_per_connection/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-09-26T20:11:22+08:00" />
 <meta property="article:modified_time" content="2021-09-26T20:11:22+08:00" />
 
 <meta itemprop="name" content="socket编程（二）：每个进程服务一个连接">
-<meta itemprop="description" content="原文链接：https://voidint.github.io/post/socket/one_process_per_connection/"><meta itemprop="datePublished" content="2021-09-26T20:11:22+08:00" />
+<meta itemprop="description" content="在前一篇文章中，我们实现了一个仅能服务一个客户端连接的版本。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在。本篇中，"><meta itemprop="datePublished" content="2021-09-26T20:11:22+08:00" />
 <meta itemprop="dateModified" content="2021-09-26T20:11:22+08:00" />
-<meta itemprop="wordCount" content="4817">
+<meta itemprop="wordCount" content="5170">
 <meta itemprop="keywords" content="socket,fork,waitpid,signal," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="socket编程（二）：每个进程服务一个连接"/>
-<meta name="twitter:description" content="原文链接：https://voidint.github.io/post/socket/one_process_per_connection/"/>
+<meta name="twitter:description" content="在前一篇文章中，我们实现了一个仅能服务一个客户端连接的版本。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在。本篇中，"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -326,8 +326,8 @@
             <a href="http://voidint.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"> 计算机网络 </a>
             
           </div>
-        <span class="more-meta"> 约 4817 字 </span>
-          <span class="more-meta"> 预计阅读 10 分钟 </span>
+        <span class="more-meta"> 约 5170 字 </span>
+          <span class="more-meta"> 预计阅读 11 分钟 </span>
 
         
         
@@ -342,10 +342,7 @@
 
     
     <div class="post-content">
-      <blockquote>
-<p>原文链接：https://voidint.github.io/post/socket/one_process_per_connection/</p>
-</blockquote>
-<p><img src="https://voidint.github.io/socket/fork-exec-wait.png" alt="题图"></p>
+      <p><img src="https://voidint.github.io/socket/fork-exec-wait.png" alt="题图"></p>
 <p>在前一篇文章中，我们实现了一个<a href="https://voidint.github.io/post/socket/one_server_one_client/">仅能服务一个客户端连接的版本</a>。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在。本篇中，我们将对其稍作改进，实现一个<strong>用多个进程服务多个客户端连接的增强型版本</strong>。</p>
 <h1 id="需求每个进程服务一个连接">需求：每个进程服务一个连接</h1>
 <ul>
@@ -383,6 +380,37 @@
 <h3 id="2fork">2、fork</h3>
 <p><a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork(2)</a> 系统调用用于创建新的进程。具体说，是以当前进程为模板复刻了一个新的进程。当前进程称为<strong>父进程</strong>，而把新进程称为<strong>子进程</strong>。</p>
 <p>fork 系统调用比较特别，<strong>父子进程分别返回一次</strong>，都是从 fork 返回处继续执行。通常，我们会依据返回值判断当前是父进程还是子进程。返回值大于0，表示父进程返回；返回值等于0，表示子进程返回；返回值等于-1，则意味着 fork 调用失败了。这样设计的意图也不难理解。子进程可以随时随地调用 getpid 与 getppid 获得自身进程ID、父进程ID，因此无需以 fork 返回值的方式传递子进程ID这个信息，否则就是多此一举。反过来，如果不通过 fork 返回值的方式告诉父进程刚刚创建的子进程ID，那么父进程将无法获知刚才创建的子进程ID。</p>
+<p><img src="https://voidint.github.io/socket/virtual-memory-address-space-layout-2.png" alt="进程虚拟内存空间布局"></p>
+<p>fork 后，父子进程拥有相同的程序文本段，但却拥有各自不同的数据段、堆段、栈段等。程序文本段是只读属性，各个进程之间共用一份数据。子进程的数据段、堆段、栈段等从父进程拷贝（写时复制）获得，因此父子进程可以各自修改而不影响其它进程。</p>
+<p>除了上文所述的用户空间的数据拷贝，子进程还从父进程继承了不少属性：</p>
+<ul>
+<li>父进程打开的文件</li>
+<li>实际用户组ID、实际组ID、有效用户ID、有效组ID</li>
+<li>附加组ID</li>
+<li>进程组ID</li>
+<li>会话ID</li>
+<li>控制终端</li>
+<li>设置用户ID标志和设置组ID标志</li>
+<li>当前工作目录</li>
+<li>根目录</li>
+<li>文件模式创建屏蔽字</li>
+<li>信号屏蔽和安排</li>
+<li>针对任意打开文件描述符的在执行时关闭（close-on-exec）标志</li>
+<li>环境</li>
+<li>连接的共享存储段</li>
+<li>存储映射</li>
+<li>资源限制</li>
+</ul>
+<p>当然，子进程也并不是对父进程的全盘拷贝：</p>
+<ul>
+<li>fork 的返回值</li>
+<li>不同的进程ID</li>
+<li>不同的父进程ID</li>
+<li>子进程的 tms_utime、tms_stime、tms_cutime 均被设置为0</li>
+<li>父进程设置的文件锁不会被子进程继承</li>
+<li>子进程的未处理的闹钟（alarm）被清除</li>
+<li>子进程的未处理信号集设置为空集</li>
+</ul>
 <p>函数原型如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

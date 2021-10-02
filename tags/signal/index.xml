@@ -13,7 +13,7 @@
       <pubDate>Sun, 26 Sep 2021 20:11:22 +0800</pubDate>
       
       <guid>http://voidint.github.io/post/socket/one_process_per_connection/</guid>
-      <description>原文链接：https://voidint.github.io/post/socket/one_process_per_connection/</description>
+      <description>在前一篇文章中，我们实现了一个仅能服务一个客户端连接的版本。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在。本篇中，</description>
     </item>
     
   </channel>
