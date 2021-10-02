@@ -13,7 +13,7 @@
       <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
       
       <guid>http://voidint.github.io/post/tool/juicefs/</guid>
-      <description>原文链接：https://voidint.github.io/post/tool/juicefs/ 什么是JuiceFS JuiceFS 是为云端设计的共享文</description>
+      <description>什么是JuiceFS JuiceFS 是为云端设计的共享文件系统。 云端：采用云服务中的对象存储作为后端，综合性价比极高。 共享：上千台机器同时挂载，高性能并发</description>
     </item>
     
   </channel>

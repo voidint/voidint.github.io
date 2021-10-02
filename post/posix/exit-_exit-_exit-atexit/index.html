@@ -23,7 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="voidint" />
-  <meta name="description" content="原文链接：https://voidint.github.io/post/socket/one_server_one_client/ 使用C/C" />
+  <meta name="description" content="使用C/C&#43;&#43;语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又" />
 
   <meta name="keywords" content="voidint, hugo, jane" />
 
@@ -60,19 +60,19 @@
 
 
 <meta property="og:title" content="UNIX/Linux下的exit系列函数" />
-<meta property="og:description" content="原文链接：https://voidint.github.io/post/socket/one_server_one_client/ 使用C/C" />
+<meta property="og:description" content="使用C/C&#43;&#43;语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-09-26T10:30:58+08:00" />
 <meta property="article:modified_time" content="2021-09-26T10:30:58+08:00" />
 
 <meta itemprop="name" content="UNIX/Linux下的exit系列函数">
-<meta itemprop="description" content="原文链接：https://voidint.github.io/post/socket/one_server_one_client/ 使用C/C"><meta itemprop="datePublished" content="2021-09-26T10:30:58+08:00" />
+<meta itemprop="description" content="使用C/C&#43;&#43;语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又"><meta itemprop="datePublished" content="2021-09-26T10:30:58+08:00" />
 <meta itemprop="dateModified" content="2021-09-26T10:30:58+08:00" />
-<meta itemprop="wordCount" content="1918">
+<meta itemprop="wordCount" content="1853">
 <meta itemprop="keywords" content="exit,_exit,_Exit,exit_group,atexit,on_exit," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="UNIX/Linux下的exit系列函数"/>
-<meta name="twitter:description" content="原文链接：https://voidint.github.io/post/socket/one_server_one_client/ 使用C/C"/>
+<meta name="twitter:description" content="使用C/C&#43;&#43;语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -326,7 +326,7 @@
             <a href="http://voidint.github.io/categories/unix/linux/"> UNIX/Linux </a>
             
           </div>
-        <span class="more-meta"> 约 1918 字 </span>
+        <span class="more-meta"> 约 1853 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
 
         
@@ -342,10 +342,7 @@
 
     
     <div class="post-content">
-      <blockquote>
-<p>原文链接：https://voidint.github.io/post/socket/one_server_one_client/</p>
-</blockquote>
-<p><img src="https://voidint.github.io/posix/exit.png" alt="题图"></p>
+      <p><img src="https://voidint.github.io/posix/exit.png" alt="题图"></p>
 <p>使用C/C++语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又是某个系统所独有的系统调用或者函数，并且命名上也极为类似，给人眼花缭乱的感觉。</p>
 <p>这篇文章尝试去总结下其中常见的那几个系统调用和函数，并通过一个例子来展示下基本用法。</p>
 <h1 id="进程退出系列系统调用函数">进程退出系列系统调用/函数</h1>

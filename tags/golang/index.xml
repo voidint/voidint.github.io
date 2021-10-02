@@ -13,7 +13,7 @@
       <pubDate>Sat, 14 Mar 2020 17:58:28 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/golang/goproxy-privatization-deployment/</guid>
-      <description>原文链接：https://voidint.github.io/post/golang/goproxy-privatization-deplo</description>
+      <description>最近在公司内部搭建了一个goproxy.io的服务，总结并记录一下备忘。 goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文</description>
     </item>
     
   </channel>

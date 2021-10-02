@@ -22,7 +22,7 @@
       <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
       
       <guid>http://voidint.github.io/post/posix/exit-_exit-_exit-atexit/</guid>
-      <description>原文链接：https://voidint.github.io/post/socket/one_server_one_client/ 使用C/C</description>
+      <description>使用C/C++语言在UNIX或者Linux系统下编程，应该都会遇到很多的进程退出相关的函数。有些是C标准库提供的函数，有些是系统调用，有些又</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@
       <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
       
       <guid>http://voidint.github.io/post/socket/one_server_one_client/</guid>
-      <description>原文链接：https://voidint.github.io/post/socket/one_server_one_client/ 在这个信息</description>
+      <description>在这个信息爆炸的时代，有关socket编程的文章多如牛毛，而且还在不断产出，隔三差五就能在各种微信公众号之类的地方看到。我也打算写一个有关 socket</description>
     </item>
     
     <item>
@@ -40,7 +40,7 @@
       <pubDate>Thu, 22 Jul 2021 16:49:24 +0800</pubDate>
       
       <guid>http://voidint.github.io/post/c_cpp/gdb/</guid>
-      <description>原文链接：https://voidint.github.io/post/c_cpp/gdb/ gdb 调试前提是需要保留符号表。对于 C/C++ 等使用 gcc 进行编</description>
+      <description>gdb 调试前提是需要保留符号表。对于 C/C++ 等使用 gcc 进行编译的语言，编译时增加-g选项。对于 go 语言，则增加-ldflags=-compressdwar</description>
     </item>
     
     <item>
@@ -49,7 +49,7 @@
       <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
       
       <guid>http://voidint.github.io/post/tool/juicefs/</guid>
-      <description>原文链接：https://voidint.github.io/post/tool/juicefs/ 什么是JuiceFS JuiceFS 是为云端设计的共享文</description>
+      <description>什么是JuiceFS JuiceFS 是为云端设计的共享文件系统。 云端：采用云服务中的对象存储作为后端，综合性价比极高。 共享：上千台机器同时挂载，高性能并发</description>
     </item>
     
     <item>
@@ -58,7 +58,7 @@
       <pubDate>Sat, 14 Mar 2020 17:58:28 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/golang/goproxy-privatization-deployment/</guid>
-      <description>原文链接：https://voidint.github.io/post/golang/goproxy-privatization-deplo</description>
+      <description>最近在公司内部搭建了一个goproxy.io的服务，总结并记录一下备忘。 goproxy.io本身已经比较成熟，对部署也非常友好，按照官方的文</description>
     </item>
     
     <item>
@@ -67,7 +67,7 @@
       <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/container/linux-namespaces-first-experience/</guid>
-      <description>原文链接：https://voidint.github.io/post/container/linux-namespaces-first-e</description>
+      <description>简介 下面是酷壳给出的关于Linux Namespaces的介绍： Linux Namespace是Linux提供的一种内核级别环境隔离的方法。不知道你是否</description>
     </item>
     
     <item>
@@ -76,7 +76,7 @@
       <pubDate>Tue, 25 Feb 2020 17:24:33 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/posix/linux-password/</guid>
-      <description>原文链接：https://voidint.github.io/post/posix/linux-password/ 从自动化需求说起 如何生成一</description>
+      <description>从自动化需求说起 如何生成一个Linux用户登录密码？可能有人会说用passwd生成。的确，passwd命令能够帮助我们重置用户登录密码，但是</description>
     </item>
     
     <item>
@@ -103,7 +103,7 @@
       <pubDate>Tue, 25 Feb 2020 16:33:19 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/tool/git-commit-amend/</guid>
-      <description>原文链接：https://voidint.github.io/post/tool/git-commit-amend/ 场景描述 假设你创建了一个</description>
+      <description>场景描述 假设你创建了一个文件，并写入了一些内容，然后通过git add和git commit将此变更提交。提交之后才发现这个文件中少了一些内容，</description>
     </item>
     
     <item>
@@ -112,7 +112,7 @@
       <pubDate>Tue, 25 Feb 2020 16:08:07 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/container/docker-mysql-timezone/</guid>
-      <description>原文链接：https://voidint.github.io/post/container/docker-mysql-timezone/ 从d</description>
+      <description>从docker hub拉取的MySQL官方docker镜像，启动MySQL容器后，执行select now()语句，发现显示的时间与我宿主机的时</description>
     </item>
     
     <item>
@@ -121,7 +121,7 @@
       <pubDate>Tue, 25 Feb 2020 15:56:49 +0000</pubDate>
       
       <guid>http://voidint.github.io/post/db/mysql-login-localhost/</guid>
-      <description>原文链接：https://voidint.github.io/post/db/mysql-login-localhost/ 我在自己的mac上</description>
+      <description>我在自己的mac上安装了docker，并在docker中运行了mysql5.6容器。启动容器的方式大致如下： 1 2 3 4 5 $ docker run --name mydb -d \ -p 3306:3306 \ -v</description>
     </item>
     
   </channel>
