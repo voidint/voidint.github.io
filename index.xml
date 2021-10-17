@@ -1469,8 +1469,8 @@ close&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;2&amp;lt;/dev/pts/1&amp;gt;&lt;
 &lt;/div&gt;&lt;p&gt;看到这个输出，是否就能明白为什么了呢？看来文件描述符&lt;code&gt;1&lt;/code&gt;和&lt;code&gt;2&lt;/code&gt;都指向了标准输出。&lt;/p&gt;
 &lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;[strace 跟踪进程中的系统调用](&lt;a href=&#34;https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/strace.html&#34;&gt;6. strace 跟踪进程中的系统调用 — Linux Tools Quick Tutorial (linuxtools-rst.readthedocs.io)&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;strace(1) — Linux manual page&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/strace.html&#34;&gt;strace 跟踪进程中的系统调用&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
       
