@@ -6,11 +6,11 @@
     <description>Recent content in fork on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 26 Sep 2021 20:11:22 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/fork/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Oct 2021 20:11:22 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/fork/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>socket编程（二）：每个进程服务一个连接</title>
       <link>http://voidint.github.io/post/socket/one_process_per_connection/</link>
-      <pubDate>Sun, 26 Sep 2021 20:11:22 +0800</pubDate>
+      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
       
       <guid>http://voidint.github.io/post/socket/one_process_per_connection/</guid>
       <description>在前一篇文章中，我们实现了一个仅能服务一个客户端连接的版本。很明显，它的局限性非常大，仅能服务一个连接的程序在现实中几乎不可能存在。本篇中，</description>
