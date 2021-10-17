@@ -6,7 +6,16 @@
     <description>Recent content in Posts on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 26 Sep 2021 20:11:22 +0800</lastBuildDate><atom:link href="http://voidint.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Oct 2021 14:01:42 +0800</lastBuildDate><atom:link href="http://voidint.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>strace简明教程</title>
+      <link>http://voidint.github.io/post/tool/strace/</link>
+      <pubDate>Sun, 17 Oct 2021 14:01:42 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/tool/strace/</guid>
+      <description>strace 是什么？维基百科给出的定义如下： strace 是 Linux 系统下的一个用于诊断、调试和指导用户空间的实用程序。它用于监视和篡改进程与 Linux 内核之间的交互，包括系统</description>
+    </item>
+    
     <item>
       <title>socket编程（二）：每个进程服务一个连接</title>
       <link>http://voidint.github.io/post/socket/one_process_per_connection/</link>

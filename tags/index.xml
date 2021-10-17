@@ -6,7 +6,16 @@
     <description>Recent content in Tags on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 26 Sep 2021 20:11:22 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Oct 2021 14:01:42 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>strace</title>
+      <link>http://voidint.github.io/tags/strace/</link>
+      <pubDate>Sun, 17 Oct 2021 14:01:42 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/strace/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>fork</title>
       <link>http://voidint.github.io/tags/fork/</link>
@@ -175,15 +184,6 @@
       <pubDate>Sat, 14 Mar 2020 17:58:28 +0000</pubDate>
       
       <guid>http://voidint.github.io/tags/goproxy.io/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>http://voidint.github.io/tags/linux/</link>
-      <pubDate>Tue, 25 Feb 2020 17:45:51 +0000</pubDate>
-      
-      <guid>http://voidint.github.io/tags/linux/</guid>
       <description></description>
     </item>
     
