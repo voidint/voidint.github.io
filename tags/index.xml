@@ -5,6 +5,187 @@
     <link>http://voidint.github.io/tags/</link>
     <description>Recent content in Tags on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 09 Jan 2022 16:10:10 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang</title>
+      <link>http://voidint.github.io/tags/golang/</link>
+      <pubDate>Sun, 09 Jan 2022 16:10:10 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>泛型</title>
+      <link>http://voidint.github.io/tags/%E6%B3%9B%E5%9E%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 16:10:10 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/%E6%B3%9B%E5%9E%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>strace</title>
+      <link>http://voidint.github.io/tags/strace/</link>
+      <pubDate>Sun, 17 Oct 2021 14:01:42 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/strace/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fork</title>
+      <link>http://voidint.github.io/tags/fork/</link>
+      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/fork/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>signal</title>
+      <link>http://voidint.github.io/tags/signal/</link>
+      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/signal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>socket</title>
+      <link>http://voidint.github.io/tags/socket/</link>
+      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/socket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>waitpid</title>
+      <link>http://voidint.github.io/tags/waitpid/</link>
+      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/waitpid/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>_Exit</title>
+      <link>http://voidint.github.io/tags/_exit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/_exit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>atexit</title>
+      <link>http://voidint.github.io/tags/atexit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/atexit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>exit</title>
+      <link>http://voidint.github.io/tags/exit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/exit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>exit_group</title>
+      <link>http://voidint.github.io/tags/exit_group/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/exit_group/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>on_exit</title>
+      <link>http://voidint.github.io/tags/on_exit/</link>
+      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/on_exit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>accept</title>
+      <link>http://voidint.github.io/tags/accept/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/accept/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bind</title>
+      <link>http://voidint.github.io/tags/bind/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/bind/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>connect</title>
+      <link>http://voidint.github.io/tags/connect/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/connect/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>listen</title>
+      <link>http://voidint.github.io/tags/listen/</link>
+      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/listen/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>debug</title>
+      <link>http://voidint.github.io/tags/debug/</link>
+      <pubDate>Thu, 22 Jul 2021 16:49:24 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/debug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gdb</title>
+      <link>http://voidint.github.io/tags/gdb/</link>
+      <pubDate>Thu, 22 Jul 2021 16:49:24 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/gdb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>juicefs</title>
+      <link>http://voidint.github.io/tags/juicefs/</link>
+      <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/juicefs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>网盘</title>
+      <link>http://voidint.github.io/tags/%E7%BD%91%E7%9B%98/</link>
+      <pubDate>Tue, 09 Mar 2021 16:51:43 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/%E7%BD%91%E7%9B%98/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

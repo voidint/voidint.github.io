@@ -6,7 +6,16 @@
     <description>Recent content in Golang on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 14 Mar 2020 17:58:28 +0000</lastBuildDate><atom:link href="http://voidint.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Jan 2022 16:10:10 +0800</lastBuildDate><atom:link href="http://voidint.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go 三目运算符杂谈</title>
+      <link>http://voidint.github.io/post/golang/conditional-expressions/</link>
+      <pubDate>Sun, 09 Jan 2022 16:10:10 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/golang/conditional-expressions/</guid>
+      <description>Go 是一门十分精简的语言。对于每一个引入的语言特性，Go 核心团队都慎之又慎，有时候甚至让人觉得有点死脑筋。 Go 语言深得我心，但并不意味着她没有缺</description>
+    </item>
+    
     <item>
       <title>goproxy.io内部私有化部署</title>
       <link>http://voidint.github.io/post/golang/goproxy-privatization-deployment/</link>
