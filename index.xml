@@ -18,7 +18,8 @@
       
       <guid>http://voidint.github.io/post/golang/conditional-expressions/</guid>
       
-        <description>&lt;p&gt;Go 是一门十分精简的语言。对于每一个引入的语言特性，Go 核心团队都慎之又慎，有时候甚至让人觉得有点死脑筋。&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/golang/founders.png&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Go 是一门十分精简的语言。对于每一个引入的语言特性，Go 核心团队都慎之又慎，有时候甚至让人觉得有点死脑筋。&lt;/p&gt;
 &lt;p&gt;Go 语言深得我心，但并不意味着她没有缺点，也不意味着她没有改进空间。除了泛型（即将支持）外，我还寄希望于 Go 核心团队引入三目运算符（或者叫&lt;code&gt;三目表达式&lt;/code&gt;、&lt;code&gt;条件表达式&lt;/code&gt;）和 const 不可变对象等特性。虽然，Go 核心团队之前都已经否认会引入此类特性，但谁又能保证这些特性不会是第二第三个泛型呢。这次我想聊聊三目运算符这个特性相关的话题。&lt;/p&gt;
 &lt;h1 id=&#34;什么是三目运算符&#34;&gt;什么是三目运算符？&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;什么是三目运算符&lt;/code&gt;这种问题对于编程老手来说简直是侮辱智商的问题，但为了篇幅的完整性，还是得要提一下。&lt;/p&gt;
