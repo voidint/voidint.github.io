@@ -69,7 +69,7 @@
 <meta itemprop="name" content="nm 简明教程">
 <meta itemprop="description" content="nm是 UNIX/Linux 系统下查看二进制文件（可执行文件、目标文件、静态库、动态库）中符号信息的命令行工具。那么所谓的符号又是什么呢？ 什么是符号 现代的编程语"><meta itemprop="datePublished" content="2022-04-16T16:58:22+08:00" />
 <meta itemprop="dateModified" content="2022-04-16T16:58:22+08:00" />
-<meta itemprop="wordCount" content="3359">
+<meta itemprop="wordCount" content="3360">
 <meta itemprop="keywords" content="nm,符号,符号修饰,重定位,链接," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="nm 简明教程"/>
 <meta name="twitter:description" content="nm是 UNIX/Linux 系统下查看二进制文件（可执行文件、目标文件、静态库、动态库）中符号信息的命令行工具。那么所谓的符号又是什么呢？ 什么是符号 现代的编程语"/>
@@ -326,7 +326,7 @@
             <a href="http://voidint.github.io/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/"> 工具箱 </a>
             
           </div>
-        <span class="more-meta"> 约 3359 字 </span>
+        <span class="more-meta"> 约 3360 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
 
         
@@ -758,7 +758,7 @@ $ nm a.out
 </tbody>
 </table>
 <h1 id="go-tool-nm命令行选项">go tool nm命令行选项</h1>
-<p>go 标准库工具链中也提供了<code>go tool nm</code>子命令。该子命令是对 nm 命令的包装，仅提供了有限的几个选项。注意：不建议在编译时为链接器指定选项<code>-ldflags='-s -w'</code>，否则相关的符号表和调试信息将被去除。</p>
+<p>go 标准库工具链中也提供了<code>go tool nm</code>子命令。该子命令是一个 nm 的简化实现，仅提供了有限的几个选项。注意：不建议在编译时为链接器指定选项<code>-ldflags='-s -w'</code>，否则相关的符号表和调试信息将被去除。</p>
 <table>
 <thead>
 <tr>

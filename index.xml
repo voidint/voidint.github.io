@@ -434,7 +434,7 @@ $ nm a.out
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h1 id=&#34;go-tool-nm命令行选项&#34;&gt;go tool nm命令行选项&lt;/h1&gt;
-&lt;p&gt;go 标准库工具链中也提供了&lt;code&gt;go tool nm&lt;/code&gt;子命令。该子命令是对 nm 命令的包装，仅提供了有限的几个选项。注意：不建议在编译时为链接器指定选项&lt;code&gt;-ldflags=&#39;-s -w&#39;&lt;/code&gt;，否则相关的符号表和调试信息将被去除。&lt;/p&gt;
+&lt;p&gt;go 标准库工具链中也提供了&lt;code&gt;go tool nm&lt;/code&gt;子命令。该子命令是一个 nm 的简化实现，仅提供了有限的几个选项。注意：不建议在编译时为链接器指定选项&lt;code&gt;-ldflags=&#39;-s -w&#39;&lt;/code&gt;，否则相关的符号表和调试信息将被去除。&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
