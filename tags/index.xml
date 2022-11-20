@@ -6,7 +6,34 @@
     <description>Recent content in Tags on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 16 Apr 2022 16:58:22 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Nov 2022 11:17:25 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cloud-init</title>
+      <link>http://voidint.github.io/tags/cloud-init/</link>
+      <pubDate>Sat, 19 Nov 2022 11:17:25 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/cloud-init/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>multipass</title>
+      <link>http://voidint.github.io/tags/multipass/</link>
+      <pubDate>Sat, 19 Nov 2022 11:17:25 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/multipass/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>可移植开发环境</title>
+      <link>http://voidint.github.io/tags/%E5%8F%AF%E7%A7%BB%E6%A4%8D%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sat, 19 Nov 2022 11:17:25 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/%E5%8F%AF%E7%A7%BB%E6%A4%8D%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>nm</title>
       <link>http://voidint.github.io/tags/nm/</link>
@@ -157,33 +184,6 @@
       <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
       
       <guid>http://voidint.github.io/tags/on_exit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>accept</title>
-      <link>http://voidint.github.io/tags/accept/</link>
-      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/accept/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>bind</title>
-      <link>http://voidint.github.io/tags/bind/</link>
-      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/bind/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>connect</title>
-      <link>http://voidint.github.io/tags/connect/</link>
-      <pubDate>Tue, 21 Sep 2021 10:07:50 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/connect/</guid>
       <description></description>
     </item>
     

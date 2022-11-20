@@ -3,7 +3,63 @@
   
   <url>
     <loc>http://voidint.github.io/categories/</loc>
-    <lastmod>2022-04-16T16:58:22+08:00</lastmod>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/cloud-init/</loc>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/multipass/</loc>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/post/</loc>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/</loc>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/</loc>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/%E5%8F%AF%E7%A7%BB%E6%A4%8D%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/post/efficient/multipass/</loc>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/categories/%E6%95%88%E8%83%BD/</loc>
+    <lastmod>2022-11-19T11:17:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -17,27 +73,6 @@
   
   <url>
     <loc>http://voidint.github.io/post/tool/nm/</loc>
-    <lastmod>2022-04-16T16:58:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://voidint.github.io/post/</loc>
-    <lastmod>2022-04-16T16:58:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://voidint.github.io/tags/</loc>
-    <lastmod>2022-04-16T16:58:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://voidint.github.io/</loc>
     <lastmod>2022-04-16T16:58:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
