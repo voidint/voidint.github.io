@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/tool/sas3ircu/" />
@@ -366,8 +366,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sas3ircu &lt;controller_#&gt; &lt;command&gt; &lt;parameters&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sas3ircu &lt;controller_#&gt; &lt;command&gt; &lt;parameters&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="通用参数">通用参数</h1>
 <ul>
@@ -410,8 +410,8 @@ controller编号是程序分配给PCI插槽上的RAID硬件的唯一编号。比
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sas3ircu &lt;controller_#&gt; create &lt;volume_type&gt; &lt;size&gt; {&lt;Enclosure:Bay&gt;} [VolumeName] [noprompt]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sas3ircu &lt;controller_#&gt; create &lt;volume_type&gt; &lt;size&gt; {&lt;Enclosure:Bay&gt;} [VolumeName] [noprompt]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参数">参数</h2>
 <ul>
@@ -430,8 +430,8 @@ controller编号是程序分配给PCI插槽上的RAID硬件的唯一编号。比
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sas3ircu &lt;controller_#&gt; delete [noprompt]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sas3ircu &lt;controller_#&gt; delete [noprompt]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参数-1">参数</h2>
 <ul>
@@ -446,8 +446,8 @@ controller编号是程序分配给PCI插槽上的RAID硬件的唯一编号。比
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sas3ircu &lt;controller_#&gt; deletevolume &lt;volumeID&gt; [noprompt]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sas3ircu &lt;controller_#&gt; deletevolume &lt;volumeID&gt; [noprompt]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参数-2">参数</h2>
 <ul>
@@ -463,8 +463,8 @@ controller编号是程序分配给PCI插槽上的RAID硬件的唯一编号。比
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sas3ircu &lt;controller_#&gt; display [filename]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sas3ircu &lt;controller_#&gt; display [filename]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参数-3">参数</h2>
 <ul>
@@ -572,103 +572,103 @@ controller编号是程序分配给PCI插槽上的RAID硬件的唯一编号。比
 </span><span class="lnt">96
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Avago Technologies SAS3 IR Configuration Utility.
-Version 15.00.00.00 (2016.11.21) 
-Copyright (c) 2009-2016 Avago Technologies. All rights reserved. 
-
-Read configuration has been initiated for controller 0
-------------------------------------------------------------------------
-Controller information
-------------------------------------------------------------------------
-  Controller type                         : SAS3008
-  BIOS version                            : 8.29.02.00
-  Firmware version                        : 12.00.02.00
-  Channel description                     : 1 Serial Attached SCSI
-  Initiator ID                            : 0
-  Maximum physical devices                : 255
-  Concurrent commands supported           : 4096
-  Slot                                    : 0
-  Segment                                 : 0
-  Bus                                     : 1
-  Device                                  : 0
-  Function                                : 0
-  RAID Support                            : Yes
-------------------------------------------------------------------------
-IR Volume information
-------------------------------------------------------------------------
-IR volume 1
-  Volume ID                               : 323
-  Status of volume                        : Okay (OKY)
-  Volume wwid                             : 04b796b93430a2a7
-  RAID level                              : RAID1
-  Size (in MB)                            : 857353
-  Boot                                    : Primary
-  Physical hard disks                     :
-  PHY[0] Enclosure#/Slot#                 : 2:0
-  PHY[1] Enclosure#/Slot#                 : 2:1
-------------------------------------------------------------------------
-Physical device information
-------------------------------------------------------------------------
-Initiator at ID #0
-
-Device is a Hard disk
-  Enclosure #                             : 2
-  Slot #                                  : 0
-  SAS Address                             : 5000c50-0-9f3e-0741
-  State                                   : Optimal (OPT)
-  Size (in MB)/(in sectors)               : 858483/1758174767
-  Manufacturer                            : SEAGATE 
-  Model Number                            : ST900MM0168     
-  Firmware Revision                       : N003
-  Serial No                               : W4009ZLH0000E739G08J
-  Unit Serial No(VPD)                     : W4009ZLH0000E739G08J
-  GUID                                    : 5000c5009f3e0743
-  Protocol                                : SAS
-  Drive Type                              : SAS_HDD
-
-Device is a Hard disk
-  Enclosure #                             : 2
-  Slot #                                  : 1
-  SAS Address                             : 5000c50-0-9f40-be21
-  State                                   : Optimal (OPT)
-  Size (in MB)/(in sectors)               : 123/1758174767
-  Manufacturer                            : SEAGATE 
-  Model Number                            : ST900MM0168     
-  Firmware Revision                       : N003
-  Serial No                               : S403EKZH0000E7400Z53
-  Unit Serial No(VPD)                     : S403EKZH0000E7400Z53
-  GUID                                    : 5000c5009f40be23
-  Protocol                                : SAS
-  Drive Type                              : SAS_SSD
-
-Device is a Enclosure services device
-  Enclosure #                             : 2
-  Slot #                                  : 36
-  SAS Address                             : 500e004-a-aaaa-aa3e
-  State                                   : Standby (SBY)
-  Manufacturer                            : 12G SAS
-  Model Number                            : Expander        
-  Firmware Revision                       : RevB
-  Serial No                               : 
-  Unit Serial No(VPD)                     : 500e004aaaaaaa3e
-  GUID                                    : N/A
-  Protocol                                : SAS
-  Device Type                             : Enclosure services device
-------------------------------------------------------------------------
-Enclosure information
-------------------------------------------------------------------------
-  Enclosure#                              : 1
-  Logical ID                              : 5a0086f5:dc780000
-  Numslots                                : 8
-  StartSlot                               : 0
-  Enclosure#                              : 2
-  Logical ID                              : 500e004a:aaaaaa3e
-  Numslots                                : 29
-  StartSlot                               : 0
-------------------------------------------------------------------------
-SAS3IRCU: Command DISPLAY Completed Successfully.
-SAS3IRCU: Utility Completed Successfully.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Avago Technologies SAS3 IR Configuration Utility.
+</span></span><span class="line"><span class="cl">Version 15.00.00.00 (2016.11.21) 
+</span></span><span class="line"><span class="cl">Copyright (c) 2009-2016 Avago Technologies. All rights reserved. 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Read configuration has been initiated for controller 0
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Controller information
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">  Controller type                         : SAS3008
+</span></span><span class="line"><span class="cl">  BIOS version                            : 8.29.02.00
+</span></span><span class="line"><span class="cl">  Firmware version                        : 12.00.02.00
+</span></span><span class="line"><span class="cl">  Channel description                     : 1 Serial Attached SCSI
+</span></span><span class="line"><span class="cl">  Initiator ID                            : 0
+</span></span><span class="line"><span class="cl">  Maximum physical devices                : 255
+</span></span><span class="line"><span class="cl">  Concurrent commands supported           : 4096
+</span></span><span class="line"><span class="cl">  Slot                                    : 0
+</span></span><span class="line"><span class="cl">  Segment                                 : 0
+</span></span><span class="line"><span class="cl">  Bus                                     : 1
+</span></span><span class="line"><span class="cl">  Device                                  : 0
+</span></span><span class="line"><span class="cl">  Function                                : 0
+</span></span><span class="line"><span class="cl">  RAID Support                            : Yes
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">IR Volume information
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">IR volume 1
+</span></span><span class="line"><span class="cl">  Volume ID                               : 323
+</span></span><span class="line"><span class="cl">  Status of volume                        : Okay (OKY)
+</span></span><span class="line"><span class="cl">  Volume wwid                             : 04b796b93430a2a7
+</span></span><span class="line"><span class="cl">  RAID level                              : RAID1
+</span></span><span class="line"><span class="cl">  Size (in MB)                            : 857353
+</span></span><span class="line"><span class="cl">  Boot                                    : Primary
+</span></span><span class="line"><span class="cl">  Physical hard disks                     :
+</span></span><span class="line"><span class="cl">  PHY[0] Enclosure#/Slot#                 : 2:0
+</span></span><span class="line"><span class="cl">  PHY[1] Enclosure#/Slot#                 : 2:1
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Physical device information
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Initiator at ID #0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Device is a Hard disk
+</span></span><span class="line"><span class="cl">  Enclosure #                             : 2
+</span></span><span class="line"><span class="cl">  Slot #                                  : 0
+</span></span><span class="line"><span class="cl">  SAS Address                             : 5000c50-0-9f3e-0741
+</span></span><span class="line"><span class="cl">  State                                   : Optimal (OPT)
+</span></span><span class="line"><span class="cl">  Size (in MB)/(in sectors)               : 858483/1758174767
+</span></span><span class="line"><span class="cl">  Manufacturer                            : SEAGATE 
+</span></span><span class="line"><span class="cl">  Model Number                            : ST900MM0168     
+</span></span><span class="line"><span class="cl">  Firmware Revision                       : N003
+</span></span><span class="line"><span class="cl">  Serial No                               : W4009ZLH0000E739G08J
+</span></span><span class="line"><span class="cl">  Unit Serial No(VPD)                     : W4009ZLH0000E739G08J
+</span></span><span class="line"><span class="cl">  GUID                                    : 5000c5009f3e0743
+</span></span><span class="line"><span class="cl">  Protocol                                : SAS
+</span></span><span class="line"><span class="cl">  Drive Type                              : SAS_HDD
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Device is a Hard disk
+</span></span><span class="line"><span class="cl">  Enclosure #                             : 2
+</span></span><span class="line"><span class="cl">  Slot #                                  : 1
+</span></span><span class="line"><span class="cl">  SAS Address                             : 5000c50-0-9f40-be21
+</span></span><span class="line"><span class="cl">  State                                   : Optimal (OPT)
+</span></span><span class="line"><span class="cl">  Size (in MB)/(in sectors)               : 123/1758174767
+</span></span><span class="line"><span class="cl">  Manufacturer                            : SEAGATE 
+</span></span><span class="line"><span class="cl">  Model Number                            : ST900MM0168     
+</span></span><span class="line"><span class="cl">  Firmware Revision                       : N003
+</span></span><span class="line"><span class="cl">  Serial No                               : S403EKZH0000E7400Z53
+</span></span><span class="line"><span class="cl">  Unit Serial No(VPD)                     : S403EKZH0000E7400Z53
+</span></span><span class="line"><span class="cl">  GUID                                    : 5000c5009f40be23
+</span></span><span class="line"><span class="cl">  Protocol                                : SAS
+</span></span><span class="line"><span class="cl">  Drive Type                              : SAS_SSD
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Device is a Enclosure services device
+</span></span><span class="line"><span class="cl">  Enclosure #                             : 2
+</span></span><span class="line"><span class="cl">  Slot #                                  : 36
+</span></span><span class="line"><span class="cl">  SAS Address                             : 500e004-a-aaaa-aa3e
+</span></span><span class="line"><span class="cl">  State                                   : Standby (SBY)
+</span></span><span class="line"><span class="cl">  Manufacturer                            : 12G SAS
+</span></span><span class="line"><span class="cl">  Model Number                            : Expander        
+</span></span><span class="line"><span class="cl">  Firmware Revision                       : RevB
+</span></span><span class="line"><span class="cl">  Serial No                               : 
+</span></span><span class="line"><span class="cl">  Unit Serial No(VPD)                     : 500e004aaaaaaa3e
+</span></span><span class="line"><span class="cl">  GUID                                    : N/A
+</span></span><span class="line"><span class="cl">  Protocol                                : SAS
+</span></span><span class="line"><span class="cl">  Device Type                             : Enclosure services device
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">Enclosure information
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">  Enclosure#                              : 1
+</span></span><span class="line"><span class="cl">  Logical ID                              : 5a0086f5:dc780000
+</span></span><span class="line"><span class="cl">  Numslots                                : 8
+</span></span><span class="line"><span class="cl">  StartSlot                               : 0
+</span></span><span class="line"><span class="cl">  Enclosure#                              : 2
+</span></span><span class="line"><span class="cl">  Logical ID                              : 500e004a:aaaaaa3e
+</span></span><span class="line"><span class="cl">  Numslots                                : 29
+</span></span><span class="line"><span class="cl">  StartSlot                               : 0
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">SAS3IRCU: Command DISPLAY Completed Successfully.
+</span></span><span class="line"><span class="cl">SAS3IRCU: Utility Completed Successfully.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>IR Volume State可选值
@@ -728,8 +728,8 @@ SAS3IRCU: Utility Completed Successfully.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sas3ircu &lt;controller_#&gt; hotspare [delete] &lt;Enclosure:Bay&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sas3ircu &lt;controller_#&gt; hotspare [delete] &lt;Enclosure:Bay&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参数-4">参数</h2>
 <ul>
@@ -745,8 +745,8 @@ SAS3IRCU: Utility Completed Successfully.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sas3ircu &lt;controller_#&gt; status
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sas3ircu &lt;controller_#&gt; status
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参数-5">参数</h2>
 <ul>
@@ -972,7 +972,7 @@ SAS3IRCU: Utility Completed Successfully.
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">

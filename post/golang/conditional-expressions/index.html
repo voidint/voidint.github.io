@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/golang/conditional-expressions/" />
@@ -359,14 +359,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">genderDesc</span> <span class="kt">string</span>
-<span class="k">if</span> <span class="nx">gender</span> <span class="o">==</span> <span class="mi">1</span><span class="p">{</span>
-    <span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;男&#34;</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;女&#34;</span>
-<span class="p">}</span>
-<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">genderDesc</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">genderDesc</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">gender</span> <span class="o">==</span> <span class="mi">1</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;男&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;女&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">genderDesc</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>再看一下支持三木表达式特性的 C++ 语言的写法</p>
 <div class="highlight"><div class="chroma">
@@ -375,9 +375,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">genderDesc</span> <span class="o">=</span> <span class="p">(</span><span class="n">gender</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="s">&#34;男&#34;</span> <span class="o">:</span> <span class="s">&#34;女&#34;</span><span class="p">);</span>
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">genderDesc</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">genderDesc</span> <span class="o">=</span> <span class="p">(</span><span class="n">gender</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="s">&#34;男&#34;</span> <span class="o">:</span> <span class="s">&#34;女&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">genderDesc</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>没错，这个<code>?:</code>就是三目运算符的典型语法。</p>
 <h1 id="go为什么不支持三目运算符">Go为什么不支持三目运算符？</h1>
@@ -406,17 +406,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">gender</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">gender</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="s">&#34;男&#34;</span> <span class="o">:</span> <span class="s">&#34;女&#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">gender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">gender</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="s">&#34;男&#34;</span> <span class="o">:</span> <span class="s">&#34;女&#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可见，在没有三目运算符嵌套的情况下，并不会对代码可读性产生任何影响。当然，我也见过极个别网友说这种代码的可读性也不高。对于这种例外，我只能建议其去看眼科了。</p>
 <ul>
@@ -438,19 +438,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">gender</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">Person</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="p">;</span>
-    <span class="n">p</span><span class="o">-&gt;</span><span class="n">gender</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">?</span> <span class="s">&#34;未知&#34;</span> <span class="o">:</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">gender</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="s">&#34;男&#34;</span> <span class="o">:</span> <span class="s">&#34;女&#34;</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="k">delete</span> <span class="n">p</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">gender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Person</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="o">-&gt;</span><span class="n">gender</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">?</span> <span class="s">&#34;未知&#34;</span> <span class="o">:</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">gender</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="s">&#34;男&#34;</span> <span class="o">:</span> <span class="s">&#34;女&#34;</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于三目运算符嵌套的场景，最常见的也是示例中的两层嵌套，多于两层的嵌套就会对代码可读性产生较大影响。但我认为，这不能成为否定三目运算符积极意义的理由，if 的多层嵌套同样会影响代码可读性。下面再看一下没有三目运算符特性的 Go 语言的写法。</p>
 <div class="highlight"><div class="chroma">
@@ -481,31 +481,31 @@
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-
-<span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">gender</span> <span class="kt">uint8</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">genderDesc</span> <span class="kt">string</span>
-
-	<span class="nx">p</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">Person</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">p</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;未知&#34;</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">gender</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-			<span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;男&#34;</span>
-		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;女&#34;</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">genderDesc</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">gender</span> <span class="kt">uint8</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">genderDesc</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">Person</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">p</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;未知&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">gender</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;男&#34;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">genderDesc</span> <span class="p">=</span> <span class="s">&#34;女&#34;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">genderDesc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在某种程度上说，<code>代码可读性</code>也是一件挺主观的事。主观，则意味着没有绝对的对错。也许有人会觉得上面 Go 代码清晰明了，容易理解。还有人可能认为，使用三目运算符的 C++ 代码更加简洁。对于纯主观的问题，多说无益，千金难买我愿意，爱喜欢哪个就喜欢哪个。那么，就来说说相对客观点的事实。</p>
 <ul>
@@ -552,32 +552,32 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">condexpr</span>
-
-<span class="c1">// Str string类型的条件表达式函数
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Str</span><span class="p">(</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">a</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">b</span>
-<span class="p">}</span>
-
-<span class="c1">// Int int类型的条件表达式函数
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Int</span><span class="p">(</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">a</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">b</span>
-<span class="p">}</span>
-
-<span class="c1">// Float64 float64类型的条件表达式函数
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Float64</span><span class="p">(</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">float64</span><span class="p">)</span> <span class="kt">float64</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">a</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">b</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">condexpr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Str string类型的条件表达式函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Str</span><span class="p">(</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Int int类型的条件表达式函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Int</span><span class="p">(</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Float64 float64类型的条件表达式函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Float64</span><span class="p">(</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">float64</span><span class="p">)</span> <span class="kt">float64</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过<code>genderDesc := condexpr.Str(p.gender == 1, &quot;男&quot;, &quot;女&quot;)</code>方式进行仿三目运算符的调用。缺点是需要为每种数据类型都定义一个专门的函数。</p>
 <ul>
@@ -596,16 +596,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">condexpr</span>
-
-<span class="c1">// Interface interface{}类型的条件表达式函数
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Interface</span><span class="p">(</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">a</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">b</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">condexpr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Interface interface{}类型的条件表达式函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Interface</span><span class="p">(</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过<code>genderDesc := condexpr.Interface(p.gender == 1, &quot;男&quot;, &quot;女&quot;).(string)</code>方式进行仿三目运算符的调用。缺点是返回了万能类型<code>interface{}</code>，每次使用都需要断言，不方便性能还差。</p>
 <ul>
@@ -624,16 +624,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">condexpr</span>
-
-<span class="c1">// Any 若expr成立，则返回a；否则返回b。
-</span><span class="c1"></span><span class="kd">func</span> <span class="nx">Any</span><span class="p">[</span><span class="nx">T</span> <span class="nx">any</span><span class="p">](</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="nx">T</span><span class="p">)</span> <span class="nx">T</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">a</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">b</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">condexpr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Any 若expr成立，则返回a；否则返回b。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nx">Any</span><span class="p">[</span><span class="nx">T</span> <span class="nx">any</span><span class="p">](</span><span class="nx">expr</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="nx">T</span><span class="p">)</span> <span class="nx">T</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">expr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过<code>genderDesc := condexpr.Any(p.gender == 1, &quot;男&quot;, &quot;女&quot;)</code>方式进行仿三目运算符的调用。这个版本克服了以上两个版本的缺点，看似还比较完美。事实真的是这样吗？来看看下面的例子。</p>
 <div class="highlight"><div class="chroma">
@@ -643,10 +643,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">p</span> <span class="o">*</span><span class="nx">Person</span>
-<span class="nx">genderDesc</span> <span class="o">:=</span> <span class="nf">Any</span><span class="p">(</span><span class="nx">p</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">,</span> <span class="s">&#34;未知&#34;</span><span class="p">,</span> <span class="nf">Any</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">gender</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;男&#34;</span><span class="p">,</span> <span class="s">&#34;女&#34;</span><span class="p">))</span> <span class="c1">// panic
-</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">genderDesc</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">p</span> <span class="o">*</span><span class="nx">Person</span>
+</span></span><span class="line"><span class="cl"><span class="nx">genderDesc</span> <span class="o">:=</span> <span class="nf">Any</span><span class="p">(</span><span class="nx">p</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">,</span> <span class="s">&#34;未知&#34;</span><span class="p">,</span> <span class="nf">Any</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">gender</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;男&#34;</span><span class="p">,</span> <span class="s">&#34;女&#34;</span><span class="p">))</span> <span class="c1">// panic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">genderDesc</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以上示例将无可避免地发生 panic ，原因是当<code>p == nil</code>成立时，<code>p.gender</code>将发生 panic 。相信肯定会有人觉得奇怪，明明在访问 gender 字段前已经做了判空操作，怎么还会 panic？实际上，这就是函数怎么也无法代替三目运算符语言特性的地方：<strong>作为语言特性的三目运算符可以做到惰性计算，而函数做不到。</strong></p>
 <p>函数 Any 有3个参数，函数在压栈前必须对它的实参先进行计算并获得相应的值，也就是说，<code>p == nil</code>和<code>p.gender == 1</code>都会被求值，两者没有逻辑上的关系。</p>
@@ -862,7 +862,7 @@
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">

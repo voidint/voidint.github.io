@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/posix/linux-password/" />
@@ -357,10 +357,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sudo cat /etc/shadow <span class="p">|</span> grep voidint
-<span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> voidint:
-voidint:<span class="nv">$6$3</span>kheX/Vg<span class="nv">$TGum9JEjfmGsj8Mfk3SUY</span>/d/bWkJgnRimCxoaDTX7wcgrraYvU.fiziEUdpDglWc58uPZqWJhKNjiXayP9Q6b0:16892::::::
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sudo cat /etc/shadow <span class="p">|</span> grep voidint
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> voidint:
+</span></span><span class="line"><span class="cl">voidint:<span class="nv">$6$3</span>kheX/Vg<span class="nv">$TGum9JEjfmGsj8Mfk3SUY</span>/d/bWkJgnRimCxoaDTX7wcgrraYvU.fiziEUdpDglWc58uPZqWJhKNjiXayP9Q6b0:16892::::::
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>很明显，这个字符串被<code>:</code>符号分隔成了9段。我们这里只关注前两段，至于每一段具体的含义，可以戳这里自行阅读。第一段，是用户名称。第二段，即为用户密码。其实密码这种称呼并不准确。相对准确的说法是，用户密码明文经过某种哈希算法计算所获得的密文。但是，鉴于这个相对准确的说法实在太长太拗口，不便于表达。因此，以下提到的密码在无特别说明情况下，一律指的是密码明文的密文。</p>
 <p>言归正传，看到这里相信好多人会和我有一样的思考: 是不是只要知道了密码生成的算法，并按照此算法生成一个满足Linux要求的密码，再把密码覆盖这个第二段的内容，那么用户密码就被重置了吗？</p>
@@ -413,11 +413,11 @@ voidint:<span class="nv">$6$3</span>kheX/Vg<span class="nv">$TGum9JEjfmGsj8Mfk3S
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ grub-crypt --sha-512
-Password:
-Retype password:
-<span class="nv">$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXcUef9OjZWoZrIp7aeWwnCzIVQY1p</span>/G1EiJQE4DYFej783NlvR5KtKYXs4P/hQaVst.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ grub-crypt --sha-512
+</span></span><span class="line"><span class="cl">Password:
+</span></span><span class="line"><span class="cl">Retype password:
+</span></span><span class="line"><span class="cl"><span class="nv">$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXcUef9OjZWoZrIp7aeWwnCzIVQY1p</span>/G1EiJQE4DYFej783NlvR5KtKYXs4P/hQaVst.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>将生成的密码写入/etc/shadow文件</li>
@@ -428,9 +428,9 @@ Retype password:
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sudo cat /etc/shadow <span class="p">|</span> grep voidint
-voidint:<span class="nv">$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXcUef9OjZWoZrIp7aeWwnCzIVQY1p</span>/G1EiJQE4DYFej783NlvR5KtKYXs4P/hQaVst.:16892:::::: 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sudo cat /etc/shadow <span class="p">|</span> grep voidint
+</span></span><span class="line"><span class="cl">voidint:<span class="nv">$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXcUef9OjZWoZrIp7aeWwnCzIVQY1p</span>/G1EiJQE4DYFej783NlvR5KtKYXs4P/hQaVst.:16892:::::: 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>退出当前用户并使用新修改的密码登录</li>
@@ -649,7 +649,7 @@ voidint:<span class="nv">$6$r1jcut3Crl8bSIMo$XfKnrl4Ykzk2KPQ59MCXcUef9OjZWoZrIp7
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">

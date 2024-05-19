@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/container/docker-mysql-timezone/" />
@@ -382,9 +382,9 @@ For example, the [mysqld] and [mysql] groups apply to the mysqld server and the 
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>mysqld<span class="o">]</span>
-default-time_zone <span class="o">=</span> <span class="s1">&#39;+8:00&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>mysqld<span class="o">]</span>
+</span></span><span class="line"><span class="cl">default-time_zone <span class="o">=</span> <span class="s1">&#39;+8:00&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置文件位置">配置文件位置</h2>
 <p>既然已经明确了通过修改配置文件来达到重置MySQL时区的目的，那么修改后的配置文件放哪儿呢？这是首先面临的一个问题。好在MySQL官方文档中已经告诉我们配置文件的读取顺序。</p>
@@ -448,24 +448,24 @@ default-time_zone <span class="o">=</span> <span class="s1">&#39;+8:00&#39;</spa
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># Copyright (c) 2016, Oracle and/or its affiliates. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; version 2 of the License.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mysql.conf.d/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Copyright (c) 2016, Oracle and/or its affiliates. All rights reserved.
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl"># This program is free software; you can redistribute it and/or modify
+</span></span><span class="line"><span class="cl"># it under the terms of the GNU General Public License as published by
+</span></span><span class="line"><span class="cl"># the Free Software Foundation; version 2 of the License.
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl"># This program is distributed in the hope that it will be useful,
+</span></span><span class="line"><span class="cl"># but WITHOUT ANY WARRANTY; without even the implied warranty of
+</span></span><span class="line"><span class="cl"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+</span></span><span class="line"><span class="cl"># GNU General Public License for more details.
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl"># You should have received a copy of the GNU General Public License
+</span></span><span class="line"><span class="cl"># along with this program; if not, write to the Free Software
+</span></span><span class="line"><span class="cl"># Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">!includedir /etc/mysql/conf.d/
+</span></span><span class="line"><span class="cl">!includedir /etc/mysql/mysql.conf.d/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这下这个疑问终于有了答案，我们可以将自定义的配置文件想办法放入容器中的/etc/mysql/conf.d/目录（放在/etc/mysql/mysql.conf.d/目录当然也同样OK）。</p>
 <p>注意：在*nix系统下使用!includedir指令指定的配置文件目录下的配置文件扩展名必须是.cnf，在Windows系统下的扩展名可以是.ini或者.cnf。</p>
@@ -479,12 +479,12 @@ default-time_zone <span class="o">=</span> <span class="s1">&#39;+8:00&#39;</spa
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ docker run  -d --name mysql5.7 <span class="se">\
-</span><span class="se"></span>    -v /Users/voidint/dockerV/mysql/5.7/conf:/etc/mysql/conf.d <span class="se">\
-</span><span class="se"></span>    -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="s1">&#39;abc#123&#39;</span> <span class="se">\
-</span><span class="se"></span>    -p 3306:3306<span class="se">\
-</span><span class="se"></span>    mysql:5.7
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ docker run  -d --name mysql5.7 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /Users/voidint/dockerV/mysql/5.7/conf:/etc/mysql/conf.d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="s1">&#39;abc#123&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -p 3306:3306<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    mysql:5.7
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>参考MySQL官方docker镜像的说明，我们将上面步骤准备好的MySQL配置文件放置在/Users/voidint/dockerV/mysql/5.7/conf目录下，并通过docker -v选项将宿主机上的配置文件目录挂载到容器中的/etc/mysql/conf.d目录。这样在容器启动时就能读取到我们自定义的配置文件，时区配置也就生效了。</p>
 <p>容器启动后，通过MySQL客户端连接上MySQL，再次执行select now()语句以验证MySQL的时区是否与宿主机时区保持一致。</p>
@@ -701,7 +701,7 @@ default-time_zone <span class="o">=</span> <span class="s1">&#39;+8:00&#39;</spa
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">

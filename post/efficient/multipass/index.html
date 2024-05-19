@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/efficient/multipass/" />
@@ -69,7 +69,7 @@
 <meta itemprop="name" content="基于Multipass和Cloud-init打造可移植开发环境">
 <meta itemprop="description" content="作为程序员，对趁手开发工具和软件的追求是永无止尽的。但是当你买了一台新电脑，或者处于别的原因，需要临时切换到一个全新的机器环境，你肯定和我有"><meta itemprop="datePublished" content="2022-11-19T11:17:25+08:00" />
 <meta itemprop="dateModified" content="2022-11-19T11:17:25+08:00" />
-<meta itemprop="wordCount" content="3203">
+<meta itemprop="wordCount" content="3268">
 <meta itemprop="keywords" content="multipass,cloud-init,可移植开发环境," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="基于Multipass和Cloud-init打造可移植开发环境"/>
 <meta name="twitter:description" content="作为程序员，对趁手开发工具和软件的追求是永无止尽的。但是当你买了一台新电脑，或者处于别的原因，需要临时切换到一个全新的机器环境，你肯定和我有"/>
@@ -326,7 +326,7 @@
             <a href="http://voidint.github.io/categories/%E6%95%88%E8%83%BD/"> 效能 </a>
             
           </div>
-        <span class="more-meta"> 约 3203 字 </span>
+        <span class="more-meta"> 约 3268 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
 
         
@@ -365,11 +365,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ brew install --cask multipass
-$ multipass --version
-multipass   1.10.1+mac
-multipassd  1.10.1+mac
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ brew install --cask multipass
+</span></span><span class="line"><span class="cl">$ multipass --version
+</span></span><span class="line"><span class="cl">multipass   1.10.1+mac
+</span></span><span class="line"><span class="cl">multipassd  1.10.1+mac
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="2查找可供使用的镜像">2、查找可供使用的镜像</h4>
 <p>创建虚拟机实例的前提是指定一个镜像，通过以下命令可以查看 Multipass 目前所支持的镜像列表。由于 Multipass 和 Ubuntu 是同一个商业公司开发的产品，对于 Ubuntu 的天然支持也是可以理解的。</p>
@@ -387,17 +387,17 @@ multipassd  1.10.1+mac
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass find
-Image                       Aliases           Version          Description
-18.04                       bionic            <span class="m">20221117</span>         Ubuntu 18.04 LTS
-20.04                       focal             20221115.1       Ubuntu 20.04 LTS
-22.04                       jammy,lts         <span class="m">20221117</span>         Ubuntu 22.04 LTS
-anbox-cloud-appliance                         latest           Anbox Cloud Appliance
-charm-dev                                     latest           A development and testing environment <span class="k">for</span> charmers
-docker                                        latest           A Docker environment with Portainer and related tools
-jellyfin                                      latest           Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media.
-minikube                                      latest           minikube is <span class="nb">local</span> Kubernetes
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass find
+</span></span><span class="line"><span class="cl">Image                       Aliases           Version          Description
+</span></span><span class="line"><span class="cl">18.04                       bionic            <span class="m">20221117</span>         Ubuntu 18.04 LTS
+</span></span><span class="line"><span class="cl">20.04                       focal             20221115.1       Ubuntu 20.04 LTS
+</span></span><span class="line"><span class="cl">22.04                       jammy,lts         <span class="m">20221117</span>         Ubuntu 22.04 LTS
+</span></span><span class="line"><span class="cl">anbox-cloud-appliance                         latest           Anbox Cloud Appliance
+</span></span><span class="line"><span class="cl">charm-dev                                     latest           A development and testing environment <span class="k">for</span> charmers
+</span></span><span class="line"><span class="cl">docker                                        latest           A Docker environment with Portainer and related tools
+</span></span><span class="line"><span class="cl">jellyfin                                      latest           Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media.
+</span></span><span class="line"><span class="cl">minikube                                      latest           minikube is <span class="nb">local</span> Kubernetes
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="3创建虚拟机实例">3、创建虚拟机实例</h4>
 <p>实例创建命令提供的参数还算丰富，能覆盖到基本需求，最常用的就是一些硬件资源配额相关的参数。</p>
@@ -406,8 +406,8 @@ minikube                                      latest           minikube is <span
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass launch --name vm1 --cpus <span class="m">1</span> --mem 1G --disk 10G
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass launch --name vm1 --cpus <span class="m">1</span> --mem 1G --disk 10G
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样一条简单的命令，默认会使用最新版的 Ubuntu LTS 版本创建一个实例，并在在我这台2021年14英寸 MacBook Pro 上仅花了22秒就创建完成了，速度飞起。</p>
 <h4 id="4查看已创建虚拟机实例列表">4、查看已创建虚拟机实例列表</h4>
@@ -418,10 +418,10 @@ minikube                                      latest           minikube is <span
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass list
-Name                    State             IPv4             Image
-vm1                     Running           192.168.64.26    Ubuntu 22.04 LTS
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass list
+</span></span><span class="line"><span class="cl">Name                    State             IPv4             Image
+</span></span><span class="line"><span class="cl">vm1                     Running           192.168.64.26    Ubuntu 22.04 LTS
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="5查看虚拟机实例详情">5、查看虚拟机实例详情</h4>
 <p>可以看到之前创建的虚拟机的资源消耗是非常低的。</p>
@@ -439,17 +439,17 @@ vm1                     Running           192.168.64.26    Ubuntu 22.04 LTS
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass info vm1
-Name:           vm1
-State:          Running
-IPv4:           192.168.64.26
-Release:        Ubuntu 22.04.1 LTS
-Image hash:     61b29e585d5b <span class="o">(</span>Ubuntu 22.04 LTS<span class="o">)</span>
-Load:           0.02 0.03 0.00
-Disk usage:     1.4G out of 9.5G
-Memory usage:   145.6M out of 961.9M
-Mounts:         --
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass info vm1
+</span></span><span class="line"><span class="cl">Name:           vm1
+</span></span><span class="line"><span class="cl">State:          Running
+</span></span><span class="line"><span class="cl">IPv4:           192.168.64.26
+</span></span><span class="line"><span class="cl">Release:        Ubuntu 22.04.1 LTS
+</span></span><span class="line"><span class="cl">Image hash:     61b29e585d5b <span class="o">(</span>Ubuntu 22.04 LTS<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Load:           0.02 0.03 0.00
+</span></span><span class="line"><span class="cl">Disk usage:     1.4G out of 9.5G
+</span></span><span class="line"><span class="cl">Memory usage:   145.6M out of 961.9M
+</span></span><span class="line"><span class="cl">Mounts:         --
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="6进入虚拟机">6、进入虚拟机</h4>
 <div class="highlight"><div class="chroma">
@@ -482,33 +482,33 @@ Mounts:         --
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass shell vm1
-Welcome to Ubuntu 22.04.1 LTS <span class="o">(</span>GNU/Linux 5.15.0-53-generic aarch64<span class="o">)</span>
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-  System information as of Sat Nov <span class="m">19</span> 15:10:48 CST <span class="m">2022</span>
-
-  System load:             0.0
-  Usage of /:              14.6% of 9.52GB
-  Memory usage:            17%
-  Swap usage:              0%
-  Processes:               <span class="m">86</span>
-  Users logged in:         <span class="m">0</span>
-  IPv4 address <span class="k">for</span> enp0s1: 192.168.64.26
-  IPv6 address <span class="k">for</span> enp0s1: fdf5:f17d:85c7:2a54:5054:ff:fe7f:c21f
-
-
-<span class="m">0</span> updates can be applied immediately.
-
-
-To run a <span class="nb">command</span> as administrator <span class="o">(</span>user <span class="s2">&#34;root&#34;</span><span class="o">)</span>, use <span class="s2">&#34;sudo &lt;command&gt;&#34;</span>.
-See <span class="s2">&#34;man sudo_root&#34;</span> <span class="k">for</span> details.
-
-ubuntu@vm1:~$
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass shell vm1
+</span></span><span class="line"><span class="cl">Welcome to Ubuntu 22.04.1 LTS <span class="o">(</span>GNU/Linux 5.15.0-53-generic aarch64<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> * Documentation:  https://help.ubuntu.com
+</span></span><span class="line"><span class="cl"> * Management:     https://landscape.canonical.com
+</span></span><span class="line"><span class="cl"> * Support:        https://ubuntu.com/advantage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  System information as of Sat Nov <span class="m">19</span> 15:10:48 CST <span class="m">2022</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  System load:             0.0
+</span></span><span class="line"><span class="cl">  Usage of /:              14.6% of 9.52GB
+</span></span><span class="line"><span class="cl">  Memory usage:            17%
+</span></span><span class="line"><span class="cl">  Swap usage:              0%
+</span></span><span class="line"><span class="cl">  Processes:               <span class="m">86</span>
+</span></span><span class="line"><span class="cl">  Users logged in:         <span class="m">0</span>
+</span></span><span class="line"><span class="cl">  IPv4 address <span class="k">for</span> enp0s1: 192.168.64.26
+</span></span><span class="line"><span class="cl">  IPv6 address <span class="k">for</span> enp0s1: fdf5:f17d:85c7:2a54:5054:ff:fe7f:c21f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">0</span> updates can be applied immediately.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">To run a <span class="nb">command</span> as administrator <span class="o">(</span>user <span class="s2">&#34;root&#34;</span><span class="o">)</span>, use <span class="s2">&#34;sudo &lt;command&gt;&#34;</span>.
+</span></span><span class="line"><span class="cl">See <span class="s2">&#34;man sudo_root&#34;</span> <span class="k">for</span> details.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ubuntu@vm1:~$
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="7从宿主机拷贝文件到虚拟机">7、从宿主机拷贝文件到虚拟机</h4>
 <p>在宿主机和虚拟机之间拷贝文件是一个高频场景，Multipass 提供了除 scp 外的另一种选择。</p>
@@ -517,8 +517,8 @@ ubuntu@vm1:~$
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass transfer ~/.bashrc vm1:/home/ubuntu/.bashrc_bak
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass transfer ~/.bashrc vm1:/home/ubuntu/.bashrc_bak
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="8挂载卸载宿主机目录">8、挂载/卸载宿主机目录</h4>
 <p>对于少量文件，我们可以通过<code>multipass transfer</code>解决。对于需要在宿主机和虚拟机之间共享大量文件的场景，挂载一个宿主机的文件目录到虚拟机中是个更好的选择。</p>
@@ -531,12 +531,12 @@ ubuntu@vm1:~$
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 挂载目录</span>
-$ multipass mount /Users/voidint/workspace/voidint/blog vm1:/root/workspace/blog
-
-<span class="c1"># 卸载实例下指定目录</span>
-$ multipass umount vm1:/home/ubuntu/workspace/blog
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 挂载目录</span>
+</span></span><span class="line"><span class="cl">$ multipass mount /Users/voidint/workspace/voidint/blog vm1:/root/workspace/blog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 卸载实例下指定目录</span>
+</span></span><span class="line"><span class="cl">$ multipass umount vm1:/home/ubuntu/workspace/blog
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="9关闭启动重启虚拟机实例">9、关闭、启动、重启虚拟机实例</h4>
 <div class="highlight"><div class="chroma">
@@ -546,10 +546,10 @@ $ multipass umount vm1:/home/ubuntu/workspace/blog
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass stop vm1
-$ multipass start vm1
-$ multipass restart vm1
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass stop vm1
+</span></span><span class="line"><span class="cl">$ multipass start vm1
+</span></span><span class="line"><span class="cl">$ multipass restart vm1
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="10删除虚拟机实例">10、删除虚拟机实例</h4>
 <p>所谓<code>来也匆匆去也匆匆</code>，multipass 创建虚拟机快得飞起，删除虚拟机也是同样。要是加上<code>--purge</code>选项，则可以彻底虚拟机所占用的磁盘空间，做到不留一丝痕迹。</p>
@@ -558,8 +558,8 @@ $ multipass restart vm1
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass delete --purge vm1
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass delete --purge vm1
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="三cloud-init定制化操作系统">三、Cloud-init定制化操作系统</h1>
 <p>如果说 Multipass 是屠龙刀，那么 Cloud-init 就是倚天剑，少了谁都不完美。</p>
@@ -571,8 +571,8 @@ $ multipass restart vm1
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ multipass launch -vvvv --name vm1 --cpus <span class="m">1</span> --disk 10G --mem 1G --cloud-init ./cloud-init.yml --timeout <span class="m">999999</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ multipass launch -vvvv --name vm1 --cpus <span class="m">1</span> --disk 10G --mem 1G --cloud-init ./cloud-init.yml --timeout <span class="m">999999</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Cloud-init 的全部内容可能无法短时间内掌握，但这并不妨碍基本使用，参考下这些<a href="https://cloudinit.readthedocs.io/en/latest/topics/examples.html">examples</a>，我们也基本能定制我们自己的操作系统了。下面是我自己的一个配置：</p>
 <div class="highlight"><div class="chroma">
@@ -658,86 +658,86 @@ $ multipass restart vm1
 </span><span class="lnt">79
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#cloud-config</span><span class="w">
-</span><span class="w"></span><span class="c"># Update apt database on first boot (run &#39;apt-get update&#39;).</span><span class="w">
-</span><span class="w"></span><span class="c"># Note, if packages are given, or package_upgrade is true, then</span><span class="w">
-</span><span class="w"></span><span class="c"># update will be done independent of this setting.</span><span class="w">
-</span><span class="w"></span><span class="c">#</span><span class="w">
-</span><span class="w"></span><span class="c"># Default: false</span><span class="w">
-</span><span class="w"></span><span class="nt">package_update</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c">#cloud-config</span><span class="w">
-</span><span class="w"></span><span class="c"># Upgrade the instance on first boot</span><span class="w">
-</span><span class="w"></span><span class="c">#</span><span class="w">
-</span><span class="w"></span><span class="c"># Default: false</span><span class="w">
-</span><span class="w"></span><span class="nt">package_upgrade</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Install additional packages on first boot</span><span class="w">
-</span><span class="w"></span><span class="c">#</span><span class="w">
-</span><span class="w"></span><span class="c"># Default: none</span><span class="w">
-</span><span class="w"></span><span class="c">#</span><span class="w">
-</span><span class="w"></span><span class="c"># if packages are specified, then package_update will be set to true</span><span class="w">
-</span><span class="w"></span><span class="c">#</span><span class="w">
-</span><span class="w"></span><span class="c"># packages may be supplied as a single package name or as a list</span><span class="w">
-</span><span class="w"></span><span class="c"># with the format [&lt;package&gt;, &lt;version&gt;] wherein the specific</span><span class="w">
-</span><span class="w"></span><span class="c"># package version will be installed.</span><span class="w">
-</span><span class="w"></span><span class="nt">packages</span><span class="p">:</span><span class="w">
-</span><span class="w"> </span>- <span class="l">build-essential</span><span class="w">
-</span><span class="w"> </span>- <span class="l">libprotobuf-dev </span><span class="w">
-</span><span class="w"> </span>- <span class="l">protobuf-compiler</span><span class="w">
-</span><span class="w"> </span>- <span class="l">zsh</span><span class="w">
-</span><span class="w"> </span>- <span class="l">tree</span><span class="w">
-</span><span class="w"> </span>- <span class="l">jq</span><span class="w">
-</span><span class="w"> </span>- <span class="l">upx-ucl</span><span class="w">
-</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># run commands</span><span class="w">
-</span><span class="w"></span><span class="c"># default: none</span><span class="w">
-</span><span class="w"></span><span class="c"># runcmd contains a list of either lists or a string</span><span class="w">
-</span><span class="w"></span><span class="c"># each item will be executed in order at rc.local like level with</span><span class="w">
-</span><span class="w"></span><span class="c"># output to the console</span><span class="w">
-</span><span class="w"></span><span class="c"># - runcmd only runs during the first boot</span><span class="w">
-</span><span class="w"></span><span class="c"># - if the item is a list, the items will be properly executed as if</span><span class="w">
-</span><span class="w"></span><span class="c">#   passed to execve(3) (with the first arg as the command).</span><span class="w">
-</span><span class="w"></span><span class="c"># - if the item is a string, it will be simply written to the file and</span><span class="w">
-</span><span class="w"></span><span class="c">#   will be interpreted by &#39;sh&#39;</span><span class="w">
-</span><span class="w"></span><span class="c">#</span><span class="w">
-</span><span class="w"></span><span class="c"># Note, that the list has to be proper yaml, so you have to quote</span><span class="w">
-</span><span class="w"></span><span class="c"># any characters yaml would eat (&#39;:&#39; can be problematic)</span><span class="w">
-</span><span class="w"></span><span class="nt">runcmd</span><span class="p">:</span><span class="w">
-</span><span class="w"> </span><span class="c"># 日志路径：/var/log/cloud-init-output.log</span><span class="w">
-</span><span class="w"> </span><span class="c"># 设置家目录</span><span class="w">
-</span><span class="w"> </span>- <span class="l">export HOME=/root</span><span class="w">
-</span><span class="w"> </span><span class="c"># 配置zsh</span><span class="w">
-</span><span class="w"> </span>- <span class="l">chsh -s /bin/zsh</span><span class="w">
-</span><span class="w"> </span>- <span class="l">sh -c &#34;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34;</span><span class="w">
-</span><span class="w"> </span><span class="c"># 生成ssh key</span><span class="w">
-</span><span class="w"> </span>- <span class="l">ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -b 4096 -C &#34;voidint@126.com&#34; -N &#39;&#39;</span><span class="w">
-</span><span class="w"> </span><span class="c"># 配置git</span><span class="w">
-</span><span class="w"> </span>- <span class="l">git config --global user.name voidint</span><span class="w">
-</span><span class="w"> </span>- <span class="l">git config --global user.email voidint@126.com</span><span class="w">
-</span><span class="w"> </span><span class="c"># 安装docker</span><span class="w">
-</span><span class="w"> </span>- <span class="l">curl -sSL https://get.docker.com | sh -</span><span class="w">
-</span><span class="w"> </span>- <span class="l">echo &#39;{&#34;registry-mirrors&#34;:[&#34;https://mirror.baidubce.com&#34;,&#34;https://docker.mirrors.ustc.edu.cn&#34;,&#34;https://dockerhub.azk8s.cn&#34;],&#34;hosts&#34;:[&#34;fd://&#34;,&#34;tcp://0.0.0.0:2375&#34;]}&#39; &gt; /etc/docker/daemon.json</span><span class="w">
-</span><span class="w"> </span>- <span class="l">sed -i &#39;s/ExecStart=\/usr\/bin\/dockerd -H fd:\/\/ --containerd=\/run\/containerd\/containerd.sock/ExecStart=\/usr\/bin\/dockerd/&#39; /lib/systemd/system/docker.service</span><span class="w">
-</span><span class="w"> </span>- <span class="l">systemctl daemon-reload &amp; systemctl restart docker</span><span class="w">
-</span><span class="w"> </span>- <span class="l">docker run --rm --privileged tonistiigi/binfmt:latest --install all</span><span class="w">
-</span><span class="w"> </span><span class="c"># 安装k3s</span><span class="w">
-</span><span class="w"> </span>- <span class="l">curl -sfL https://rancher-mirror.oss-cn-beijing.aliyuncs.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -</span><span class="w">
-</span><span class="w"> </span><span class="c"># 安装g和go</span><span class="w">
-</span><span class="w"> </span>- <span class="l">curl -sSL https://raw.githubusercontent.com/voidint/g/master/install.sh | bash</span><span class="w">
-</span><span class="w"> </span>- <span class="l">$HOME/bin/g install 1.19.3</span><span class="w">
-</span><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go env -w GOPROXY=&#34;https://goproxy.cn,direct&#34;</span><span class="w">
-</span><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install google.golang.org/protobuf/cmd/protoc-gen-go@latest</span><span class="w">
-</span><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest</span><span class="w">
-</span><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install github.com/go-delve/delve/cmd/dlv@latest</span><span class="w">
-</span><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install github.com/mgechev/revive@latest</span><span class="w">
-</span><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install github.com/securego/gosec/v2/cmd/gosec@latest</span><span class="w">
-</span><span class="w"> </span><span class="c"># 安装rust（不支持交互式安装方式）</span><span class="w">
-</span><span class="w"> </span><span class="c"># - curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#cloud-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Update apt database on first boot (run &#39;apt-get update&#39;).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Note, if packages are given, or package_upgrade is true, then</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># update will be done independent of this setting.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Default: false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">package_update</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#cloud-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Upgrade the instance on first boot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Default: false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">package_upgrade</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Install additional packages on first boot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Default: none</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># if packages are specified, then package_update will be set to true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># packages may be supplied as a single package name or as a list</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># with the format [&lt;package&gt;, &lt;version&gt;] wherein the specific</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># package version will be installed.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">packages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">build-essential</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">libprotobuf-dev </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">protobuf-compiler</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">zsh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">tree</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">jq</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">upx-ucl</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># run commands</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># default: none</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># runcmd contains a list of either lists or a string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># each item will be executed in order at rc.local like level with</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># output to the console</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># - runcmd only runs during the first boot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># - if the item is a list, the items will be properly executed as if</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#   passed to execve(3) (with the first arg as the command).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># - if the item is a string, it will be simply written to the file and</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#   will be interpreted by &#39;sh&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Note, that the list has to be proper yaml, so you have to quote</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># any characters yaml would eat (&#39;:&#39; can be problematic)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">runcmd</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 日志路径：/var/log/cloud-init-output.log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 设置家目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">export HOME=/root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 配置zsh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">chsh -s /bin/zsh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">sh -c &#34;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 生成ssh key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -b 4096 -C &#34;voidint@126.com&#34; -N &#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 配置git</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">git config --global user.name voidint</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">git config --global user.email voidint@126.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 安装docker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">curl -sSL https://get.docker.com | sh -</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">echo &#39;{&#34;registry-mirrors&#34;:[&#34;https://mirror.baidubce.com&#34;,&#34;https://docker.mirrors.ustc.edu.cn&#34;,&#34;https://dockerhub.azk8s.cn&#34;],&#34;hosts&#34;:[&#34;fd://&#34;,&#34;tcp://0.0.0.0:2375&#34;]}&#39; &gt; /etc/docker/daemon.json</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">sed -i &#39;s/ExecStart=\/usr\/bin\/dockerd -H fd:\/\/ --containerd=\/run\/containerd\/containerd.sock/ExecStart=\/usr\/bin\/dockerd/&#39; /lib/systemd/system/docker.service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">systemctl daemon-reload &amp; systemctl restart docker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">docker run --rm --privileged tonistiigi/binfmt:latest --install all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 安装k3s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">curl -sfL https://rancher-mirror.oss-cn-beijing.aliyuncs.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 安装g和go</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">curl -sSL https://raw.githubusercontent.com/voidint/g/master/install.sh | bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">$HOME/bin/g install 1.19.3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go env -w GOPROXY=&#34;https://goproxy.cn,direct&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install google.golang.org/protobuf/cmd/protoc-gen-go@latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install github.com/go-delve/delve/cmd/dlv@latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install github.com/mgechev/revive@latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span>- <span class="l">$HOME/.g/go/bin/go install github.com/securego/gosec/v2/cmd/gosec@latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># 安装rust（不支持交互式安装方式）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># - curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="2使用心得">2、使用心得</h4>
 <ul>
@@ -792,6 +792,19 @@ $ multipass restart vm1
       
       <nav class="post-nav">
         
+          <a class="prev" href="/post/tool/apt/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default">APT软件包管理</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         
           <a class="next" href="/post/tool/nm/">
             <span class="next-text nav-default">nm 简明教程</span>
@@ -947,7 +960,7 @@ $ multipass restart vm1
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">

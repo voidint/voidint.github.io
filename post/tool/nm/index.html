@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/tool/nm/" />
@@ -375,21 +375,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">namespace</span> <span class="n">testns</span> <span class="p">{</span>
-<span class="kt">int</span> <span class="n">shared</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="k">extern</span> <span class="kt">int</span> <span class="n">shared</span><span class="p">;</span>
-<span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-    <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">shared</span><span class="p">);</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;a=%d, shared=%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">shared</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">testns</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">shared</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">int</span> <span class="n">shared</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">shared</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;a=%d, shared=%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">shared</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -405,14 +405,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">shared</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-<span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="n">b</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">shared</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -440,26 +440,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ g++ -g -c a.cpp
-$ g++ -g -c b.cpp
-$ nm a.o
-                    U __cxa_atexit
-                    U __dso_handle
-<span class="m">0000000000000086</span> t _GLOBAL__sub_I__ZN6testns6sharedE
-<span class="m">0000000000000000</span> T main
-                    U <span class="nb">printf</span>
-                    U shared
-<span class="m">0000000000000048</span> t _Z41__static_initialization_and_destruction_0ii
-                    U _Z4swapPiS_
-<span class="m">0000000000000000</span> D _ZN6testns6sharedE
-                    U _ZNSt8ios_base4InitC1Ev
-                    U _ZNSt8ios_base4InitD1Ev
-<span class="m">0000000000000000</span> r _ZStL19piecewise_construct
-<span class="m">0000000000000000</span> b _ZStL8__ioinit	
-$ nm b.o
-<span class="m">0000000000000000</span> D shared
-<span class="m">0000000000000000</span> T _Z4swapPiS_
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ g++ -g -c a.cpp
+</span></span><span class="line"><span class="cl">$ g++ -g -c b.cpp
+</span></span><span class="line"><span class="cl">$ nm a.o
+</span></span><span class="line"><span class="cl">                    U __cxa_atexit
+</span></span><span class="line"><span class="cl">                    U __dso_handle
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000086</span> t _GLOBAL__sub_I__ZN6testns6sharedE
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000000</span> T main
+</span></span><span class="line"><span class="cl">                    U <span class="nb">printf</span>
+</span></span><span class="line"><span class="cl">                    U shared
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000048</span> t _Z41__static_initialization_and_destruction_0ii
+</span></span><span class="line"><span class="cl">                    U _Z4swapPiS_
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000000</span> D _ZN6testns6sharedE
+</span></span><span class="line"><span class="cl">                    U _ZNSt8ios_base4InitC1Ev
+</span></span><span class="line"><span class="cl">                    U _ZNSt8ios_base4InitD1Ev
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000000</span> r _ZStL19piecewise_construct
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000000</span> b _ZStL8__ioinit	
+</span></span><span class="line"><span class="cl">$ nm b.o
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000000</span> D shared
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000000</span> T _Z4swapPiS_
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -549,88 +549,88 @@ $ nm b.o
 </span><span class="lnt">81
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ g++ -g a.cpp b.cpp
-$ nm a.out
-<span class="m">0000000000400635</span> t .annobin__dl_relocate_static_pie.end
-<span class="m">0000000000400630</span> t .annobin__dl_relocate_static_pie.start
-00000000004007b0 t .annobin_elf_init.c
-<span class="m">0000000000400825</span> t .annobin_elf_init.c_end
-<span class="m">0000000000400600</span> t .annobin_elf_init.c_end.exit
-<span class="m">0000000000400600</span> t .annobin_elf_init.c_end.hot
-<span class="m">0000000000400600</span> t .annobin_elf_init.c_end.startup
-<span class="m">0000000000400600</span> t .annobin_elf_init.c_end.unlikely
-<span class="m">0000000000400600</span> t .annobin_elf_init.c.exit
-<span class="m">0000000000400600</span> t .annobin_elf_init.c.hot
-<span class="m">0000000000400600</span> t .annobin_elf_init.c.startup
-<span class="m">0000000000400600</span> t .annobin_elf_init.c.unlikely
-000000000040062f t .annobin_init.c
-000000000040062f t .annobin_init.c_end
-<span class="m">0000000000400600</span> t .annobin_init.c_end.exit
-<span class="m">0000000000400600</span> t .annobin_init.c_end.hot
-<span class="m">0000000000400600</span> t .annobin_init.c_end.startup
-<span class="m">0000000000400600</span> t .annobin_init.c_end.unlikely
-<span class="m">0000000000400600</span> t .annobin_init.c.exit
-<span class="m">0000000000400600</span> t .annobin_init.c.hot
-<span class="m">0000000000400600</span> t .annobin_init.c.startup
-<span class="m">0000000000400600</span> t .annobin_init.c.unlikely
-<span class="m">0000000000400825</span> t .annobin___libc_csu_fini.end
-<span class="m">0000000000400815</span> t .annobin___libc_csu_fini.start
-<span class="m">0000000000400815</span> t .annobin___libc_csu_init.end
-00000000004007b0 t .annobin___libc_csu_init.start
-<span class="m">0000000000400630</span> t .annobin_static_reloc.c
-<span class="m">0000000000400635</span> t .annobin_static_reloc.c_end
-<span class="m">0000000000400600</span> t .annobin_static_reloc.c_end.exit
-<span class="m">0000000000400600</span> t .annobin_static_reloc.c_end.hot
-<span class="m">0000000000400600</span> t .annobin_static_reloc.c_end.startup
-<span class="m">0000000000400600</span> t .annobin_static_reloc.c_end.unlikely
-<span class="m">0000000000400600</span> t .annobin_static_reloc.c.exit
-<span class="m">0000000000400600</span> t .annobin_static_reloc.c.hot
-<span class="m">0000000000400600</span> t .annobin_static_reloc.c.startup
-<span class="m">0000000000400600</span> t .annobin_static_reloc.c.unlikely
-<span class="m">0000000000601044</span> B __bss_start
-<span class="m">0000000000601044</span> b completed.7294
-                    U __cxa_atexit@@GLIBC_2.2.5
-<span class="m">0000000000601038</span> D __data_start
-<span class="m">0000000000601038</span> W data_start
-<span class="m">0000000000400640</span> t deregister_tm_clones
-<span class="m">0000000000400630</span> T _dl_relocate_static_pie
-00000000004006b0 t __do_global_dtors_aux
-0000000000600dd8 t __do_global_dtors_aux_fini_array_entry
-<span class="m">0000000000400840</span> R __dso_handle
-0000000000600de0 d _DYNAMIC
-<span class="m">0000000000601044</span> D _edata
-<span class="m">0000000000601048</span> B _end
-<span class="m">0000000000400828</span> T _fini
-00000000004006e0 t frame_dummy
-0000000000600dc8 t __frame_dummy_init_array_entry
-00000000004009f4 r __FRAME_END__
-<span class="m">0000000000601000</span> d _GLOBAL_OFFSET_TABLE_
-000000000040076c t _GLOBAL__sub_I__ZN6testns6sharedE
-                    w __gmon_start__
-000000000040085c r __GNU_EH_FRAME_HDR
-<span class="m">0000000000400590</span> T _init
-0000000000600dd8 t __init_array_end
-0000000000600dc8 t __init_array_start
-<span class="m">0000000000400838</span> R _IO_stdin_used
-                    w _ITM_deregisterTMCloneTable
-                    w _ITM_registerTMCloneTable
-<span class="m">0000000000400820</span> T __libc_csu_fini
-00000000004007b0 T __libc_csu_init
-                    U __libc_start_main@@GLIBC_2.2.5
-00000000004006e6 T main
-                    U printf@@GLIBC_2.2.5
-<span class="m">0000000000400670</span> t register_tm_clones
-<span class="m">0000000000601040</span> D shared
-<span class="m">0000000000400600</span> T _start
-<span class="m">0000000000601048</span> D __TMC_END__
-000000000040072e t _Z41__static_initialization_and_destruction_0ii
-<span class="m">0000000000400781</span> T _Z4swapPiS_
-000000000060103c D _ZN6testns6sharedE
-                    U _ZNSt8ios_base4InitC1Ev@@GLIBCXX_3.4
-                    U _ZNSt8ios_base4InitD1Ev@@GLIBCXX_3.4
-<span class="m">0000000000400848</span> r _ZStL19piecewise_construct
-<span class="m">0000000000601045</span> b _ZStL8__ioinit
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ g++ -g a.cpp b.cpp
+</span></span><span class="line"><span class="cl">$ nm a.out
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400635</span> t .annobin__dl_relocate_static_pie.end
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400630</span> t .annobin__dl_relocate_static_pie.start
+</span></span><span class="line"><span class="cl">00000000004007b0 t .annobin_elf_init.c
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400825</span> t .annobin_elf_init.c_end
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_elf_init.c_end.exit
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_elf_init.c_end.hot
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_elf_init.c_end.startup
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_elf_init.c_end.unlikely
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_elf_init.c.exit
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_elf_init.c.hot
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_elf_init.c.startup
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_elf_init.c.unlikely
+</span></span><span class="line"><span class="cl">000000000040062f t .annobin_init.c
+</span></span><span class="line"><span class="cl">000000000040062f t .annobin_init.c_end
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_init.c_end.exit
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_init.c_end.hot
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_init.c_end.startup
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_init.c_end.unlikely
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_init.c.exit
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_init.c.hot
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_init.c.startup
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_init.c.unlikely
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400825</span> t .annobin___libc_csu_fini.end
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400815</span> t .annobin___libc_csu_fini.start
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400815</span> t .annobin___libc_csu_init.end
+</span></span><span class="line"><span class="cl">00000000004007b0 t .annobin___libc_csu_init.start
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400630</span> t .annobin_static_reloc.c
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400635</span> t .annobin_static_reloc.c_end
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_static_reloc.c_end.exit
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_static_reloc.c_end.hot
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_static_reloc.c_end.startup
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_static_reloc.c_end.unlikely
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_static_reloc.c.exit
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_static_reloc.c.hot
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_static_reloc.c.startup
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> t .annobin_static_reloc.c.unlikely
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601044</span> B __bss_start
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601044</span> b completed.7294
+</span></span><span class="line"><span class="cl">                    U __cxa_atexit@@GLIBC_2.2.5
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601038</span> D __data_start
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601038</span> W data_start
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400640</span> t deregister_tm_clones
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400630</span> T _dl_relocate_static_pie
+</span></span><span class="line"><span class="cl">00000000004006b0 t __do_global_dtors_aux
+</span></span><span class="line"><span class="cl">0000000000600dd8 t __do_global_dtors_aux_fini_array_entry
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400840</span> R __dso_handle
+</span></span><span class="line"><span class="cl">0000000000600de0 d _DYNAMIC
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601044</span> D _edata
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601048</span> B _end
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400828</span> T _fini
+</span></span><span class="line"><span class="cl">00000000004006e0 t frame_dummy
+</span></span><span class="line"><span class="cl">0000000000600dc8 t __frame_dummy_init_array_entry
+</span></span><span class="line"><span class="cl">00000000004009f4 r __FRAME_END__
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601000</span> d _GLOBAL_OFFSET_TABLE_
+</span></span><span class="line"><span class="cl">000000000040076c t _GLOBAL__sub_I__ZN6testns6sharedE
+</span></span><span class="line"><span class="cl">                    w __gmon_start__
+</span></span><span class="line"><span class="cl">000000000040085c r __GNU_EH_FRAME_HDR
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400590</span> T _init
+</span></span><span class="line"><span class="cl">0000000000600dd8 t __init_array_end
+</span></span><span class="line"><span class="cl">0000000000600dc8 t __init_array_start
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400838</span> R _IO_stdin_used
+</span></span><span class="line"><span class="cl">                    w _ITM_deregisterTMCloneTable
+</span></span><span class="line"><span class="cl">                    w _ITM_registerTMCloneTable
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400820</span> T __libc_csu_fini
+</span></span><span class="line"><span class="cl">00000000004007b0 T __libc_csu_init
+</span></span><span class="line"><span class="cl">                    U __libc_start_main@@GLIBC_2.2.5
+</span></span><span class="line"><span class="cl">00000000004006e6 T main
+</span></span><span class="line"><span class="cl">                    U printf@@GLIBC_2.2.5
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400670</span> t register_tm_clones
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601040</span> D shared
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400600</span> T _start
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601048</span> D __TMC_END__
+</span></span><span class="line"><span class="cl">000000000040072e t _Z41__static_initialization_and_destruction_0ii
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400781</span> T _Z4swapPiS_
+</span></span><span class="line"><span class="cl">000000000060103c D _ZN6testns6sharedE
+</span></span><span class="line"><span class="cl">                    U _ZNSt8ios_base4InitC1Ev@@GLIBCXX_3.4
+</span></span><span class="line"><span class="cl">                    U _ZNSt8ios_base4InitD1Ev@@GLIBCXX_3.4
+</span></span><span class="line"><span class="cl"><span class="m">0000000000400848</span> r _ZStL19piecewise_construct
+</span></span><span class="line"><span class="cl"><span class="m">0000000000601045</span> b _ZStL8__ioinit
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -1000,7 +1000,7 @@ $ nm a.out
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">

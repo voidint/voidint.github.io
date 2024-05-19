@@ -6,7 +6,61 @@
     <description>Recent content in Tags on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 19 Nov 2022 11:17:25 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 May 2024 11:34:09 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>apt</title>
+      <link>http://voidint.github.io/tags/apt/</link>
+      <pubDate>Sun, 19 May 2024 11:34:09 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/apt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>apt-cache</title>
+      <link>http://voidint.github.io/tags/apt-cache/</link>
+      <pubDate>Sun, 19 May 2024 11:34:09 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/apt-cache/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>apt-get</title>
+      <link>http://voidint.github.io/tags/apt-get/</link>
+      <pubDate>Sun, 19 May 2024 11:34:09 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/apt-get/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Debian</title>
+      <link>http://voidint.github.io/tags/debian/</link>
+      <pubDate>Sun, 19 May 2024 11:34:09 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/debian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>http://voidint.github.io/tags/ubuntu/</link>
+      <pubDate>Sun, 19 May 2024 11:34:09 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>包管理</title>
+      <link>http://voidint.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Sun, 19 May 2024 11:34:09 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>cloud-init</title>
       <link>http://voidint.github.io/tags/cloud-init/</link>
@@ -62,20 +116,20 @@
     </item>
     
     <item>
-      <title>重定位</title>
-      <link>http://voidint.github.io/tags/%E9%87%8D%E5%AE%9A%E4%BD%8D/</link>
-      <pubDate>Sat, 16 Apr 2022 16:58:22 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/%E9%87%8D%E5%AE%9A%E4%BD%8D/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>链接</title>
       <link>http://voidint.github.io/tags/%E9%93%BE%E6%8E%A5/</link>
       <pubDate>Sat, 16 Apr 2022 16:58:22 +0800</pubDate>
       
       <guid>http://voidint.github.io/tags/%E9%93%BE%E6%8E%A5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>重定位</title>
+      <link>http://voidint.github.io/tags/%E9%87%8D%E5%AE%9A%E4%BD%8D/</link>
+      <pubDate>Sat, 16 Apr 2022 16:58:22 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/%E9%87%8D%E5%AE%9A%E4%BD%8D/</guid>
       <description></description>
     </item>
     
@@ -130,60 +184,6 @@
       <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
       
       <guid>http://voidint.github.io/tags/socket/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>waitpid</title>
-      <link>http://voidint.github.io/tags/waitpid/</link>
-      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/waitpid/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>_Exit</title>
-      <link>http://voidint.github.io/tags/_exit/</link>
-      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/_exit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>atexit</title>
-      <link>http://voidint.github.io/tags/atexit/</link>
-      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/atexit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>exit</title>
-      <link>http://voidint.github.io/tags/exit/</link>
-      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/exit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>exit_group</title>
-      <link>http://voidint.github.io/tags/exit_group/</link>
-      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/exit_group/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>on_exit</title>
-      <link>http://voidint.github.io/tags/on_exit/</link>
-      <pubDate>Sun, 26 Sep 2021 10:30:58 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/on_exit/</guid>
       <description></description>
     </item>
     

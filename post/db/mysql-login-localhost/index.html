@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/db/mysql-login-localhost/" />
@@ -353,12 +353,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ docker run --name mydb -d <span class="se">\
-</span><span class="se"></span>    -p 3306:3306 <span class="se">\
-</span><span class="se"></span>    -v /Users/voidint/dockerV/mysql/data:/var/lib/mysql <span class="se">\
-</span><span class="se"></span>    -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>xxxxx <span class="se">\
-</span><span class="se"></span>    mysql:5.6
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ docker run --name mydb -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -p 3306:3306 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /Users/voidint/dockerV/mysql/data:/var/lib/mysql <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>xxxxx <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    mysql:5.6
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>mysql服务正常启动之后，我想通过客户端连接此服务。于是，我顺理成章地在终端敲下了这样的命令</p>
 <div class="highlight"><div class="chroma">
@@ -368,10 +368,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ mysql -u root -p
-Enter password:
-ERROR <span class="m">2002</span> <span class="o">(</span>HY000<span class="o">)</span>: Can<span class="s1">&#39;t connect to local MySQL server through socket &#39;</span>/tmp/mysql.sock<span class="err">&#39;</span> <span class="o">(</span>2<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mysql -u root -p
+</span></span><span class="line"><span class="cl">Enter password:
+</span></span><span class="line"><span class="cl">ERROR <span class="m">2002</span> <span class="o">(</span>HY000<span class="o">)</span>: Can<span class="s1">&#39;t connect to local MySQL server through socket &#39;</span>/tmp/mysql.sock<span class="err">&#39;</span> <span class="o">(</span>2<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>非常意外，居然报错了。我记得以前都是这样敲的呀？怎么换成跑在docker里就行不通了？不科学！</p>
 <div class="highlight"><div class="chroma">
@@ -381,10 +381,10 @@ ERROR <span class="m">2002</span> <span class="o">(</span>HY000<span class="o">)
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ mysql -h localhost -uroot -p
-Enter password:
-ERROR <span class="m">2002</span> <span class="o">(</span>HY000<span class="o">)</span>: Can<span class="s1">&#39;t connect to local MySQL server through socket &#39;</span>/tmp/mysql.sock<span class="err">&#39;</span> <span class="o">(</span>2<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mysql -h localhost -uroot -p
+</span></span><span class="line"><span class="cl">Enter password:
+</span></span><span class="line"><span class="cl">ERROR <span class="m">2002</span> <span class="o">(</span>HY000<span class="o">)</span>: Can<span class="s1">&#39;t connect to local MySQL server through socket &#39;</span>/tmp/mysql.sock<span class="err">&#39;</span> <span class="o">(</span>2<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>加上<code>-h</code>选项还是不行，气急败坏。气归气，问题还是要解决的，那就查查资料。然后，看到了这篇，在粗粗浏览过之后，发现有人建议用<code>-h 127.0.0.1</code>。</p>
 <div class="highlight"><div class="chroma">
@@ -409,25 +409,25 @@ ERROR <span class="m">2002</span> <span class="o">(</span>HY000<span class="o">)
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ mysql -h 127.0.0.1 -u root -p 
-Enter password:
-Reading table information <span class="k">for</span> completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-
-Welcome to the MySQL monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span>.
-Your MySQL connection id is <span class="m">3823</span>
-Server version: 5.6.35 MySQL Community Server <span class="o">(</span>GPL<span class="o">)</span>
-
-Copyright <span class="o">(</span>c<span class="o">)</span> 2000, 2015, Oracle and/or its affiliates. All rights reserved.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type <span class="s1">&#39;help;&#39;</span> or <span class="s1">&#39;\h&#39;</span> <span class="k">for</span> help. Type <span class="s1">&#39;\c&#39;</span> to clear the current input statement.
-
-mysql&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mysql -h 127.0.0.1 -u root -p 
+</span></span><span class="line"><span class="cl">Enter password:
+</span></span><span class="line"><span class="cl">Reading table information <span class="k">for</span> completion of table and column names
+</span></span><span class="line"><span class="cl">You can turn off this feature to get a quicker startup with -A
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Welcome to the MySQL monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span>.
+</span></span><span class="line"><span class="cl">Your MySQL connection id is <span class="m">3823</span>
+</span></span><span class="line"><span class="cl">Server version: 5.6.35 MySQL Community Server <span class="o">(</span>GPL<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Copyright <span class="o">(</span>c<span class="o">)</span> 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Oracle is a registered trademark of Oracle Corporation and/or its
+</span></span><span class="line"><span class="cl">affiliates. Other names may be trademarks of their respective
+</span></span><span class="line"><span class="cl">owners.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Type <span class="s1">&#39;help;&#39;</span> or <span class="s1">&#39;\h&#39;</span> <span class="k">for</span> help. Type <span class="s1">&#39;\c&#39;</span> to clear the current input statement.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mysql&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>试过之后，发现效果立竿见影。这简直颠覆了我的既有观念！</p>
 <ul>
@@ -642,7 +642,7 @@ mysql&gt;
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">

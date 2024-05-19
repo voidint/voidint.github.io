@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/tool/git-commit-amend/" />
@@ -356,8 +356,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ mkdir <span class="nb">test</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nb">test</span> <span class="o">&amp;&amp;</span> git init
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mkdir <span class="nb">test</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nb">test</span> <span class="o">&amp;&amp;</span> git init
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>第一次commit内容</p>
 <div class="highlight"><div class="chroma">
@@ -369,12 +369,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nb">echo</span> <span class="s1">&#39;Hello world&#39;</span> &gt; README.md
-$ git add .
-$ git commit -m <span class="s2">&#34;Add README.md&#34;</span>
-$ git log --oneline
-c56f680 Add README.md
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="s1">&#39;Hello world&#39;</span> &gt; README.md
+</span></span><span class="line"><span class="cl">$ git add .
+</span></span><span class="line"><span class="cl">$ git commit -m <span class="s2">&#34;Add README.md&#34;</span>
+</span></span><span class="line"><span class="cl">$ git log --oneline
+</span></span><span class="line"><span class="cl">c56f680 Add README.md
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改文件内容并合并到上一次的commit变更当中</p>
 <div class="highlight"><div class="chroma">
@@ -386,12 +386,12 @@ c56f680 Add README.md
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nb">echo</span> <span class="s1">&#39;Hello voidint&#39;</span> &gt;&gt; README.md
-$ git add .
-$ git commit --amend --no-edit
-$ git log --oneline
-eb6c8cb Add README.md // hash值发生了变化
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="s1">&#39;Hello voidint&#39;</span> &gt;&gt; README.md
+</span></span><span class="line"><span class="cl">$ git add .
+</span></span><span class="line"><span class="cl">$ git commit --amend --no-edit
+</span></span><span class="line"><span class="cl">$ git log --oneline
+</span></span><span class="line"><span class="cl">eb6c8cb Add README.md // hash值发生了变化
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到，在执行git commit &ndash;amend &ndash;no-edit之后，hash值由c56f680变成了eb6c8cb，但是message内容并没有发生变化，并且最重要的是只有一条commit记录。</p>
 <p>如果要修改上一条的message，那么去掉&ndash;no-edit选项即可，git commit &ndash;amend -m &ldquo;xxxx&rdquo;。同理，commit记录同样只会有一条。</p>
@@ -600,7 +600,7 @@ eb6c8cb Add README.md // hash值发生了变化
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">

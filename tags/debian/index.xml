@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debian on voidint - 个人博客</title>
+    <link>http://voidint.github.io/tags/debian/</link>
+    <description>Recent content in Debian on voidint - 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 19 May 2024 11:34:09 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>APT软件包管理</title>
+      <link>http://voidint.github.io/post/tool/apt/</link>
+      <pubDate>Sun, 19 May 2024 11:34:09 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/post/tool/apt/</guid>
+      <description>APT是高级包管理工具（Advanced Package Tool），是Debian包管理系统的一个高级界面，提供了apt-get 程序。它提供了可以搜索和管</description>
+    </item>
+    
+  </channel>
+</rss>

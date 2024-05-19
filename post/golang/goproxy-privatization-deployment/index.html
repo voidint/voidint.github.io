@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2" />
+<meta name="generator" content="Hugo 0.100.0" />
 
 
 <link rel="canonical" href="http://voidint.github.io/post/golang/goproxy-privatization-deployment/" />
@@ -354,8 +354,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ yum install golang -y
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ yum install golang -y
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>安装git</li>
@@ -365,8 +365,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ yum install git -y
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ yum install git -y
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>安装goproxy</li>
@@ -380,12 +380,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ mkdir -p /opt/goproxy <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /opt/goproxy
-$ git clone https://github.com/goproxyio/goproxy.git
-$ <span class="nb">cd</span> goproxy
-$ make
-$ mv ./bin/goproxy /usr/local/bin/goproxy
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mkdir -p /opt/goproxy <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /opt/goproxy
+</span></span><span class="line"><span class="cl">$ git clone https://github.com/goproxyio/goproxy.git
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> goproxy
+</span></span><span class="line"><span class="cl">$ make
+</span></span><span class="line"><span class="cl">$ mv ./bin/goproxy /usr/local/bin/goproxy
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>启动goproxy服务（监听8080端口）</li>
@@ -396,9 +396,9 @@ $ mv ./bin/goproxy /usr/local/bin/goproxy
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ mkdir -p /opt/goproxy/go_cache
-$ goproxy -cacheDir /opt/goproxy/go_cache -exclude example.io -proxy https://goproxy.io -listen 0.0.0.0:8080
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mkdir -p /opt/goproxy/go_cache
+</span></span><span class="line"><span class="cl">$ goproxy -cacheDir /opt/goproxy/go_cache -exclude example.io -proxy https://goproxy.io -listen 0.0.0.0:8080
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="解决go-get方式拉取私有库问题">解决go get方式拉取私有库问题</h1>
 <p>明确下目标。所谓的go get方式拉取私有库，指的是能通过<code>go get -u -v -insecure example.io/xxx/yyy</code>方式拉取到内部私有仓库中的go代码。example.io指的是内部的私有域名。</p>
@@ -413,8 +413,8 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nb">export</span> <span class="nv">GO111MODULE</span><span class="o">=</span>on
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">GO111MODULE</span><span class="o">=</span>on
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>永久开启Go Module</p>
 <div class="highlight"><div class="chroma">
@@ -422,8 +422,8 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ go env -w <span class="nv">GO111MODULE</span><span class="o">=</span>on
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ go env -w <span class="nv">GO111MODULE</span><span class="o">=</span>on
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>设置go源代码库拉取的代理地址（http://10.0.1.2:8080）</p>
 <div class="highlight"><div class="chroma">
@@ -431,8 +431,8 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ go env -w <span class="nv">GOPROXY</span><span class="o">=</span><span class="s2">&#34;http://10.0.1.2:8080,https://goproxy.cn,direct&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ go env -w <span class="nv">GOPROXY</span><span class="o">=</span><span class="s2">&#34;http://10.0.1.2:8080,https://goproxy.cn,direct&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可选：设置私有库（10.0.1.2上的goproxy服务本身也会将私有库重定向至gitlab.example.com）</p>
 <div class="highlight"><div class="chroma">
@@ -440,8 +440,8 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ go env -w <span class="nv">GOPRIVATE</span><span class="o">=</span><span class="s2">&#34;example.io&#34;</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ go env -w <span class="nv">GOPRIVATE</span><span class="o">=</span><span class="s2">&#34;example.io&#34;</span> 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>追加~/.gitconfig配置（修改为通过git下载源代码）</p>
 <div class="highlight"><div class="chroma">
@@ -449,8 +449,8 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ git config --global url.<span class="s2">&#34;ssh://git@gitlab.example.com&#34;</span>.insteadOf <span class="s2">&#34;http://gitlab.example.com&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ git config --global url.<span class="s2">&#34;ssh://git@gitlab.example.com&#34;</span>.insteadOf <span class="s2">&#34;http://gitlab.example.com&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>测试拉取外网的公开库</p>
 <div class="highlight"><div class="chroma">
@@ -458,8 +458,8 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ go get -u -v github.com/go-xorm/xorm 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ go get -u -v github.com/go-xorm/xorm 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>测试拉取内网的私有库（默认拉取master分支的最近一次提交）</p>
 <div class="highlight"><div class="chroma">
@@ -467,8 +467,8 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ go get -u -v -insecure example.io/voidint/tsdump
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ go get -u -v -insecure example.io/voidint/tsdump
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>测试拉取内网的私有库的指定版本（强烈建议为每个版本打上tag）</p>
 <div class="highlight"><div class="chroma">
@@ -476,8 +476,8 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ go get -u -v -insecure example.io/voidint/tsdump@v1.0.0
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="参考">参考</h1>
 <ul>
@@ -692,7 +692,7 @@ tonybai在其<a href="https://tonybai.com/2017/06/28/set-custom-go-get-import-pa
     &copy;
     
       2020 -
-    2022
+    2024
     <span class="heart">
       
       <i class="iconfont">
