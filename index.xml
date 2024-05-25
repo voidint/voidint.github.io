@@ -18,7 +18,8 @@
       
       <guid>http://voidint.github.io/post/tool/apt/</guid>
       
-        <description>&lt;p&gt;&lt;code&gt;APT&lt;/code&gt;是高级包管理工具（&lt;code&gt;Advanced Package Tool&lt;/code&gt;），是&lt;code&gt;Debian&lt;/code&gt;包管理系统的一个高级界面，提供了&lt;code&gt;apt-get&lt;/code&gt; 程序。它提供了可以搜索和管理软件包，以及查询软件包信息的命令行工具，以及访问&lt;code&gt;libapt-pkg&lt;/code&gt; 库的所有功能的底层接口。&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&#34;https://voidint.github.io/tool/apt.jpeg&#34; alt=&#34;题图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;APT&lt;/code&gt;是高级包管理工具（&lt;code&gt;Advanced Package Tool&lt;/code&gt;），是&lt;code&gt;Debian&lt;/code&gt;包管理系统的一个高级界面，提供了&lt;code&gt;apt-get&lt;/code&gt; 程序。它提供了可以搜索和管理软件包，以及查询软件包信息的命令行工具，以及访问&lt;code&gt;libapt-pkg&lt;/code&gt; 库的所有功能的底层接口。&lt;/p&gt;
 &lt;p&gt;从&lt;code&gt;Debian Jessie&lt;/code&gt;开始，一些常用的&lt;code&gt;apt-get&lt;/code&gt;和&lt;code&gt;apt-cache&lt;/code&gt;命令在新的&lt;code&gt;apt&lt;/code&gt;程序中有一个等价的形式。这意味着某些流行的命令，例如 apt-get update、apt-get install、apt-get remove、apt-cache search 和 apt-cache show 可以简单地通过 apt 进行调用，比如 apt update、apt install、apt remove、apt search 和 apt show。&lt;/p&gt;
 &lt;h2 id=&#34;命令行&#34;&gt;命令行&lt;/h2&gt;
 &lt;h3 id=&#34;update更新包索引&#34;&gt;update：更新包索引&lt;/h3&gt;
