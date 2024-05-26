@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>分类 - voidint - 个人博客</title>
+  <title>K3S入门 - voidint - 个人博客</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -23,7 +23,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="voidint" />
-  <meta name="description" content="voidint的个人博客" />
+  <meta name="description" content="什么是 K3s K3s是轻量级的Kubernetes，且完全兼容 Kubernetes 发行版。K3s 易于安装，仅需要 Kubernetes 内存的一半，所有组件都在一个小于 100 MB 的二进制文件中" />
+
   <meta name="keywords" content="voidint, hugo, jane" />
 
 
@@ -34,8 +35,8 @@
 <meta name="generator" content="Hugo 0.100.0" />
 
 
-<link rel="canonical" href="http://voidint.github.io/categories/" />
-<link href="/categories/index.xml" rel="alternate" type="application/rss+xml" title="voidint - 个人博客" />
+<link rel="canonical" href="http://voidint.github.io/post/cloudnative/getting-started-with-k3s/" />
+
 
 
 
@@ -58,15 +59,20 @@
 
 
 
-<meta property="og:title" content="Categories" />
-<meta property="og:description" content="voidint的个人博客" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://voidint.github.io/categories/" />
+<meta property="og:title" content="K3S入门" />
+<meta property="og:description" content="什么是 K3s K3s是轻量级的Kubernetes，且完全兼容 Kubernetes 发行版。K3s 易于安装，仅需要 Kubernetes 内存的一半，所有组件都在一个小于 100 MB 的二进制文件中" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://voidint.github.io/post/cloudnative/getting-started-with-k3s/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-05-26T08:02:29+08:00" />
+<meta property="article:modified_time" content="2024-05-26T08:02:29+08:00" />
 
-<meta itemprop="name" content="Categories">
-<meta itemprop="description" content="voidint的个人博客"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Categories"/>
-<meta name="twitter:description" content="voidint的个人博客"/>
+<meta itemprop="name" content="K3S入门">
+<meta itemprop="description" content="什么是 K3s K3s是轻量级的Kubernetes，且完全兼容 Kubernetes 发行版。K3s 易于安装，仅需要 Kubernetes 内存的一半，所有组件都在一个小于 100 MB 的二进制文件中"><meta itemprop="datePublished" content="2024-05-26T08:02:29+08:00" />
+<meta itemprop="dateModified" content="2024-05-26T08:02:29+08:00" />
+<meta itemprop="wordCount" content="1158">
+<meta itemprop="keywords" content="k3s,Kubernetes,K8s," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K3S入门"/>
+<meta name="twitter:description" content="什么是 K3s K3s是轻量级的Kubernetes，且完全兼容 Kubernetes 发行版。K3s 易于安装，仅需要 Kubernetes 内存的一半，所有组件都在一个小于 100 MB 的二进制文件中"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -307,7 +313,354 @@
     <main id="main" class="main bg-llight">
       <div class="content-wrapper">
         <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">K3S入门</h1>
+      
+      <div class="post-meta">
+        <time datetime="2024-05-26" class="post-time">
+          2024/05/26
+        </time>
+        <div class="post-category">
+            <a href="http://voidint.github.io/categories/cloudnative/"> cloudnative </a>
+            
+          </div>
+        <span class="more-meta"> 约 1158 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      <p><img src="https://voidint.github.io/cloudnative/how-it-works-k3s-revised.jpg" alt="题图"></p>
+<h2 id="什么是-k3s">什么是 K3s</h2>
+<p><code>K3s</code>是轻量级的<code>Kubernetes</code>，且完全兼容 Kubernetes 发行版。K3s 易于安装，仅需要 Kubernetes 内存的一半，所有组件都在一个小于 100 MB 的二进制文件中。</p>
+<p>适用场景：</p>
+<ul>
+<li>Edge</li>
+<li>IoT</li>
+<li>CI</li>
+<li>Development</li>
+<li>ARM</li>
+<li>嵌入 K8S</li>
+</ul>
+<p>K3s 设计目标是，希望能与 Kubernetes 在功能上保持一致的前提下，<strong>内</strong>存消耗仅一半**。Kubernetes 是一个10个字母的单词，简写为 K8s。Kubernetes 的一半就是一个5个字母的单词，因此简写为 K3s。K3s 没有全称，也没有官方的发音。</p>
+<h2 id="架构">架构</h2>
+<ul>
+<li>
+<p>单节点架构
+在这种配置中，每个 agent 节点都注册到同一个 server 节点。K3s 用户可以通过调用 server 节点上的 K3s API 来操作 Kubernetes 资源。</p>
+<p><img src="https://voidint.github.io/cloudnative/k3s-architecture-single-server.jpg" alt="单节点架构图"></p>
+</li>
+<li>
+<p>高可用架构
+一个高可用 K3s 集群由以下几个部分组成：</p>
+<ul>
+<li>
+<p>K3s Server 节点：两个或更多的server节点将为 Kubernetes API 提供服务并运行其他 control-plane 服务</p>
+</li>
+<li>
+<p>外部数据库：与单节点 k3s 设置中使用的嵌入式 SQLite 数据存储相反，高可用 K3s 需要挂载一个external database外部数据库作为数据存储的媒介。</p>
+<p><img src="https://voidint.github.io/cloudnative/k3s-architecture-ha-embedded.jpg" alt="高可用架构图"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="安装和卸载">安装和卸载</h2>
+<p>K3s server 是运行k3s server命令的机器（裸机或虚拟机），而 K3s worker 节点是运行k3s agent命令的机器。</p>
+<ul>
+<li>
+<p>使用脚本快速安装 k3s server</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># kubeconfig文件写入 /etc/rancher/k3s/k3s.yaml</span>
+</span></span><span class="line"><span class="cl">$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh <span class="p">|</span> <span class="nv">INSTALL_K3S_MIRROR</span><span class="o">=</span>cn sh -
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使用脚本快速安装 K3s Agent</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># myserver 表示 master 节点的IP</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mynodetoken 表示 master 节点的 /var/lib/rancher/k3s/server/node-token</span>
+</span></span><span class="line"><span class="cl">$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh <span class="p">|</span> <span class="nv">INSTALL_K3S_MIRROR</span><span class="o">=</span>cn <span class="nv">K3S_URL</span><span class="o">=</span>https://myserver:6443 <span class="nv">K3S_TOKEN</span><span class="o">=</span>mynodetoken sh -
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>安装时可以通过命令行选项或者环境变量进行自定义配置，这部分内容不在此进行赘述，请读者自行阅读<a href="https://docs.rancher.cn/docs/k3s/installation/install-options/_index">相关文档</a>。</p>
+<ul>
+<li>
+<p>卸载 K3s Server</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sh /usr/local/bin/k3s-uninstall.sh <span class="c1"># agent 节点无此脚本</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>卸载 K3s Agent</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sh /usr/local/bin/k3s-agent-uninstall.sh <span class="c1"># server 节点无此脚本</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>杀死 K3s 下所有容器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sh /usr/local/bin/k3s-killall.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="私有镜像仓库配置">私有镜像仓库配置</h2>
+<p>启动时，K3s 会检查<code>/etc/rancher/k3s/registries.yaml</code>是否存在，并指示 containerd 使用文件中定义的镜像仓库。如果你想使用一个私有的镜像仓库，那么你需要在每个使用镜像仓库的节点上以 root 身份创建这个文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mkdir -p /etc/rancher/k3s <span class="o">&amp;&amp;</span> cat &gt;&gt; /etc/rancher/k3s/registries.yaml <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">mirrors:
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;registry.cn-hangzhou.aliyuncs.com&#34;:
+</span></span></span><span class="line"><span class="cl"><span class="s">    endpoint:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - &#34;https://registry.xxxx.yyyy.zzzz&#34; # 请自行修改
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;docker.io&#34;:
+</span></span></span><span class="line"><span class="cl"><span class="s">    endpoint:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - &#34;https://registry-1.docker.io&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">configs:
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;registry.xxxx.yyyy.zzzz&#34;:
+</span></span></span><span class="line"><span class="cl"><span class="s">    auth:
+</span></span></span><span class="line"><span class="cl"><span class="s">      username: &#39;hello&#39; # this is the registry username
+</span></span></span><span class="line"><span class="cl"><span class="s">      password: &#39;world&#39; # this is the registry password
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;docker.io&#34;:
+</span></span></span><span class="line"><span class="cl"><span class="s">    auth:
+</span></span></span><span class="line"><span class="cl"><span class="s">      username: &#39;&#39; # this is the registry username
+</span></span></span><span class="line"><span class="cl"><span class="s">      password: &#39;&#39; # this is the registry password
+</span></span></span><span class="line"><span class="cl"><span class="s">    tls:
+</span></span></span><span class="line"><span class="cl"><span class="s">      cert_file: &#39;&#39; # path to the cert file used in the registry
+</span></span></span><span class="line"><span class="cl"><span class="s">      key_file: &#39;&#39; # path to the key file used in the registry
+</span></span></span><span class="line"><span class="cl"><span class="s">      ca_file: &#39;&#39; # path to the ca file used in the registry
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启k3s server</span>
+</span></span><span class="line"><span class="cl">$ systemctl restart k3s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者重启k3s agent</span>
+</span></span><span class="line"><span class="cl">$ systemctl restart k3s-agent
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="k3s-网络端口">K3s 网络端口</h2>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>端口</th>
+<th>源</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>6443</td>
+<td>K3s agent 节点</td>
+<td>Kubernetes API Server</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>8472</td>
+<td>K3s server 和 agent 节点</td>
+<td>仅对 Flannel VXLAN 需要</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>51820</td>
+<td>K3s server 和 agent 节点</td>
+<td>只有 Flannel Wireguard 后端需要</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>51821</td>
+<td>K3s server 和 agent 节点</td>
+<td>只有使用 IPv6 的 Flannel Wireguard 后端才需要</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>10250</td>
+<td>K3s server 和 agent 节点</td>
+<td>Kubelet metrics</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>2379-2380</td>
+<td>K3s server 节点</td>
+<td>只有嵌入式 etcd 高可用才需要</td>
+</tr>
+</tbody>
+</table>
+<h2 id="查看本地镜像">查看本地镜像</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ k3s crictl images
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="清理无用镜像">清理无用镜像</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ k3s crictl rmi --prune
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="查看-k3s-日志">查看 K3s 日志</h2>
+<ul>
+<li>当使用<code>openrc</code>运行时，日志将在<code>/var/log/k3s.log</code>中创建。</li>
+<li>当使用<code>systemd</code>运行时，日志将在<code>/var/log/syslog</code>中创建，并使用<code>journalctl -u k3s</code>查看。</li>
+</ul>
+<h2 id="集群访问">集群访问</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># KUBECONFIG 环境变量指定集群配置文件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">KUBECONFIG</span><span class="o">=</span>/etc/rancher/k3s/k3s.yaml 
+</span></span><span class="line"><span class="cl">kubectl get pods --all-namespaces
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --kubeconfig 命令行选项指定集群配置文件</span>
+</span></span><span class="line"><span class="cl">kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml get pods --all-namespaces
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://docs.rancher.cn/docs/k3s/_index">K3s文档</a></li>
+<li><a href="https://docs.k3s.io/zh/">docs.k3s.io</a></li>
+</ul>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">voidint</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+      2024/05/26
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="http://voidint.github.io/tags/k3s/">k3s</a>
+          <a href="http://voidint.github.io/tags/kubernetes/">Kubernetes</a>
+          <a href="http://voidint.github.io/tags/k8s/">K8s</a>
           
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/tool/apt/">
+            <span class="next-text nav-default">APT软件包管理</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
   
   
   
@@ -315,373 +668,57 @@
 
   
   
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/">
-                分类： 工具箱
-              </a>
-            </h2>
-          </div>
 
-          
-            <div class="archive-post">
-              <time datetime="2024-05-19" class="archive-post-time">
-                2024-05-19
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/tool/apt/" class="archive-post-link">
-                  APT软件包管理
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <time datetime="2022-04-16" class="archive-post-time">
-                2022-04-16
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/tool/nm/" class="archive-post-link">
-                  nm 简明教程
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <time datetime="2021-10-17" class="archive-post-time">
-                2021-10-17
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/tool/strace/" class="archive-post-link">
-                  strace 简明教程
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <time datetime="2021-03-09" class="archive-post-time">
-                2021-03-09
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/tool/juicefs/" class="archive-post-link">
-                  基于JuiceFS搭建个人网盘
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <time datetime="2020-02-25" class="archive-post-time">
-                2020-02-25
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/tool/hp-ssa-cli/" class="archive-post-link">
-                  Linux下hpssacli配置 HP Smart Array
-                </a>
-              </span>
-            </div>
-          
-          
-            <div class="more-post">
-              <a href="http://voidint.github.io/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="more-post-link">查看更多 &gt;&gt;&gt;</a>
-            </div>
-          
-      </section>
-    
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/golang/">
-                分类： golang
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <time datetime="2022-01-09" class="archive-post-time">
-                2022-01-09
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/golang/conditional-expressions/" class="archive-post-link">
-                  Go 三目运算符杂谈
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <time datetime="2020-03-14" class="archive-post-time">
-                2020-03-14
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/golang/goproxy-privatization-deployment/" class="archive-post-link">
-                  goproxy.io内部私有化部署
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
-    
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/unix/linux/">
-                分类： unix/linux
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <time datetime="2021-09-26" class="archive-post-time">
-                2021-09-26
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/posix/exit-_exit-_exit-atexit/" class="archive-post-link">
-                  UNIX/Linux下的exit系列函数
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <time datetime="2020-02-25" class="archive-post-time">
-                2020-02-25
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/posix/linux-password/" class="archive-post-link">
-                  Linux用户登录密码的生成
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
-    
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/%E5%AE%B9%E5%99%A8/">
-                分类： 容器
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <time datetime="2020-02-25" class="archive-post-time">
-                2020-02-25
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/container/linux-namespaces-first-experience/" class="archive-post-link">
-                  Linux Namespaces初体验
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <time datetime="2020-02-25" class="archive-post-time">
-                2020-02-25
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/container/docker-mysql-timezone/" class="archive-post-link">
-                  容器内MySQL时区调整
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
-    
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-                分类： 计算机网络
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <time datetime="2021-10-01" class="archive-post-time">
-                2021-10-01
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/socket/one_process_per_connection/" class="archive-post-link">
-                  socket编程（二）：每个进程服务一个连接
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <time datetime="2021-09-21" class="archive-post-time">
-                2021-09-21
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/socket/one_server_one_client/" class="archive-post-link">
-                  socket编程（一）：一个服务器服务一个客户端
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
-    
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/c/c&#43;&#43;/">
-                分类： c/c&#43;&#43;
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <time datetime="2021-07-22" class="archive-post-time">
-                2021-07-22
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/c_cpp/gdb/" class="archive-post-link">
-                  gdb常用命令速查
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
-    
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/cloudnative/">
-                分类： cloudnative
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <time datetime="2024-05-26" class="archive-post-time">
-                2024-05-26
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/cloudnative/getting-started-with-k3s/" class="archive-post-link">
-                  K3S入门
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
-    
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/%E6%95%88%E8%83%BD/">
-                分类： 效能
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <time datetime="2022-11-19" class="archive-post-time">
-                2022-11-19
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/efficient/multipass/" class="archive-post-link">
-                  基于Multipass和Cloud-init打造可移植开发环境
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
-    
-    
-    
-    
-    
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="http://voidint.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                分类： 数据库
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <time datetime="2020-02-25" class="archive-post-time">
-                2020-02-25
-              </time>
-              <span class="archive-post-title">
-                <a href="/post/db/mysql-login-localhost/" class="archive-post-link">
-                  为什么mysql -h localhost无法登录了？
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
-    
-    
+  
 
   
   
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "voidint/comments-for-blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+  
 
+  
+
+  
+
+  <div class="disqus-comment">
+  <div class="disqus-button" id="load_disqus" onclick="load_disqus()">
+    显示 Disqus 评论
+  </div>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = "http://voidint.github.io/post/cloudnative/getting-started-with-k3s/";
+    };
+    function load_disqus() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'voidint';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+      $('#load_disqus').remove();
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+  
+  </div>
+
+    
+
+  
 
         </div>
       </div>

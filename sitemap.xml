@@ -2,6 +2,69 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://voidint.github.io/categories/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/categories/cloudnative/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/k3s/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/post/cloudnative/getting-started-with-k3s/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/k8s/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/kubernetes/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/post/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/tags/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://voidint.github.io/</loc>
+    <lastmod>2024-05-26T08:02:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://voidint.github.io/tags/apt/</loc>
     <lastmod>2024-05-19T11:34:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -30,13 +93,6 @@
   </url>
   
   <url>
-    <loc>http://voidint.github.io/categories/</loc>
-    <lastmod>2024-05-19T11:34:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://voidint.github.io/tags/debian/</loc>
     <lastmod>2024-05-19T11:34:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -44,28 +100,7 @@
   </url>
   
   <url>
-    <loc>http://voidint.github.io/post/</loc>
-    <lastmod>2024-05-19T11:34:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://voidint.github.io/tags/</loc>
-    <lastmod>2024-05-19T11:34:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://voidint.github.io/tags/ubuntu/</loc>
-    <lastmod>2024-05-19T11:34:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://voidint.github.io/</loc>
     <lastmod>2024-05-19T11:34:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

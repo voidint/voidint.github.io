@@ -6,7 +6,34 @@
     <description>Recent content in Tags on voidint - 个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 19 May 2024 11:34:09 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 May 2024 08:02:29 +0800</lastBuildDate><atom:link href="http://voidint.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k3s</title>
+      <link>http://voidint.github.io/tags/k3s/</link>
+      <pubDate>Sun, 26 May 2024 08:02:29 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/k3s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>K8s</title>
+      <link>http://voidint.github.io/tags/k8s/</link>
+      <pubDate>Sun, 26 May 2024 08:02:29 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>http://voidint.github.io/tags/kubernetes/</link>
+      <pubDate>Sun, 26 May 2024 08:02:29 +0800</pubDate>
+      
+      <guid>http://voidint.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>apt</title>
       <link>http://voidint.github.io/tags/apt/</link>
@@ -157,33 +184,6 @@
       <pubDate>Sun, 17 Oct 2021 14:01:42 +0800</pubDate>
       
       <guid>http://voidint.github.io/tags/strace/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>fork</title>
-      <link>http://voidint.github.io/tags/fork/</link>
-      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/fork/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>signal</title>
-      <link>http://voidint.github.io/tags/signal/</link>
-      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/signal/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>socket</title>
-      <link>http://voidint.github.io/tags/socket/</link>
-      <pubDate>Fri, 01 Oct 2021 20:11:22 +0800</pubDate>
-      
-      <guid>http://voidint.github.io/tags/socket/</guid>
       <description></description>
     </item>
     
